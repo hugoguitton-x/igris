@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+  WIP
+{% endblock %}
+
+{% block body %}
+  <section class="documents">
+    {% for document in documents %}
+      <article>
+        <h2>
+          {{ document.titre }}
+        </h2>
+        <div class="metadata">
+          Ecrit le {{ document.createdAt|date('d/m/Y') }} à {{
+            document.createdAt|date('H:i')
+          }} par {{ document.auteur.firstname }} {{ document.auteur.lastname }}
+        </div>
+        <div class="content">
+          {{ document.description|raw }}
+
+          <a href="{{
+            path(
+              'document_show',
+              {
+                id: document.id
+              }
+            )
+            }}"
+            class="btn btn-primary">
+            Afficher
+          </a>
+        </div>
+      </article>
+    {% endfor %}
+  </section>
+{% endblock %}

@@ -7,16 +7,19 @@
         Welcome!
       {% endblock %}
     </title>
-    <link rel="stylesheet"
-      href="https://bootswatch.com/4/flatly/bootstrap.min.css" />
     {% block stylesheets %}
-
+      <link rel="stylesheet"
+        href="https://bootswatch.com/4/flatly/bootstrap.min.css" />
+      <link rel="stylesheet"
+        href="https://use.fontawesome.com/releases/v5.12.0/css/all.css"
+        integrity="sha384-REHJTs1r2ErKBuJB0fCK99gCYsVjwxHrSU0N7I1zl9vZbggVJXRMsv/sLlOAGb4M"
+        crossorigin="anonymous" />
     {% endblock %}
   </head>
 
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-      <a class="navbar-brand" href="#">Project Doc</a>
+      <a class="navbar-brand" href="{{ path('home_page') }}">Project Doc</a>
       <button class="navbar-toggler"
         type="button"
         data-toggle="collapse"
@@ -27,26 +30,30 @@
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <div class="collapse navbar-collapse" id="navbarColor01">
+      <div class="collapse navbar-collapse justify-content-between"
+        id="navbarColor01">
         <ul class="navbar-nav mr-auto">
+          <li class="nav-item"><a class="nav-link" href="#">Articles</a></li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Articles</a>
+            <a class="nav-link" href="#">Créer un article</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              Créer un article
-            </a>
-          </li>
+        </ul>
+        <ul class="navbar-nav">
           {% if not app.user %}
             <li class="nav-item">
+              <a href="{{ path('security_registration') }}" class="nav-link">
+                S'enregistrer
+              </a>
+            </li>
+            <li class="nav-item">
               <a href="{{ path('security_login') }}" class="nav-link">
-                Connexion
+                <i class="fas fa-sign-in-alt"></i> Connexion
               </a>
             </li>
           {% else %}
             <li class="nav-item">
               <a href="{{ path('security_logout') }}" class="nav-link">
-                Déconnexion
+                <i class="fas fa-sign-out-alt"></i> Déconnexion
               </a>
             </li>
           {% endif %}
@@ -58,7 +65,15 @@
 
       {% endblock %}
       {% block javascripts %}
-
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+          integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+          crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+          integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+          crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+          integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+          crossorigin="anonymous"></script>
       {% endblock %}
     </div>
   </body>

@@ -24,7 +24,7 @@ security:
 
             logout:
                 path: security_logout
-                target: security_registration
+                target: home_page
 
             guard:
                 authenticators:
