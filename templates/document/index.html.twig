@@ -5,33 +5,47 @@
 {% endblock %}
 
 {% block body %}
-  <section class="documents">
-    {% for document in documents %}
-      <article>
-        <h2>
+  {{
+    knp_pagination_filter(
+      documents,
+      {
+        'd.titre': 'Titre',
+        'd.id': 'Identifiant'
+      }
+    )
+  }}
+  {% for document in documents %}
+    <section class="document card border-primary mb-3">
+      <div class="card-header">
+        <h4 class="card-title">
           {{ document.titre }}
-        </h2>
+        </h4>
         <div class="metadata">
           Ecrit le {{ document.createdAt|date('d/m/Y') }} à {{
             document.createdAt|date('H:i')
           }} par {{ document.auteur.firstname }} {{ document.auteur.lastname }}
         </div>
-        <div class="content">
+      </div>
+      <div class="card-body">
+        <p class="card-text">
           {{ document.description|raw }}
+        </p>
+        <a href="{{
+          path(
+            'document_show',
+            {
+              id: document.id
+            }
+          )
+          }}"
+          class="btn btn-primary">
+          Afficher
+        </a>
+      </div>
+    </section>
+  {% endfor %}
 
-          <a href="{{
-            path(
-              'document_show',
-              {
-                id: document.id
-              }
-            )
-            }}"
-            class="btn btn-primary">
-            Afficher
-          </a>
-        </div>
-      </article>
-    {% endfor %}
-  </section>
+  <div class="pagination justify-content-center">
+    {{ knp_pagination_render(documents) }}
+  </div>
 {% endblock %}

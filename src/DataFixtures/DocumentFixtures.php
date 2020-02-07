@@ -29,7 +29,7 @@ class DocumentFixtures extends Fixture
         $utilisateur->setFirstName('Tatsuki');
         $utilisateur->setLastName('Aisu');
         $manager->persist($utilisateur);
-        for ($i = 1; $i <= 1; $i++) {
+        for ($i = 1; $i <= 50; $i++) {
             $document = new Document();
             $document
                 ->setTitre("Document n°$i")
