@@ -19,16 +19,10 @@ class DocumentController extends AbstractController
         PaginatorInterface $paginator,
         Request $request
     ) {
-        $request->query->replace([
-            'filterField' => $request->get('filterField'),
-            'filterValue' => '*' . $request->get('filterValue') . '*'
-        ]);
-
-        $queryBuilder = $repo
-            ->createQueryBuilder('d')
-            ->orderBy('d.updatedAt', 'DESC');
-
-        $query = $queryBuilder->getQuery();
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('security_login');
+        }
+        $query = $repo->findByUtilisateurQuery($this->getUser());
 
         $documents = $paginator->paginate(
             $query,

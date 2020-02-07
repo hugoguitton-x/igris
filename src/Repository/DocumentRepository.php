@@ -3,8 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Document;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Entity\Utilisateur;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method Document|null find($id, $lockMode = null, $lockVersion = null)
@@ -17,6 +18,18 @@ class DocumentRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Document::class);
+    }
+
+    /**
+     * @return Document[] Returns an array of Document objects
+     */
+    public function findByUtilisateurQuery(Utilisateur $utilisateur)
+    {
+        return $this->createQueryBuilder('d')
+            ->andWhere('d.auteur = :utilisateur')
+            ->setParameter('utilisateur', $utilisateur)
+            ->orderBy('d.updatedAt', 'DESC')
+            ->getQuery();
     }
 
     // /**
