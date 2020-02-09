@@ -67,7 +67,7 @@ class Utilisateur implements UserInterface
     private $password_confirm;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Document", mappedBy="Auteur")
+     * @ORM\OneToMany(targetEntity="App\Entity\Document", mappedBy="auteur")
      */
     private $documents;
 
