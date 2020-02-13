@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Document;
+use App\Form\DocumentType;
 use App\Repository\DocumentRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -34,6 +36,40 @@ class DocumentController extends AbstractController
             'documents' => $documents
         ]);
     }
+
+    /**
+     * @Route("/document/new", name="document_new")
+     * @Route("/document/edit/{id}", name="document_edit")
+     */
+    public function form(
+        Request $request,
+        EntityManagerInterface $manager,
+        Document $document = null
+    ) {
+        if (!$document) {
+            $document = new Document();
+            $document->setCreatedAt(new \DateTime());
+            $document->setAuteur($this->getUser());
+        }
+
+        $form = $this->createForm(DocumentType::class, $document);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $document->setUpdatedAt(new \DateTime());
+            $manager->persist($document);
+            $manager->flush();
+
+            return $this->redirectToRoute('home_page');
+        }
+
+        return $this->render('document/form.html.twig', [
+            'formDocument' => $form->createView(),
+            'editMode' => $document->getId() !== null
+        ]);
+    }
+
     /**
      * @Route("/document/{id}", name="document_show")
      */

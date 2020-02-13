@@ -6,6 +6,10 @@
 
 {% block body %}
   <div class="container-fluid">
+  {% if documents|length == 0  %}
+    <i>Vous n'avez aucun document !</i>
+  {% else %}
+
     {% for document in documents %}
       <section class="document card border-primary mb-3">
         <div class="card-header">
@@ -39,8 +43,10 @@
         </div>
       </section>
     {% endfor %}
-  </div>
-  <div class="pagination justify-content-center">
+      <div class="pagination justify-content-center">
     {{ knp_pagination_render(documents) }}
   </div>
+  </div>
+
+    {% endif %}
 {% endblock %}

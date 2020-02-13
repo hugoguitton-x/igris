@@ -204,4 +204,9 @@ class Utilisateur implements UserInterface
 
         return $this;
     }
+
+    public function getFirstnameLastname(): ?string
+    {
+        return $this->firstname . ' ' . $this->lastname;
+    }
 }
