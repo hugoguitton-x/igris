@@ -14,16 +14,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class DocumentController extends AbstractController
 {
     /**
-     * @Route("/", name="home_page")
+     * @Route("/document", name="document")
      */
     public function homePage(
         DocumentRepository $repo,
         PaginatorInterface $paginator,
         Request $request
     ) {
-        if (!$this->getUser()) {
-            return $this->redirectToRoute('security_login');
-        }
         $query = $repo->findByUtilisateurQuery($this->getUser());
 
         $documents = $paginator->paginate(
@@ -61,7 +58,7 @@ class DocumentController extends AbstractController
             $manager->persist($document);
             $manager->flush();
 
-            return $this->redirectToRoute('home_page');
+            return $this->redirectToRoute('document');
         }
 
         return $this->render('document/form.html.twig', [

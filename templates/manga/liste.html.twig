@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+  <div class="row">
+    {% for manga in mangas %}
+      <div class="col-md-12 col-lg-6 col-xl-4 pb-2 parent">
+        <a class="link-chapter wrapper"
+          href="{{ manga.url }}"
+          target="_blank">
+          <div class="titre-manga">
+            {{ manga.name }}
+          </div>
+          <div class="corps-manga">
+            <img class="image-manga"
+              src="{{
+              manga.image
+                ? asset('uploads/mangas/' ~ manga.image)
+                : 'https://via.placeholder.com/1500'
+              }}" />
+          </div>
+        </a>
+      </div>
+    {% endfor %}
+  </div>
+  <div class="pagination justify-content-center">
+    {{ knp_pagination_render(mangas) }}
+  </div>
+{% endblock %}

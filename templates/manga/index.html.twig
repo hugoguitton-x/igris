@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+  <div class="row">
+    {% for chapter in chapters %}
+      <div class="col-md-12 col-lg-6 col-xl-4 pb-2 parent">
+        <a class="link-chapter wrapper"
+          href="{{ chapter.manga.url }}"
+          target="_blank">
+          <div class="titre-manga {{
+            chapter.date < ('now'|date_modify('-2 days'))
+              ? ''
+              : 'new'
+            }}">
+            {{ chapter.manga.name }}
+            <img class="langue-manga"
+              src="{{
+              asset(
+                'images/flags/' ~ chapter.language.name ~ '.png'
+              )
+              }}" />
+          </div>
+          <div class="corps-manga">
+            <img class="image-manga"
+              src="{{
+              chapter.manga.image
+                ? asset('uploads/mangas/' ~ chapter.manga.image)
+                : 'https://via.placeholder.com/1500'
+              }}" />
+            <div class="caption-manga {{
+              chapter.date < ('now'|date_modify('-2 days'))
+                ? ''
+                : 'new'
+              }}">
+              <b>Chapitre n° {{ chapter.number }}</b>
+              <br />
+              <i>{{ chapter.date|format_date('medium', locale = 'fr') }}</i>
+            </div>
+          </div>
+        </a>
+      </div>
+    {% endfor %}
+  </div>
+  <div class="pagination justify-content-center">
+    {{ knp_pagination_render(chapters) }}
+  </div>
+{% endblock %}

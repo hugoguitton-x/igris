@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme formManga 'bootstrap_4_layout.html.twig' %}
+
+{% block body %}
+  <h1>
+    {% if editMode %}
+      Modification d'un manga
+    {% else %}
+      Ajout d'un manga
+    {% endif %}
+  </h1>
+
+  {{ form_start(formManga) }}
+  {{ form_row(formManga.image) }}
+  {{ form_row(formManga.rss) }}
+  {{ form_widget(formManga._token) }}
+
+  <button type="submit" class="btn btn-success">
+    {% if editMode %}
+      Modifier le manga
+    {% else %}
+      Ajouter le manga
+    {% endif %}
+  </button>
+
+  {{
+    form_end(
+      formManga,
+      {
+        render_rest: false
+      }
+    )
+  }}
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+  <script>
+    $('.custom-file-input').on('change', function(event) { var inputFile =
+    event.currentTarget; $(inputFile).parent() .find('.custom-file-label')
+    .html(inputFile.files[0].name); });
+  </script>
+{% endblock %}
