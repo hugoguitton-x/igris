@@ -124,11 +124,7 @@ class SerieController extends AbstractController
 
             $manager->flush();
 
-            $avisList = $repo->findBy(
-                ['serie' => $serie],
-                ['createdAt' => 'DESC'],
-                5
-            );
+            return $this->redirectToRoute('serie');
         }
 
         $checkAvisUser = $repo->findBy(
@@ -147,7 +143,6 @@ class SerieController extends AbstractController
             'serie' => $serie,
             'formAvis' => $formAvis,
             'avisList' => $avisList,
-            'nombre_avis' => sizeof($serie->getAvis()),
         ]);
     }
 
