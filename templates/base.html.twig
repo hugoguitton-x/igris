@@ -98,6 +98,22 @@
                   </a>
                 </div>
               </li>
+
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle"
+                  href="#"
+                  data-toggle="dropdown">
+                  Série
+                </a>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="{{ path('serie') }}">
+                    Liste des séries
+                  </a>
+                  <a class="dropdown-item" href="{{ path('serie_new') }}">
+                    Ajouter une série
+                  </a>
+                </div>
+              </li>
             {% endif %}
           </ul>
           <ul class="navbar-nav">
@@ -124,7 +140,7 @@
       </nav>
     {% endblock %}
 
-    <div class="container fade-in">
+    <div class="container fade-in body">
       {% block body %}
 
       {% endblock %}

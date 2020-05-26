@@ -1,37 +1,34 @@
 {% extends 'base.html.twig' %}
 
-{% form_theme formManga 'bootstrap_4_layout.html.twig' %}
+{% form_theme formSerie 'bootstrap_4_layout.html.twig' %}
 
 {% block body %}
   <h1>
     {% if editMode %}
-      Modification du manga
+      Modification de la série
     {% else %}
-      Ajout d'un manga
+      Ajout d'une série
     {% endif %}
   </h1>
 
-  {{ form_start(formManga) }}
-  {{ form_row(formManga.image) }}
-  {{ form_row(formManga.rss) }}
-  {{ form_widget(formManga._token) }}
+  {{ form_start(formSerie) }}
+  {{ form_row(formSerie.nom) }}
+  {{ form_row(formSerie.image) }}
+  {{ form_row(formSerie.synopsis) }}
+  {{ form_row(formSerie.lien) }}
+  {{ form_row(formSerie.nombreEpisodes) }}
+  {{ form_row(formSerie.dureeEpisode) }}
+  {{ form_widget(formSerie._token) }}
 
   <button type="submit" class="btn btn-success">
     {% if editMode %}
-      Modifier le manga
+      Modifier la série
     {% else %}
-      Ajouter le manga
+      Ajouter la série
     {% endif %}
   </button>
 
-  {{
-    form_end(
-      formManga,
-      {
-        render_rest: false
-      }
-    )
-  }}
+  {{ form_end(formSerie) }}
 {% endblock %}
 
 {% block javascripts %}

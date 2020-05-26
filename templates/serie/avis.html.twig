@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+  WIP
+{% endblock %}
+
+{% block body %}
+  <div class="container block-avis">
+    <h1 class="titre-serie-avis">
+      <a href="{{
+        path(
+          'serie_show',
+          {
+            id: serie.id
+          }
+        )
+        }}">
+        {{ serie.nom }}
+      </a>
+    </h1>
+    {% for avis in avisList %}
+      <div>
+        {% if loop.index0 > 0 %}
+          <hr class="delimiter-avis" />
+        {% endif %}
+        <span class="utilisateur-avis">
+          {{ avis.utilisateur.username|capitalize }}
+        </span>
+        <i class="avis-petit">
+          {{ avis.createdAt|format_date('medium', locale = 'fr') }}
+        </i>
+        {{ ' - ' }}
+        <span class="avis-petit">
+          {{ avis.note }} <i class="fa fa-star"></i>
+        </span>
+      </div>
+      <div class="commentaire-avis">
+        {{ avis.commentaire|raw }}
+      </div>
+    {% endfor %}
+  </div>
+
+  <div class="pagination justify-content-center">
+    {{ knp_pagination_render(avisList) }}
+  </div>
+{% endblock %}

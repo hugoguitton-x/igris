@@ -7,9 +7,10 @@ use App\Entity\Document;
 use App\Entity\Utilisateur;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
-class DocumentFixtures extends Fixture
+class DocumentFixtures extends Fixture implements FixtureGroupInterface
 {
     private $encoder;
 
@@ -103,5 +104,10 @@ class DocumentFixtures extends Fixture
             }
         }
         $manager->flush();
+    }
+
+    public static function getGroups(): array
+    {
+        return ['document'];
     }
 }

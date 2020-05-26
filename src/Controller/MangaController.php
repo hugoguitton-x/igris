@@ -22,13 +22,6 @@ class MangaController extends AbstractController
      */
     public function index(LastChapterRepository $repo, MangaRepository $mangaRepo, EntityManagerInterface $manager, PaginatorInterface $paginator, Request $request)
     {      
-        if($request->query->getInt('page') == 1 || $request->query->getInt('page') == 0){
-            $mangas = $mangaRepo->findAll();
-            foreach ($mangas as $manga) {
-                $this->manageRss($manga->getRss(), $manager);
-            }
-        }
-
         $query = $repo->findLastChapterOrderByDateQuery();
 
         $chapters = $paginator->paginate(
@@ -91,7 +84,7 @@ class MangaController extends AbstractController
         $mangas = $paginator->paginate(
             $query,
             $request->query->getInt('page', 1),
-            15
+            24
         );
 
         return $this->render('manga/liste.html.twig', [
@@ -119,14 +112,14 @@ class MangaController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid() && filter_var($manga->getRss(), FILTER_VALIDATE_URL) !== false) {
             if(strpos($manga->getRss(),'mangadex.') !== false && strpos($manga->getRss(),'/rss/') !== false){
-                $imageMangaFile = $form->get('image')->getData();
-                if ($imageMangaFile) {
-                    $imageMangaFile = $fileUploader->uploadImageManga($imageMangaFile);
+                $imageFile = $form->get('image')->getData();
+                if ($imageFile) {
+                    $imageFile = $fileUploader->uploadImage($imageFile, 'mangas');
                 } else {
-                    $imageMangaFile = '';
+                    $imageFile = '';
                 }
     
-                $this->manageRss($manga->getRss(), $manager, $imageMangaFile);
+                $this->manageRss($manga->getRss(), $manager, $imageFile);
     
             }
 
@@ -139,114 +132,114 @@ class MangaController extends AbstractController
         ]);
     }
 
-    private function manageRss(string $rss, EntityManagerInterface $manager, string $imageMangaFile = null)
+    private function manageRss(string $rss, EntityManagerInterface $manager, string $imageFile = null)
     {
         $mangaRepo = $manager->getRepository(Manga::class);
         $languageRepo = $manager->getRepository(Language::class);
         $lastChapterRepo = $manager->getRepository(LastChapter::class);
-            $feedIo = \FeedIo\Factory::create()->getFeedIo();
-            $result = $feedIo->read($rss);
+        $feedIo = \FeedIo\Factory::create()->getFeedIo();
+        $result = $feedIo->read($rss);
 
-            $rss_explode = explode('/', parse_url($rss, PHP_URL_PATH));
-            $url = 'https://mangadex.org/title/' . end($rss_explode);
+        $rss_explode = explode('/', parse_url($rss, PHP_URL_PATH));
+        $url = 'https://mangadex.org/title/' . end($rss_explode);
 
-            $mangaArray = array(
-                'name' => '',
-                'url' => $url,
-                'rss' => $rss,
-                'by_language' => array()
-            );
-            
-            $language = '';
+        $mangaArray = array(
+            'name' => '',
+            'url' => $url,
+            'rss' => $rss,
+            'by_language' => array()
+        );
+        
+        $language = '';
 
-            foreach ($result->getFeed() as $item) {
-                if (empty($mangaArray['name'])) {
-                  
-                    if(strpos(strtolower(explode('-', $item->getTitle())[1]), 'volume') === false || strpos(strtolower(explode('-', $item->getTitle())[1]), 'chapter') === false){
-                        $mangaArray['name'] = substr($item->getTitle(), 0, strpos($item->getTitle(), 'Chapter') - 3);
-                    } else {
-                        $mangaArray['name']  = trim(explode('-', $item->getTitle())[0]);
-                    }
-                }
-
-                $description = $item->getDescription();
-
-                $language = substr(
-                    $description,
-                    strpos($description, 'Language') + 10
-                );
-
-                if($language){
-                    if (!array_key_exists($language, $mangaArray['by_language'])) {
-                        $mangaArray['by_language'][$language] = array(
-                            'last_chapter' => 0,
-                            'date' => ''
-                        );
-                    }
-                }
-
-                $chapter =  trim(substr($item->getTitle(), strpos($item->getTitle(), 'Chapter') + 7));
-
-                if (
-                    $mangaArray['by_language'][$language]['last_chapter'] <
-                    floatval($chapter)
-                ) {
-                    $mangaArray['by_language'][$language]['last_chapter'] =
-                        $chapter === intval($chapter)
-                            ? floatval($chapter)
-                            : intval($chapter);
-
-                    $mangaArray['by_language'][$language][
-                        'date'
-                    ] = $item->getLastModified()->format('Y-M-d');
+        foreach ($result->getFeed() as $item) {
+            if (empty($mangaArray['name'])) {
+              
+                if(strpos(strtolower(explode('-', $item->getTitle())[1]), 'volume') === false || strpos(strtolower(explode('-', $item->getTitle())[1]), 'chapter') === false){
+                    $mangaArray['name'] = substr($item->getTitle(), 0, strpos($item->getTitle(), 'Chapter') - 3);
+                } else {
+                    $mangaArray['name']  = trim(explode('-', $item->getTitle())[0]);
                 }
             }
 
-            $manga = $mangaRepo->findOneBy(array(
-                'name' => $mangaArray['name']
+            $description = $item->getDescription();
+
+            $language = substr(
+                $description,
+                strpos($description, 'Language') + 10
+            );
+
+            if($language){
+                if (!array_key_exists($language, $mangaArray['by_language'])) {
+                    $mangaArray['by_language'][$language] = array(
+                        'last_chapter' => 0,
+                        'date' => ''
+                    );
+                }
+            }
+
+            $chapter =  trim(substr($item->getTitle(), strpos($item->getTitle(), 'Chapter') + 7));
+
+            if (
+                $mangaArray['by_language'][$language]['last_chapter'] <
+                floatval($chapter)
+            ) {
+                $mangaArray['by_language'][$language]['last_chapter'] =
+                    $chapter === intval($chapter)
+                        ? floatval($chapter)
+                        : intval($chapter);
+
+                $mangaArray['by_language'][$language][
+                    'date'
+                ] = $item->getLastModified()->format('Y-M-d');
+            }
+        }
+
+        $manga = $mangaRepo->findOneBy(array(
+            'name' => $mangaArray['name']
+        ));
+
+        if (!$manga) {
+            $manga = new Manga();
+            $manga->setName($mangaArray['name']);
+            $manga->setUrl($mangaArray['url']);
+            $manga->setRss($mangaArray['rss']);
+            $manga->setImage($imageFile);
+            $manager->persist($manga);
+        }
+
+        foreach ($mangaArray['by_language'] as $langue => $chapter) {
+            $langue = ucfirst(strtolower($langue));
+            $language = $languageRepo->findOneBy(array(
+                'name' => $langue
             ));
 
-            if (!$manga) {
-                $manga = new Manga();
-                $manga->setName($mangaArray['name']);
-                $manga->setUrl($mangaArray['url']);
-                $manga->setRss($mangaArray['rss']);
-                $manga->setImage($imageMangaFile);
-                $manager->persist($manga);
+            if (!$language) {
+                $language = new Language();
+                $language->setName($langue);
+                $manager->persist($language);
             }
 
-            foreach ($mangaArray['by_language'] as $langue => $chapter) {
-                $langue = ucfirst(strtolower($langue));
-                $language = $languageRepo->findOneBy(array(
-                    'name' => $langue
-                ));
+            $lastChapterDB = $lastChapterRepo->findOneBy(array(
+                'language' => $language,
+                'manga' => $manga
+            ));
 
-                if (!$language) {
-                    $language = new Language();
-                    $language->setName($langue);
-                    $manager->persist($language);
-                }
-
-                $lastChapterDB = $lastChapterRepo->findOneBy(array(
-                    'language' => $language,
-                    'manga' => $manga
-                ));
-
-                if (
-                    $lastChapterDB !== null &&
-                    $chapter['last_chapter'] !== $lastChapterDB->getNumber()
-                ) {
-                    $lastChapterDB->setNumber($chapter['last_chapter']);
-                    $lastChapterDB->setDate(new \DateTime($chapter['date']));
-                } else {
-                    $lastChapter = new LastChapter();
-                    $lastChapter->setNumber($chapter['last_chapter']);
-                    $lastChapter->setDate(new \DateTime($chapter['date']));
-                    $lastChapter->setLanguage($language);
-                    $lastChapter->setManga($manga);
-                    $manager->persist($lastChapter);
-                }
-                $manager->flush();
+            if (
+                $lastChapterDB !== null &&
+                $chapter['last_chapter'] !== $lastChapterDB->getNumber()
+            ) {
+                $lastChapterDB->setNumber($chapter['last_chapter']);
+                $lastChapterDB->setDate(new \DateTime($chapter['date']));
+            } else {
+                $lastChapter = new LastChapter();
+                $lastChapter->setNumber($chapter['last_chapter']);
+                $lastChapter->setDate(new \DateTime($chapter['date']));
+                $lastChapter->setLanguage($language);
+                $lastChapter->setManga($manga);
+                $manager->persist($lastChapter);
             }
+            $manager->flush();
+        }
     }
 }

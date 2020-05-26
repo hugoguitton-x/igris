@@ -16,7 +16,7 @@ class DocumentController extends AbstractController
     /**
      * @Route("/document", name="document")
      */
-    public function homePage(
+    public function index(
         DocumentRepository $repo,
         PaginatorInterface $paginator,
         Request $request

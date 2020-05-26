@@ -45,5 +45,6 @@ security:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/document, roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/manga, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/serie, roles: IS_AUTHENTICATED_FULLY }
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }

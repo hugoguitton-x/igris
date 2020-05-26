@@ -6,8 +6,11 @@
 
 {% block body %}
   <div class="container-fluid">
+
   {% if documents|length == 0  %}
+  
     <i>Vous n'avez aucun document !</i>
+
   {% else %}
 
     {% for document in documents %}
