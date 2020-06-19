@@ -26,7 +26,9 @@ class FileUploader
         try {
             $file->move($this->getTargetDirectory().$folder.'/', $fileName);
         } catch (FileException $e) {
-            // ... handle exception if something happens during file upload
+            return $this->render('error/file_error.html.twig', [
+                'message' => $e->getMessage(),
+            ]);
         }
 
         return $fileName;
