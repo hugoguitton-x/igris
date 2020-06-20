@@ -9,8 +9,11 @@
     <h1>
       Je suis une page d'erreur !
     </h1>
-    <h3>
-        Vous devez sans doute vous connecter !!!
+    <h3 style="color:red">
+      {{ message }}
     </h3>
+    <p>
+      Cible : <span style="color:red">{{ target }}</span>
+    </p>
   </div>
 {% endblock %}
