@@ -27,7 +27,7 @@ class MangaController extends AbstractController
         $chapters = $paginator->paginate(
             $query,
             $request->query->getInt('page', 1),
-            15
+            16
         );
 
         return $this->render('manga/index.html.twig', [
@@ -46,7 +46,7 @@ class MangaController extends AbstractController
         $chapters = $paginator->paginate(
             $query,
             $request->query->getInt('page', 1),
-            15
+            16
         );
 
         return $this->render('manga/index.html.twig', [
@@ -65,7 +65,7 @@ class MangaController extends AbstractController
         $chapters = $paginator->paginate(
             $query,
             $request->query->getInt('page', 1),
-            15
+            16
         );
 
         return $this->render('manga/index.html.twig', [
