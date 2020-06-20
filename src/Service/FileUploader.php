@@ -2,19 +2,21 @@
 
 namespace App\Service;
 
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Twig\Environment;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 class FileUploader
 {
     private $targetDirectory;
     private $slugger;
 
-    public function __construct($targetDirectory, SluggerInterface $slugger)
+    public function __construct($targetDirectory, SluggerInterface $slugger, Environment $twig)
     {
         $this->targetDirectory = $targetDirectory;
         $this->slugger = $slugger;
+        $this->twig = $twig;
     }
 
     public function uploadImage(UploadedFile $file, string $folder): string
@@ -22,13 +24,13 @@ class FileUploader
         $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
         $safeFilename = $this->slugger->slug($originalFilename);
         $fileName = $safeFilename.'-'.uniqid().'.'.$file->guessExtension();
-
         try {
             $file->move($this->getTargetDirectory().$folder.'/', $fileName);
         } catch (FileException $e) {
-            dump($e->getMessage());
-            dump( $this->getTargetDirectory().$folder.'/');
-        die;
+            return $this->twig->render('errors/file_error.html.twig', [
+                'message' => $e->getMessage(),
+                'target' => $this->getTargetDirectory().$folder.'/',
+            ]);
         }
 
         return $fileName;
