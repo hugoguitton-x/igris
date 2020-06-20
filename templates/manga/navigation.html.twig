@@ -1,0 +1,51 @@
+<ul class="sub-nav nav nav-pills justify-content-end">
+  <li class="nav-item">
+    <a class="nav-link {{ app.request.get('_route') == 'manga' ? 'active' }}"
+      href="{{ path('manga') }}">
+      Manga
+    </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link {{
+      app.request.get('_route') == 'manga_language'
+        and app.request.get('language') == 'fr'
+        ? 'active'
+      }}"
+      href="{{
+      path(
+        'manga_language',
+        {
+          language: 'fr'
+        }
+      )
+      }}">
+      Français
+    </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link {{
+      app.request.get('_route') == 'manga_language'
+        and app.request.get('language') == 'en'
+        ? 'active'
+      }}"
+      href="{{
+      path(
+        'manga_language',
+        {
+          language: 'en'
+        }
+      )
+      }}">
+      Anglais
+    </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link {{
+      app.request.get('_route') == 'manga_list'
+        ? 'active'
+      }}"
+      href="{{ path('manga_list') }}">
+      Liste
+    </a>
+  </li>
+</ul>

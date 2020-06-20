@@ -55,43 +55,8 @@
           </div>
         </li>
 
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
-            Manga
-          </a>
-          <div class="dropdown-menu">
-            <a class="dropdown-item" href="{{ path('manga') }}">
-              Dernières Sorties
-            </a>
-            <a class="dropdown-item"
-              href="{{
-              path(
-                'manga_language',
-                {
-                  language: 'fr'
-                }
-              )
-              }}">
-              Dernières Sorties (FR)
-            </a>
-            <a class="dropdown-item"
-              href="{{
-              path(
-                'manga_language',
-                {
-                  language: 'en'
-                }
-              )
-              }}">
-              Dernières Sorties (EN)
-            </a>
-            <a class="dropdown-item" href="{{ path('manga_list') }}">
-              Liste des mangas
-            </a>
-            <a class="dropdown-item" href="{{ path('manga_new') }}">
-              Ajouter un manga
-            </a>
-          </div>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ path('manga') }}">Manga</a>
         </li>
 
         <li class="nav-item dropdown">
@@ -111,6 +76,11 @@
     </ul>
     <ul class="navbar-nav">
       {% if app.user %}
+        <li class="nav-item">
+          <a href="{{ path('administration') }}" class="nav-link">
+            <i class="fas fa-cog"></i> Administration
+          </a>
+        </li>
         <li class="nav-item">
           <a href="{{ path('security_logout') }}" class="nav-link">
             <i class="fas fa-sign-out-alt"></i> Déconnexion

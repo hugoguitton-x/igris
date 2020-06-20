@@ -37,8 +37,8 @@ class MangaController extends AbstractController
     }
 
         /**
-     * @Route("/manga/new", name="manga_new")
-     * @Route("/manga/edit/{id}", name="manga_edit")
+     * @Route("/admin/manga/new", name="manga_new")
+     * @Route("/admin/manga/edit/{id}", name="manga_edit")
      */
     public function form(
         Request $request,
@@ -76,6 +76,25 @@ class MangaController extends AbstractController
     }
 
     /**
+     * @Route("/manga/list", name="manga_list")
+     */
+    public function listeManga(MangaRepository $repo, PaginatorInterface $paginator, Request $request)
+    {      
+        $query = $repo->findMangaOrderByNameQuery();
+
+        $mangas = $paginator->paginate(
+            $query,
+            $request->query->getInt('page', 1),
+            24
+        );
+
+        return $this->render('manga/liste.html.twig', [
+            'controller_name' => 'MangaController',
+            'mangas' => $mangas
+        ]);
+    }
+
+    /**
      * @Route("/manga/{language}", name="manga_language")
      */
     public function indexFr(LastChapterRepository $repo, MangaRepository $mangaRepo, EntityManagerInterface $manager, PaginatorInterface $paginator, Request $request, string $language)
@@ -98,24 +117,6 @@ class MangaController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/liste_manga", name="manga_list")
-     */
-    public function listeManga(MangaRepository $repo, PaginatorInterface $paginator, Request $request)
-    {      
-        $query = $repo->findMangaOrderByNameQuery();
-
-        $mangas = $paginator->paginate(
-            $query,
-            $request->query->getInt('page', 1),
-            24
-        );
-
-        return $this->render('manga/liste.html.twig', [
-            'controller_name' => 'MangaController',
-            'mangas' => $mangas
-        ]);
-    }
 
     private function manageRss(string $rss, EntityManagerInterface $manager, string $imageFile = null)
     {

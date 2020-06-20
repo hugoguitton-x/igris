@@ -1,0 +1,30 @@
+<div class="bg-dark border-right" id="sidebar-wrapper">
+  <div class="sidebar-heading text-light">
+    <a class="navbar-brand" href="{{ path('home_page') }}">
+      <img src="{{ asset('images/logos/logo_light.svg') }}"
+        width="30"
+        height="30"
+        class="d-inline-block align-top"
+        alt="" />
+      Tatsuki - Admin
+    </a>
+  </div>
+  <div class="list-group list-group-flush">
+    <a href="#"
+      class="list-group-item list-group-item-action bg-dark text-light">
+      WIP
+    </a>
+    <a href="#"
+      class="list-group-item list-group-item-action bg-dark text-light"
+      data-toggle="collapse"
+      data-target="#mangas">
+      Mangas<i class="fas fa-chevron-down"></i>
+    </a>
+    <div class="sub-menu collapse" id="mangas">
+      <a href="{{ path('manga_new') }}"
+        class="list-group-item list-group-item-action bg-dark text-light">
+        Ajouter
+      </a>
+    </div>
+  </div>
+</div>

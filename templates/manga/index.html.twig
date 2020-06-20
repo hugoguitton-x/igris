@@ -1,6 +1,8 @@
 {% extends 'page.html.twig' %}
 
 {% block container %}
+  {% include 'manga/navigation.html.twig' %}
+
   <div class="row">
     {% for chapter in chapters %}
       <div class="col-6 col-lg-6 col-xl-3 pb-2 parent">

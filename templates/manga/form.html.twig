@@ -1,9 +1,9 @@
-{% extends 'page.html.twig' %}
+{% extends 'administration/index.html.twig' %}
 
 {% form_theme formManga 'bootstrap_4_layout.html.twig' %}
 
 {% block container %}
-  <h1>
+  <h1 class="mt-4">
     {% if editMode %}
       Modification du manga
     {% else %}

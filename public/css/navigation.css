@@ -1,3 +1,15 @@
-.bg-light{
-    background-color: #eeeeee!important;
+/** Sub navigation **/
+.sub-nav {
+  background-color: rgb(243, 243, 243);
+  border: rgb(207, 207, 207) 1px solid;
+  padding: 8px;
+}
+
+.nav-pills .nav-link.active {
+  color: #fff;
+  background-color: #343a40 !important;
+}
+
+.nav-pills .nav-link {
+  color: #343a40;
 }
