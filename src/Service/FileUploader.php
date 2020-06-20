@@ -28,6 +28,7 @@ class FileUploader
         } catch (FileException $e) {
             return $this->render('error/file_error.html.twig', [
                 'message' => $e->getMessage(),
+                'target' => $this->getTargetDirectory().$folder.'/',
             ]);
         }
 
