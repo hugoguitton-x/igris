@@ -2,9 +2,10 @@
 
 namespace App\Service;
 
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 class FileUploader
 {
@@ -26,7 +27,7 @@ class FileUploader
         try {
             $file->move($this->getTargetDirectory().$folder.'/', $fileName);
         } catch (FileException $e) {
-            error_log($e->getMessage());
+            throw $e;
         }
 
         return $fileName;
