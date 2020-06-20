@@ -27,5 +27,5 @@ docker-compose stop
 
 ```sh
 docker-compose exec php composer install
-docker-compose exec php php bin/console doctrine:migrations:diff
+docker-compose exec php php bin/console doctrine:migrations:migrate
 ```
