@@ -4,13 +4,14 @@
     <meta charset="UTF-8" />
     <title>
       {% block title %}
-        Welcome!
+        Tatsuki
       {% endblock %}
     </title>
     {% block stylesheets %}
-      <link rel="stylesheet" href="/css/style.css" />
       <link rel="stylesheet"
-        href="https://bootswatch.com/4/flatly/bootstrap.css" />
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+        integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
+        crossorigin="anonymous" />
       <link rel="stylesheet"
         href="https://use.fontawesome.com/releases/v5.12.0/css/all.css"
         integrity="sha384-REHJTs1r2ErKBuJB0fCK99gCYsVjwxHrSU0N7I1zl9vZbggVJXRMsv/sLlOAGb4M"
@@ -18,132 +19,16 @@
     {% endblock %}
   </head>
 
-  <body>
-    {% block nav %}
-      <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <a class="navbar-brand" href="#">Project Doc</a>
-        <button class="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarColor01"
-          aria-controls="navbarColor01"
-          aria-expanded="false"
-          aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse justify-content-between"
-          id="navbarColor01">
-          <ul class="navbar-nav mr-auto">
-            {% if app.user %}
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle"
-                  href="#"
-                  data-toggle="dropdown">
-                  Road Map
-                </a>
-                <div class="dropdown-menu">
-                  <a class="dropdown-item" href="{{ path('road_map') }}">
-                    Voir la Road Map
-                  </a>
-                  <a class="dropdown-item" href="{{ path('road_map_new') }}">
-                    Nouvelle tâche
-                  </a>
-                </div>
-              </li>
-            {% else %}
-              <li class="nav-item">
-                <a class="nav-link" href="{{ path('road_map') }}">Road Map</a>
-              </li>
-            {% endif %}
-
-            {% if app.user %}
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle"
-                  href="#"
-                  data-toggle="dropdown">
-                  Documents
-                </a>
-                <div class="dropdown-menu">
-                  <a class="dropdown-item" href="{{ path('document') }}">
-                    Mes documents
-                  </a>
-                  <a class="dropdown-item" href="{{ path('document_new') }}">
-                    Nouveau document
-                  </a>
-                </div>
-              </li>
-
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle"
-                  href="#"
-                  data-toggle="dropdown">
-                  Manga
-                </a>
-                <div class="dropdown-menu">
-                  <a class="dropdown-item" href="{{ path('manga') }}">
-                    Dernières Sorties
-                  </a>
-                  <a class="dropdown-item" href="{{ path('manga_fr') }}">
-                    Dernières Sorties (FR)
-                  </a>
-                  <a class="dropdown-item" href="{{ path('manga_en') }}">
-                    Dernières Sorties (EN)
-                  </a>
-                  <a class="dropdown-item" href="{{ path('manga_list') }}">
-                    Liste des mangas
-                  </a>
-                  <a class="dropdown-item" href="{{ path('manga_new') }}">
-                    Ajouter un manga
-                  </a>
-                </div>
-              </li>
-
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle"
-                  href="#"
-                  data-toggle="dropdown">
-                  Série
-                </a>
-                <div class="dropdown-menu">
-                  <a class="dropdown-item" href="{{ path('serie') }}">
-                    Liste des séries
-                  </a>
-                  <a class="dropdown-item" href="{{ path('serie_new') }}">
-                    Ajouter une série
-                  </a>
-                </div>
-              </li>
-            {% endif %}
-          </ul>
-          <ul class="navbar-nav">
-            {% if not app.user %}
-              <li class="nav-item">
-                <a href="{{ path('security_registration') }}" class="nav-link">
-                  S'enregistrer
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{ path('security_login') }}" class="nav-link">
-                  <i class="fas fa-sign-in-alt"></i> Connexion
-                </a>
-              </li>
-            {% else %}
-              <li class="nav-item">
-                <a href="{{ path('security_logout') }}" class="nav-link">
-                  <i class="fas fa-sign-out-alt"></i> Déconnexion
-                </a>
-              </li>
-            {% endif %}
-          </ul>
-        </div>
-      </nav>
-    {% endblock %}
-
-    <div class="container fade-in body">
-      {% block body %}
+  {% block body %}
+    <body>
+      {% block nav %}
 
       {% endblock %}
+      <div class="container fade-in body">
+        {% block container %}
+
+        {% endblock %}
+      </div>
       {% block javascripts %}
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
           integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -155,6 +40,6 @@
           integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
           crossorigin="anonymous"></script>
       {% endblock %}
-    </div>
-  </body>
+    </body>
+  {% endblock %}
 </html>

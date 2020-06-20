@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'page.html.twig' %}
 
 {% block title %}
   Hello RoadMapController!
@@ -8,7 +8,8 @@
   {{ parent() }}
   <div class="timeline mb-3 fade-in one"></div>
 {% endblock %}
-{% block body %}
+
+{% block container %}
   <div class="container-fluid">
     {% for tache in taches %}
       <div class="card text-white bg-{{ tache.etat.codeBootsrap }} mb-3 tache">

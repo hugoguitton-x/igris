@@ -1,79 +1,123 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
-  <h1>
-    Inscription
-  </h1>
+{% block title %}
+  Tatsuki - Inscription
+{% endblock %}
 
-  {{ form_start(form) }}
-  {{
-    form_row(
-      form.username,
-      {
-        label: "Nom d'utilisateur",
-        attr: {
-          placeholder: 'ex: Sym'
+{% block stylesheets %}
+  {{ parent() }}
+  <link rel="stylesheet" href="/css/signin_up.css" />
+{% endblock %}
+
+{% block container %}
+  <div class="text-center body">
+    <img class="mb-1"
+      src="{{ asset('images/logos/logo.svg') }}"
+      alt=""
+      width="120"
+      height="120" />
+    {{
+      form_start(
+        form,
+        {
+          attr: {
+            class: 'form-signup'
+          }
         }
-      }
-    )
-  }}
-  {{
-    form_row(
-      form.email,
-      {
-        label: 'Adresse Email',
-        attr: {
-          placeholder: 'ex: XXXX@symblog.com'
-        }
-      }
-    )
-  }}
-  {{
-    form_row(
-      form.firstname,
-      {
-        label: 'Prénom',
-        attr: {
-          placeholder: 'ex: Albert'
-        }
-      }
-    )
-  }}
-  {{
-    form_row(
-      form.lastname,
-      {
-        label: 'Nom',
-        attr: {
-          placeholder: 'ex: Einstein'
-        }
-      }
-    )
-  }}
-  {{
-    form_row(
-      form.password,
-      {
-        label: 'Mot de passe',
-        attr: {
-          placeholder: 'ex: *********'
-        }
-      }
-    )
-  }}
-  {{
-    form_row(
-      form.password_confirm,
-      {
-        label: 'Confirmation mot de passe',
-        attr: {
-          placeholder: 'ex: *********'
-        }
-      }
-    )
-  }}
-  <button type="submit" class="btn btn-success">
-    S'inscrire
-  </button>
-  {{ form_end(form) }}
+      )
+    }}
+    <h1 class="h2 mb-3 font-weight-normal">
+      Inscription
+    </h1>
+
+    <div class="form-group">
+      {{ form_errors(form.username) }}
+      {{
+        form_widget(
+          form.username,
+          {
+            attr: {
+              placeholder: "Nom d'utilisateur",
+              autofocus: true
+            }
+          }
+        )
+      }}
+    </div>
+
+    <div class="form-group">
+      {{ form_errors(form.email) }}
+      {{
+        form_widget(
+          form.email,
+          {
+            attr: {
+              placeholder: 'Adresse Email'
+            }
+          }
+        )
+      }}
+    </div>
+
+    <div class="form-group">
+      {{ form_errors(form.firstname) }}
+      {{
+        form_widget(
+          form.firstname,
+          {
+            attr: {
+              placeholder: 'Prénom'
+            }
+          }
+        )
+      }}
+      {{ form_errors(form.lastname) }}
+      {{
+        form_widget(
+          form.lastname,
+          {
+            attr: {
+              placeholder: 'Nom'
+            }
+          }
+        )
+      }}
+    </div>
+
+    <div class="form-group">
+      {{ form_errors(form.password) }}
+      {{
+        form_widget(
+          form.password,
+          {
+            attr: {
+              placeholder: 'Mot de passe'
+            }
+          }
+        )
+      }}
+      {{ form_errors(form.password_confirm) }}
+      {{
+        form_widget(
+          form.password_confirm,
+          {
+            attr: {
+              placeholder: 'Confirmation mot de passe'
+            }
+          }
+        )
+      }}
+    </div>
+    <div class="form-group">
+      <button type="submit" class="btn btn-lg btn-primary btn-block">
+        S'inscrire
+      </button>
+      <a href="{{ path('security_login') }}">Se connecter</a>
+    </div>
+
+    <p class="mt-5 mb-3 text-muted">
+      Tatsuki Aisu © 2019-2020
+    </p>
+    {{ form_end(form) }}
+  </div>
 {% endblock %}

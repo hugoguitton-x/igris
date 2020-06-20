@@ -1,46 +1,66 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
-  <h1>
-    Connexion
-  </h1>
-  {% if error %}
-    <div class="alert alert-danger">
-      {{ error.messageKey|trans(error.messageData, 'security') }}
-    </div>
-  {% endif %}
-  <form action="{{ path('security_login') }}" method="POST">
-    <div class="form-group">
+{% block title %}
+  Tatsuki - Connexion
+{% endblock %}
+
+{% block stylesheets %}
+  {{ parent() }}
+  <link rel="stylesheet" href="/css/signin_up.css" />
+{% endblock %}
+
+{% block container %}
+  <div class="text-center body">
+    <img class="mb-1"
+      src="{{ asset('images/logos/logo.svg') }}"
+      alt=""
+      width="120"
+      height="120" />
+    <form action="{{ path('security_login') }}"
+      method="POST"
+      class="form-signin">
+      <h1 class="h2 mb-3 font-weight-normal">
+        Connexion
+      </h1>
+      {% if error %}
+        <div class="alert alert-danger">
+          {{ error.messageKey|trans(error.messageData, 'security') }}
+        </div>
+      {% endif %}
+
       <input placeholder="Nom d'utilisateur"
         value="{{ last_username }}"
         name="_username"
         type="text"
         class="form-control"
-        required />
-    </div>
-    <div class="form-group">
+        required
+        autofocus />
+
       <input placeholder="Mot de passe"
         name="_password"
         type="password"
         class="form-control"
         required />
-    </div>
 
-    <div class="form-groupe">
-      <input type="checkbox" id="remember_me" name="_remember_me" />
-      <label for="remember_me">
-        Rester identifié
-      </label>
-    </div>
+      <div class="checkbox mb-3">
+        <input type="checkbox" id="remember_me" name="_remember_me" />
+        <label for="remember_me">Rester identifié</label>
+      </div>
 
-    <input type="hidden"
-      name="_csrf_token"
-      value="{{ csrf_token('authenticate') }}" />
+      <input type="hidden"
+        name="_csrf_token"
+        value="{{ csrf_token('authenticate') }}" />
 
-    <div class="form-group">
-      <button type="submit" class="btn btn-success">
-        Se connecter
-      </button>
-    </div>
-  </form>
+      <div class="form-group">
+        <button type="submit" class="btn btn-lg btn-primary btn-block">
+          Se connecter
+        </button>
+        <a href="{{ path('security_registration') }}">Créer un compte</a>
+      </div>
+
+      <p class="mt-5 mb-3 text-muted">
+        Tatsuki Aisu © 2019-2020
+      </p>
+    </form>
+  </div>
 {% endblock %}

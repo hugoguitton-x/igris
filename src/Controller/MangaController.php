@@ -36,64 +36,7 @@ class MangaController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/manga_fr", name="manga_fr")
-     */
-    public function indexFr(LastChapterRepository $repo, MangaRepository $mangaRepo, EntityManagerInterface $manager, PaginatorInterface $paginator, Request $request)
-    {      
-        $query = $repo->findLastChapterOrderByDateQuery('French');
-
-        $chapters = $paginator->paginate(
-            $query,
-            $request->query->getInt('page', 1),
-            16
-        );
-
-        return $this->render('manga/index.html.twig', [
-            'controller_name' => 'MangaController',
-            'chapters' => $chapters
-        ]);
-    }
-
-    /**
-     * @Route("/manga_en", name="manga_en")
-     */
-    public function indexEn(LastChapterRepository $repo, MangaRepository $mangaRepo, EntityManagerInterface $manager, PaginatorInterface $paginator, Request $request)
-    {      
-        $query = $repo->findLastChapterOrderByDateQuery('English');
-
-        $chapters = $paginator->paginate(
-            $query,
-            $request->query->getInt('page', 1),
-            16
-        );
-
-        return $this->render('manga/index.html.twig', [
-            'controller_name' => 'MangaController',
-            'chapters' => $chapters
-        ]);
-    }
-
-    /**
-     * @Route("/liste_manga", name="manga_list")
-     */
-    public function listeManga(MangaRepository $repo, PaginatorInterface $paginator, Request $request)
-    {      
-        $query = $repo->findMangaOrderByNameQuery();
-
-        $mangas = $paginator->paginate(
-            $query,
-            $request->query->getInt('page', 1),
-            24
-        );
-
-        return $this->render('manga/liste.html.twig', [
-            'controller_name' => 'MangaController',
-            'mangas' => $mangas
-        ]);
-    }
-
-    /**
+        /**
      * @Route("/manga/new", name="manga_new")
      * @Route("/manga/edit/{id}", name="manga_edit")
      */
@@ -129,6 +72,48 @@ class MangaController extends AbstractController
         return $this->render('manga/form.html.twig', [
             'formManga' => $form->createView(),
             'editMode' => $manga->getId() !== null
+        ]);
+    }
+
+    /**
+     * @Route("/manga/{language}", name="manga_language")
+     */
+    public function indexFr(LastChapterRepository $repo, MangaRepository $mangaRepo, EntityManagerInterface $manager, PaginatorInterface $paginator, Request $request, string $language)
+    {      
+        $array_language = [
+            'en' => 'English',
+            'fr' => 'French'
+        ];
+        $query = $repo->findLastChapterOrderByDateQuery($array_language[$language]);
+
+        $chapters = $paginator->paginate(
+            $query,
+            $request->query->getInt('page', 1),
+            16
+        );
+
+        return $this->render('manga/index.html.twig', [
+            'controller_name' => 'MangaController',
+            'chapters' => $chapters
+        ]);
+    }
+
+    /**
+     * @Route("/liste_manga", name="manga_list")
+     */
+    public function listeManga(MangaRepository $repo, PaginatorInterface $paginator, Request $request)
+    {      
+        $query = $repo->findMangaOrderByNameQuery();
+
+        $mangas = $paginator->paginate(
+            $query,
+            $request->query->getInt('page', 1),
+            24
+        );
+
+        return $this->render('manga/liste.html.twig', [
+            'controller_name' => 'MangaController',
+            'mangas' => $mangas
         ]);
     }
 
