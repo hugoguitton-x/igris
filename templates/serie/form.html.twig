@@ -1,13 +1,13 @@
-{% extends 'page.html.twig' %}
+{% extends 'administration/index.html.twig' %}
 
 {% form_theme formSerie 'bootstrap_4_layout.html.twig' %}
 
 {% block container %}
-  <h1>
+  <h1 class="mt-4">
     {% if editMode %}
       Modification de la série
     {% else %}
-      Ajout d'une série
+      Ajouter une série
     {% endif %}
   </h1>
 
@@ -20,7 +20,7 @@
   {{ form_row(formSerie.dureeEpisode) }}
   {{ form_widget(formSerie._token) }}
 
-  <button type="submit" class="btn btn-success">
+  <button type="submit" class="btn btn-primary">
     {% if editMode %}
       Modifier la série
     {% else %}

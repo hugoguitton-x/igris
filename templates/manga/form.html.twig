@@ -7,7 +7,7 @@
     {% if editMode %}
       Modification du manga
     {% else %}
-      Ajout d'un manga
+      Ajouter un manga
     {% endif %}
   </h1>
 
@@ -16,7 +16,7 @@
   {{ form_row(formManga.rss) }}
   {{ form_widget(formManga._token) }}
 
-  <button type="submit" class="btn btn-success">
+  <button type="submit" class="btn btn-primary">
     {% if editMode %}
       Modifier le manga
     {% else %}

@@ -41,7 +41,7 @@
 }
 
 #sidebar-wrapper .list-group a:hover {
-  border-left: 3px solid #cadbdd;
+  border-right: 5px solid #0f8d9b;
 }
 
 #menu-toggle {

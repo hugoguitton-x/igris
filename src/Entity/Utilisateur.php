@@ -76,6 +76,16 @@ class Utilisateur implements UserInterface
      */
     private $avis;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $lastLogin;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $avatar;
+
     public function __construct()
     {
         $this->documents = new ArrayCollection();
@@ -137,8 +147,7 @@ class Utilisateur implements UserInterface
 
     public function getRoles(): ?array
     {
-        //return $this->roles;
-        return ['ROLE_USER'];
+        return $this->roles;
     }
 
     public function setRoles(array $roles): self
@@ -224,25 +233,49 @@ class Utilisateur implements UserInterface
         return $this->avis;
     }
 
-    public function addAvi(Avis $avi): self
+    public function addAvi(Avis $avis): self
     {
-        if (!$this->avis->contains($avi)) {
-            $this->avis[] = $avi;
-            $avi->setUtilisateur($this);
+        if (!$this->avis->contains($avis)) {
+            $this->avis[] = $avis;
+            $avis->setUtilisateur($this);
         }
 
         return $this;
     }
 
-    public function removeAvi(Avis $avi): self
+    public function removeAvi(Avis $avis): self
     {
-        if ($this->avis->contains($avi)) {
-            $this->avis->removeElement($avi);
+        if ($this->avis->contains($avis)) {
+            $this->avis->removeElement($avis);
             // set the owning side to null (unless already changed)
-            if ($avi->getUtilisateur() === $this) {
-                $avi->setUtilisateur(null);
+            if ($avis->getUtilisateur() === $this) {
+                $avis->setUtilisateur(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getLastLogin(): ?\DateTimeInterface
+    {
+        return $this->lastLogin;
+    }
+
+    public function setLastLogin(?\DateTimeInterface $lastLogin): self
+    {
+        $this->lastLogin = $lastLogin;
+
+        return $this;
+    }
+
+    public function getAvatar(): ?string
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar(?string $avatar): self
+    {
+        $this->avatar = $avatar;
 
         return $this;
     }

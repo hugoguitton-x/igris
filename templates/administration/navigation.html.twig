@@ -10,9 +10,9 @@
     </a>
   </div>
   <div class="list-group list-group-flush">
-    <a href="#"
+    <a href="{{ path('admin_user') }}"
       class="list-group-item list-group-item-action bg-dark text-light">
-      WIP
+      Utilisateurs
     </a>
     <a href="#"
       class="list-group-item list-group-item-action bg-dark text-light"
@@ -22,6 +22,18 @@
     </a>
     <div class="sub-menu collapse" id="mangas">
       <a href="{{ path('manga_new') }}"
+        class="list-group-item list-group-item-action bg-dark text-light">
+        Ajouter
+      </a>
+    </div>
+        <a href="#"
+      class="list-group-item list-group-item-action bg-dark text-light"
+      data-toggle="collapse"
+      data-target="#series">
+      Série<i class="fas fa-chevron-down"></i>
+    </a>
+    <div class="sub-menu collapse" id="series">
+      <a href="{{ path('serie_new') }}"
         class="list-group-item list-group-item-action bg-dark text-light">
         Ajouter
       </a>

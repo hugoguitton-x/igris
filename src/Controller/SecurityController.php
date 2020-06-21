@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Utilisateur;
+use App\Service\FileUploader;
 use App\Form\RegistrationType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,7 +21,8 @@ class SecurityController extends AbstractController
     public function registration(
         Request $request,
         EntityManagerInterface $manager,
-        UserPasswordEncoderInterface $encoder
+        UserPasswordEncoderInterface $encoder,
+        FileUploader $fileUploader
     ) {
         $utilisateur = new Utilisateur();
 
@@ -29,12 +31,22 @@ class SecurityController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $imageFile = $form->get('avatar')->getData();
+            if ($imageFile) {
+                $imageFile = $fileUploader->uploadImage($imageFile, 'avatar');
+            } else {
+                $imageFile = 'default.png';
+            }
+            $utilisateur->setAvatar($imageFile);
+
             $hash = $encoder->encodePassword(
                 $utilisateur,
                 $utilisateur->getPassword()
             );
 
             $utilisateur->setPassword($hash);
+
+            $utilisateur->setRoles(array('ROLE_USER'));
 
             $manager->persist($utilisateur);
             $manager->flush();

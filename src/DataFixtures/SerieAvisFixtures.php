@@ -50,6 +50,8 @@ class SerieAvisFixtures extends Fixture implements FixtureGroupInterface
                 $utilisateur->setEmail($faker->email());
                 $utilisateur->setFirstName($faker->firstName());
                 $utilisateur->setLastName($faker->lastName());
+                $utilisateur->setAvatar('default.png');
+                $utilisateur->setRoles(array('ROLE_USER'));
 
                 $manager->persist($utilisateur);
 
