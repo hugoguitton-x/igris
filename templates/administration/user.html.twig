@@ -7,6 +7,16 @@
 
 {% block container %}
   <div class="my-3 p-3 bg-white rounded box-shadow text-left">
+    {% for message in app.flashes('success') %}
+      <div class="alert alert-success">
+        {{ message }}
+      </div>
+    {% endfor %}
+    {% for message in app.flashes('warning') %}
+      <div class="alert alert-warning">
+        {{ message }}
+      </div>
+    {% endfor %}
     <div class="table-wrapper">
       <div class="table-title">
         <div class="row">
@@ -27,7 +37,7 @@
               Adresse mail
             </th>
             <th>
-              Rôle
+              Rôle(s)
             </th>
             <th>
               Dernière connexion
@@ -40,24 +50,28 @@
         <tbody>
           {% for user in users %}
             <tr>
-              <td>
-                <a href="#">
-                  <img src="{{
-                    user.avatar == 'default.png'
-                      ? asset('images/logos/' ~ user.avatar)
-                      : asset('uploads/avatar/' ~ user.avatar)
-                    }}"
-                    class="avatar"
-                    alt="Avatar" />
-                  {{ user.username }}
-                </a>
+              <td class="username">
+                <img src="{{
+                  user.avatar == 'default.png'
+                    ? asset('images/logos/' ~ user.avatar)
+                    : asset('uploads/avatar/' ~ user.avatar)
+                  }}"
+                  class="avatar"
+                  alt="Avatar" />
+                {{ user.username|capitalize }}
               </td>
               <td>
                 {{ user.email }}
               </td>
               <td>
                 {% for role in user.roles %}
-                  {{ role }}
+                  <span class="role {{ role }}">
+                    {% if role == 'ROLE_ADMIN' %}
+                      Administrateur
+                    {% elseif role == 'ROLE_USER' %}
+                      Utilisateur
+                    {% endif %}
+                  </span>
                 {% endfor %}
               </td>
               <td>
@@ -66,16 +80,31 @@
                   : '-' }}
               </td>
               <td>
-                <a href="#"
+                <a href="{{
+                  path(
+                    'admin_edit_user',
+                    {
+                      id: user.id
+                    }
+                  )
+                  }}"
                   class="settings"
-                  title="Paramètres"
+                  title="Modifier"
                   data-toggle="tooltip">
                   <i class="fas fa-cog"></i>
                 </a>
-                <a href="#"
+                <a href="{{
+                  path(
+                    'admin_delete_user',
+                    {
+                      id: user.id
+                    }
+                  )
+                  }}"
                   class="delete"
                   title="Supprimer"
-                  data-toggle="tooltip">
+                  data-toggle="tooltip"
+                  onclick="return confirm('Êtes-vous sûre de vouloir supprimer cette utilisateur ?')">
                   <i class="fas fa-times-circle"></i>
                 </a>
               </td>

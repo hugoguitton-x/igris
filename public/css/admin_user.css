@@ -88,7 +88,7 @@ table.table td:last-child i {
   margin: 0 5px;
 }
 
-table.table td a {
+table.table td.username {
   font-weight: bold;
   color: #566787;
   display: inline-block;
@@ -133,4 +133,24 @@ table.table .avatar {
 
 .text-danger {
   color: #ff5b5b;
+}
+
+.role {
+  display: inline-block;
+  padding: 0.25em 0.4em;
+  font-size: 85%;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.25rem;
+  color: #fff;
+}
+.ROLE_USER {
+  background-color: #007bff;
+}
+
+.ROLE_ADMIN {
+  background-color: #dc3545;
 }

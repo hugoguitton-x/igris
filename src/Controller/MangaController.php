@@ -53,6 +53,12 @@ class MangaController extends AbstractController
         $form = $this->createForm(MangaType::class, $manga);
         $form->handleRequest($request);
 
+        if($manga->getId() !== null){
+            $edit = true;
+        } else {
+            $edit = false;
+        }
+
         if ($form->isSubmitted() && $form->isValid() && filter_var($manga->getRss(), FILTER_VALIDATE_URL) !== false) {
             if(strpos($manga->getRss(),'mangadex.') !== false && strpos($manga->getRss(),'/rss/') !== false){
                 $imageFile = $form->get('image')->getData();
@@ -62,16 +68,21 @@ class MangaController extends AbstractController
                     $imageFile = '';
                 }
     
-                $this->manageRss($manga->getRss(), $manager, $imageFile);
-    
+                $manga =  $this->manageRss($manga->getRss(), $manager, $imageFile);
             }
 
+            if($edit){
+                $this->addFlash('success', $manga->getName().' modifié avec succès');
+            } else {
+                $this->addFlash('success', $manga->getName().' ajouté avec succès');
+            }
+            
             return $this->redirectToRoute('manga');
         }
 
         return $this->render('manga/form.html.twig', [
             'formManga' => $form->createView(),
-            'editMode' => $manga->getId() !== null
+            'editMode' => $edit
         ]);
     }
 
@@ -226,6 +237,8 @@ class MangaController extends AbstractController
                 $manager->persist($lastChapter);
             }
             $manager->flush();
+
+            return $manga;
         }
     }
 }

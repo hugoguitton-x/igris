@@ -4,8 +4,12 @@ namespace App\Controller;
 
 use App\Form\EditUserType;
 use App\Entity\Utilisateur;
+use App\Service\FileRemover;
+use App\Service\FileUploader;
+use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\UtilisateurRepository;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -27,9 +31,6 @@ class AdministrationController extends AbstractController
      */
     public function user(Request $request, UtilisateurRepository $repo, PaginatorInterface $paginator)
     {
-        $hasAccess = $this->isGranted('ROLE_ADMIN');
-
-$this->denyAccessUnlessGranted('ROLE_ADMIN');
         $query = $repo->getUtilisateurAdminInfosOrderByUsernameQuery();
 
         $users = $paginator->paginate(
@@ -45,24 +46,49 @@ $this->denyAccessUnlessGranted('ROLE_ADMIN');
     }
 
     /**
-     * @Route("/admin/user/edit/{id}", name="modifier_utilisateur")
+     * @Route("/admin/user/edit/{id}", name="admin_edit_user")
      */
-    public function editUser(Utilisateur $user, Request $request)
+    public function editUser(Utilisateur $user, Request $request, EntityManagerInterface $manager, FileUploader $fileUploader, FileRemover $fileRemover)
     {
         $form = $this->createForm(EditUserType::class, $user);
         $form->handleRequest($request);
-
+        
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($user);
-            $entityManager->flush();
+            $imageFile = $form->get('avatar')->getData();
+            if ($imageFile) {
+                $old_avatar = $user->getAvatar();
+                $imageFile = $fileUploader->uploadImage($imageFile, 'avatar');
+                $user->setAvatar($imageFile);
+                $fileRemover->removeImage(new Filesystem(), 'avatar', $old_avatar);
+            }
 
-            $this->addFlash('message', 'Utilisateur modifié avec succès');
-            return $this->redirectToRoute('admin_utilisateurs');
+            $manager->persist($user);
+            $manager->flush();
+
+            $this->addFlash('success', ucfirst($user->getUsername()).' modifié avec succès');
+            return $this->redirectToRoute('admin_user');
         }
         
-        return $this->render('admin/edituser.html.twig', [
-            'userForm' => $form->createView(),
+        return $this->render('administration/edituser.html.twig', [
+            'formUser' => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/admin/user/delete/{id}", name="admin_delete_user")
+     */
+    public function deleteUser(Utilisateur $user, Request $request, EntityManagerInterface $manager, FileRemover $fileRemover)
+    {
+        $avatar = $user->getAvatar();
+
+        if($avatar !== 'default.png'){
+            $fileRemover->removeImage(new Filesystem(), 'avatar', $avatar);
+        }
+
+        $manager->remove($user);
+        $manager->flush();
+
+        $this->addFlash('warning', ucfirst($user->getUsername()).' supprimé avec succès');
+        return $this->redirectToRoute('admin_user');
     }
 }

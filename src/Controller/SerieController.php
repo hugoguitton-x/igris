@@ -58,6 +58,12 @@ class SerieController extends AbstractController
         $form = $this->createForm(SerieType::class, $serie);
         $form->handleRequest($request);
 
+        if($serie->getId() !== null){
+            $edit = true;
+        } else {
+            $edit = false;
+        }
+
         if ($form->isSubmitted() && $form->isValid()) {
             $imageFile = $form->get('image')->getData();
             if ($imageFile) {
@@ -73,12 +79,18 @@ class SerieController extends AbstractController
             $manager->persist($serie);
             $manager->flush();
 
+            if($edit){
+                $this->addFlash('success', $serie->getNom().' modifié avec succès');
+            } else {
+                $this->addFlash('success', $serie->getNom().' ajouté avec succès');
+            }
+
             return $this->redirectToRoute('serie');
         }
 
         return $this->render('serie/form.html.twig', [
             'formSerie' => $form->createView(),
-            'editMode' => $serie->getId() !== null,
+            'editMode' => $edit,
         ]);
     }
 

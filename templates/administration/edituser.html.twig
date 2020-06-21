@@ -4,7 +4,24 @@
   <h1>
     Modifier un utilisateur
   </h1>
-  {{ form(userForm) }}
+
+  {{ form_start(formUser) }}
+  {{ form_row(formUser.username) }}
+  {{ form_row(formUser.email) }}
+  {{ form_row(formUser.roles) }}
+  {{ form_row(formUser.avatar) }}
+
+  {{ form_widget(formUser._token) }}
+
+  <button type="submit" class="btn btn-primary">Modifier l'utilisateur</button>
+  {{
+    form_end(
+      formUser,
+      {
+        render_rest: false
+      }
+    )
+  }}
 {% endblock %}
 
 {% block javascripts %}

@@ -60,7 +60,7 @@ div.tache {
 }
 
 .titre-manga {
-  background-color: var(--primary);
+  background-color: var(--dark);
   color: white;
   padding: 10px;
   z-index: 10;

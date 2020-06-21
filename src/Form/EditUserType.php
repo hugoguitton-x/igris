@@ -5,7 +5,9 @@ namespace App\Form;
 use App\Entity\Utilisateur;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class EditUserType extends AbstractType
@@ -21,10 +23,26 @@ class EditUserType extends AbstractType
                     'Administrateur' => 'ROLE_ADMIN'
                 ],
                 'expanded' => true,
-                'multiple' => false,
+                'multiple' => true,
                 'label' => 'Rôles' 
             ])
-            ->add('avatar')
+            ->add('avatar', FileType::class, [
+                'label' => 'Image',
+                'mapped' => false,
+                'required' => false,
+                'constraints' => [
+                    new Image([
+                        'maxSize' => '1024k',
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/png',
+                        ],
+                        'mimeTypesMessage' => 'Veuillez télécharger une image valide (max 1mo)',
+                        'allowLandscape' => false,
+                        'allowPortrait' => false
+                    ])
+                ],
+            ])
         ;
     }
 

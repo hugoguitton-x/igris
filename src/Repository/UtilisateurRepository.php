@@ -25,7 +25,7 @@ class UtilisateurRepository extends ServiceEntityRepository
     public function getUtilisateurAdminInfosOrderByUsernameQuery()
     {
         return $this->createQueryBuilder('u')
-            ->select('u.username, u.email, u.lastLogin, u.roles, u.avatar')
+            ->select('u.id, u.username, u.email, u.lastLogin, u.roles, u.avatar')
             ->orderBy('u.username', 'ASC')
             ->getQuery();
     }
