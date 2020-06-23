@@ -34,7 +34,7 @@ WORKDIR /usr/src/app
 
 COPY . /usr/src/app
 
-RUN chown -R 777 /usr/src/app
+RUN chown 777 -R /usr/src/app
 
 RUN PATH=$PATH:/usr/src/apps/vendor/bin:bin
 
