@@ -1,0 +1,1 @@
+5 * * * * php /usr/src/app/bin/console app:refresh-manga 2>&1 >> /var/log/schedule.log

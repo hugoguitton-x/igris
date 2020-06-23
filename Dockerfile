@@ -6,7 +6,7 @@ RUN pecl install apcu
 
 RUN apt-get update && \
 apt-get install -y \
-libzip-dev libpq-dev libicu-dev
+libzip-dev libpq-dev libicu-dev cron
 
 RUN docker-php-ext-install zip
 RUN docker-php-ext-enable apcu
@@ -19,9 +19,24 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
     && php composer-setup.php --filename=composer \
     && php -r "unlink('composer-setup.php');" \
     && mv composer /usr/local/bin/composer
+    
+ENV TZ=Europe/Paris
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+# Create the log file
+RUN touch /var/log/schedule.log
+RUN chmod 0777 /var/log/schedule.log
+
+# Add crontab file in the cron directory
+ADD scheduler /etc/cron.d/scheduler
+
 
 WORKDIR /usr/src/app
 
 COPY . /usr/src/app
 
 RUN PATH=$PATH:/usr/src/apps/vendor/bin:bin
+
+# Run the cron
+RUN crontab /etc/cron.d/scheduler
+#CMD ["cron", "-f"]
