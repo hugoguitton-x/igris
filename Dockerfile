@@ -19,6 +19,8 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
     && php composer-setup.php --filename=composer \
     && php -r "unlink('composer-setup.php');" \
     && mv composer /usr/local/bin/composer
+    
+ENV TZ=Europe/Paris
 
 WORKDIR /usr/src/app
 
