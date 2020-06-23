@@ -30,10 +30,11 @@ RUN chmod 0777 /var/log/schedule.log
 # Add crontab file in the cron directory
 ADD scheduler /etc/cron.d/scheduler
 
-
 WORKDIR /usr/src/app
 
 COPY . /usr/src/app
+
+RUN chown -R 777 /usr/src/app
 
 RUN PATH=$PATH:/usr/src/apps/vendor/bin:bin
 
