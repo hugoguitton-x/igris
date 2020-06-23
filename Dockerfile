@@ -6,7 +6,7 @@ RUN pecl install apcu
 
 RUN apt-get update && \
 apt-get install -y \
-libzip-dev libpq-dev libicu-dev
+libzip-dev libpq-dev libicu-dev cron
 
 RUN docker-php-ext-install zip
 RUN docker-php-ext-enable apcu
