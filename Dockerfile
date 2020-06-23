@@ -39,4 +39,4 @@ RUN PATH=$PATH:/usr/src/apps/vendor/bin:bin
 
 # Run the cron
 RUN crontab /etc/cron.d/scheduler
-CMD ["cron", "-f"]
+#CMD ["cron", "-f"]
