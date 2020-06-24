@@ -3,6 +3,7 @@
 {% form_theme formSerie 'bootstrap_4_layout.html.twig' %}
 
 {% block container %}
+  {{ parent() }}
   <h1 class="mt-4">
     {% if editMode %}
       Modification de la série
