@@ -36,8 +36,6 @@ COPY . /usr/src/app
 
 RUN chown 777 -R /usr/src/app
 
-RUN chown -R www-data /usr/src/app/public
-
 RUN PATH=$PATH:/usr/src/apps/vendor/bin:bin
 
 # Run the cron
