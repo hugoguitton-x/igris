@@ -4,8 +4,8 @@
 echo "Docker container has been started"
 
 # Setup a cron schedule
-echo "5 * * * * /usr/local/bin/php /usr/src/app/bin/console app:refresh-manga >> /var/log/cron_refresh.log 2>&1
-* * * * * echo \"Hello world\" >> /var/log/cron_hello.log 2>&1
+echo "* * * * * echo \"Hello world\" >> /var/log/cron_hello.log 2>&1
+* * * * * /usr/local/bin/php /usr/src/app/bin/console app:refresh-manga >> /var/log/cron_refresh.log 2>&1
 * * * * * /usr/local/bin/php -v >> /var/log/cron_php.log 2>&1
 # This extra line makes it a valid cron" > scheduler.txt
 
