@@ -6,6 +6,9 @@ echo "Docker container has been started"
 echo "Install dependencies"
 composer install
 
+echo "Install database"
+php /usr/src/app/bin/console doctrine:migrations:migrate -n
+
 echo "Setup cron jobs"
 # Setup a cron schedule
 echo "
