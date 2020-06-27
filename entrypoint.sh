@@ -12,5 +12,10 @@ echo "
 * * * * * /usr/local/bin/php /usr/src/app/bin/console app:refresh-manga >> /var/log/cron_refresh.log 2>&1
 # This extra line makes it a valid cron" > scheduler.txt
 
+echo "Add cron jobs"
 crontab scheduler.txt
 cron -f
+
+# Important don't delete
+echo "Running fpm to handle connections from nginx"
+php-fpm

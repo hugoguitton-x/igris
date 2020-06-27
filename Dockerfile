@@ -23,7 +23,6 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
 ENV TZ=Europe/Paris
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-
 WORKDIR /usr/src/app
 
 # UID dépendant de la machine (echo $UID)
@@ -35,4 +34,4 @@ RUN PATH=$PATH:/usr/src/apps/vendor/bin:bin
 
 RUN chmod +x /usr/src/app/entrypoint.sh
 
-ENTRYPOINT /usr/src/app/entrypoint.sh --nodaemonize
+ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
