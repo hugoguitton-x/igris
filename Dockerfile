@@ -33,5 +33,6 @@ RUN usermod -G staff www-data
 RUN PATH=$PATH:/usr/src/apps/vendor/bin:bin
 
 RUN chmod +x /usr/src/app/entrypoint.sh
+RUN chmod a+x /usr/src/app/docker-entrypoint.d/*
 
 ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
