@@ -1,7 +1,5 @@
 FROM php:7.4.2-fpm
 
-RUN usermod -u 1000 www-data
-
 RUN docker-php-ext-install pdo_mysql
 
 RUN pecl install apcu
