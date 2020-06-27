@@ -64,6 +64,7 @@ class SecurityController extends AbstractController
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
+        dump(posix_getpwuid(posix_geteuid())['name']);
         dump(get_current_user()).die;
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
