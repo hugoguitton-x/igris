@@ -24,6 +24,6 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
 WORKDIR /usr/src/app
 
 # UID dépeandant de la machine (echo $UID)
-COPY --chown=1001:1001 . /usr/src/app
+COPY --chown=0:0 . /usr/src/app
 
 RUN PATH=$PATH:/usr/src/apps/vendor/bin:bin
