@@ -32,9 +32,9 @@ ADD scheduler /etc/cron.d/scheduler
 WORKDIR /usr/src/app
 
 # UID dépeandant de la machine (echo $UID)
-COPY --chown=www-data:www-data . /usr/src/app
-
-RUN chown www-data -R /usr/src/app
+COPY --chown=1001:1001 . /usr/src/app
+RUN usermod -u 1001 www-data
+RUN usermod -G 1001 www-data
 
 RUN PATH=$PATH:/usr/src/apps/vendor/bin:bin
 
