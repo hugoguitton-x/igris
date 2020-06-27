@@ -152,14 +152,13 @@ class MangaController extends AbstractController
         foreach ($result->getFeed() as $item) {
 
             if (empty($mangaArray['name'])) {
-              
-                if(strpos(strtolower(explode('-', $item->getTitle())[1]), 'volume') === false || strpos(strtolower(explode('-', $item->getTitle())[1]), 'chapter') === false){
-                    $mangaArray['name'] = substr($item->getTitle(), 0, strpos($item->getTitle(), 'Chapter') - 3);
+                if(strpos(strtolower(explode('-', $item->getTitle())[1]), 'volume') === false || strpos(strtolower(explode('-', $item->getTitle())[1]), 'chapter') === false){                 
+                    $mangaArray['name'] = substr($item->getTitle(), 0, strpos($item->getTitle(), 'Chapter') - 2);
                 } else {
                     $mangaArray['name']  = trim(explode('-', $item->getTitle())[0]);
                 }
             }
-
+            
             $description = $item->getDescription();
 
             $language = substr(
