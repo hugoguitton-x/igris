@@ -34,6 +34,8 @@ WORKDIR /usr/src/app
 # UID dépeandant de la machine (echo $UID)
 COPY --chown=www-data:www-data . /usr/src/app
 
+RUN chown www-data -R /usr/src/app
+
 RUN PATH=$PATH:/usr/src/apps/vendor/bin:bin
 
 # Run the cron
