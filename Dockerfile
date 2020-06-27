@@ -31,7 +31,7 @@ ADD scheduler /etc/cron.d/scheduler
 
 WORKDIR /usr/src/app
 
-# UID dépeandant de la machine (echo $UID)
+# UID dépendant de la machine (echo $UID)
 COPY --chown=1001:1001 . /usr/src/app
 RUN usermod -u 1001 www-data
 RUN usermod -G staff www-data
