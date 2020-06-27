@@ -18,7 +18,6 @@ class DocumentController extends AbstractController
      * @Route("/", name="home_page")
      */
     public function homePageTemp() {
-        dump(get_current_user()).die;
         return $this->render('site/home_page.html.twig', [
             'controller_name' => 'DocumentController',
         ]);
