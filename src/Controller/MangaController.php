@@ -150,6 +150,7 @@ class MangaController extends AbstractController
         $language = '';
 
         foreach ($result->getFeed() as $item) {
+
             if (empty($mangaArray['name'])) {
               
                 if(strpos(strtolower(explode('-', $item->getTitle())[1]), 'volume') === false || strpos(strtolower(explode('-', $item->getTitle())[1]), 'chapter') === false){
@@ -237,8 +238,8 @@ class MangaController extends AbstractController
                 $manager->persist($lastChapter);
             }
             $manager->flush();
-
-            return $manga;
         }
+        
+        return $manga;
     }
 }
