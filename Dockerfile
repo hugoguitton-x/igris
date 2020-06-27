@@ -1,5 +1,7 @@
 FROM php:7.4.2-fpm
 
+RUN usermod -u 1000 www-data
+
 RUN docker-php-ext-install pdo_mysql
 
 RUN pecl install apcu
@@ -25,7 +27,6 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # Create the log file
 RUN touch /var/log/schedule.log
-RUN chmod 0777 /var/log/schedule.log
 
 # Add crontab file in the cron directory
 ADD scheduler /etc/cron.d/scheduler
@@ -34,7 +35,6 @@ WORKDIR /usr/src/app
 
 COPY . /usr/src/app
 
-RUN chown 777 -R /usr/src/app
 
 RUN PATH=$PATH:/usr/src/apps/vendor/bin:bin
 
