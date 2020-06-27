@@ -35,4 +35,4 @@ RUN PATH=$PATH:/usr/src/apps/vendor/bin:bin
 
 RUN chmod +x /usr/src/app/entrypoint.sh
 
-CMD /usr/src/app/entrypoint.sh
+ENTRYPOINT /usr/src/app/entrypoint.sh --nodaemonize
