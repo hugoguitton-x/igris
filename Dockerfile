@@ -23,11 +23,6 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
 ENV TZ=Europe/Paris
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-# Create the log file
-RUN touch /var/log/schedule.log
-
-# Add crontab file in the cron directory
-ADD scheduler /etc/cron.d/scheduler
 
 WORKDIR /usr/src/app
 
@@ -38,6 +33,6 @@ RUN usermod -G staff www-data
 
 RUN PATH=$PATH:/usr/src/apps/vendor/bin:bin
 
-# Run the cron
-RUN crontab /etc/cron.d/scheduler
-#CMD ["cron", "-f"]
+RUN chmod +x /usr/src/app/entrypoint.sh
+
+ENTRYPOINT /usr/src/app/entrypoint.sh
