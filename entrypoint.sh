@@ -1,11 +1,11 @@
 #!/bin/bash
 
+# Start the run once job.
+echo "Docker container has been started"
+
 # Important don't delete
 echo "Running fpm to handle connections from nginx"
 php-fpm
-
-# Start the run once job.
-echo "Docker container has been started"
 
 echo "Install dependencies"
 composer install
