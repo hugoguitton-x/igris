@@ -35,7 +35,6 @@ WORKDIR /usr/src/app
 
 COPY . /usr/src/app
 
-
 RUN PATH=$PATH:/usr/src/apps/vendor/bin:bin
 
 # Run the cron
