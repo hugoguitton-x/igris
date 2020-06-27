@@ -1,5 +1,0 @@
-#!/bin/bash
-
-# Important don't delete
-echo "Running fpm to handle connections from nginx"
-php-fpm

@@ -1,7 +1,0 @@
-#!/bin/bash
-
-echo "Install dependencies"
-composer install
-
-echo "Install database"
-php /usr/src/app/bin/console doctrine:migrations:migrate -n
