@@ -3,10 +3,6 @@
 # Start the run once job.
 echo "Docker container has been started"
 
-# Important don't delete
-echo "Running fpm to handle connections from nginx"
-php-fpm
-
 echo "Install dependencies"
 composer install
 
@@ -21,4 +17,8 @@ echo "
 
 echo "Add cron jobs"
 crontab scheduler.txt
-cron -f
+cron -f &
+
+# Important don't delete
+echo "Running fpm to handle connections from nginx"
+php-fpm &
