@@ -4,7 +4,7 @@
 echo "Docker container has been started"
 
 echo "Install dependencies"
-#composer install
+composer install
 
 echo "Setup cron jobs"
 # Setup a cron schedule
