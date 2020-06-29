@@ -188,7 +188,7 @@ class MangaController extends AbstractController
 
                 $mangaArray['by_language'][$language][
                     'date'
-                ] = $item->getLastModified()->format('Y-M-d');
+                ] = $item->getLastModified()->format('Y-M-d H:i:s');
             }
         }
 

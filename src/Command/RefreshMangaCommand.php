@@ -114,7 +114,7 @@ class RefreshMangaCommand extends Command
 
                 $mangaArray['by_language'][$language][
                     'date'
-                ] = $item->getLastModified()->format('Y-M-d');
+                ] = $item->getLastModified()->format('Y-M-d H:i:s');
             }
         }
 
