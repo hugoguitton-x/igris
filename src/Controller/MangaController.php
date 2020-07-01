@@ -140,7 +140,7 @@ class MangaController extends AbstractController
         $chapters = $data->chapter;
  
         $mangaDB = $mangaRepo->findOneBy(array(
-            'name' => $manga->title
+            'mangaId' => $mangaId,
         ));
     
         $urlImage = $mangadexURL.strtok($manga->cover_url, "?");
