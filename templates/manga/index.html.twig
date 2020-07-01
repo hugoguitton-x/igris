@@ -2,35 +2,35 @@
 
 {% block container %}
   {% include 'manga/navigation.html.twig' %}
-
+  
   <div class="row">
     {% for chapter in chapters %}
       <div class="col-12 col-lg-6 col-xl-3 pb-2 parent">
         <a class="link-chapter wrapper"
-          href="{{ chapter.manga.url }}"
+          href="{{ mangadex_url ~ '/chapter/' ~ chapter.chapter_id }}"
           target="_blank">
           <div class="titre-manga {{
-            chapter.date < ('now'|date_modify('-2 days'))
+            chapter.date< ('now'|date_modify('-2 days')|date('Y-m-d H:i:s'))
               ? ''
               : 'new'
             }}">
-            {{ chapter.manga.name }}
+            {{ chapter.name }}
             <img class="langue-manga"
               src="{{
               asset(
-                'images/flags/' ~ chapter.language.name ~ '.png'
+                'images/flags/' ~ chapter.libelle ~ '.png'
               )
               }}" />
           </div>
           <div class="corps-manga">
             <img class="image-manga"
               src="{{
-              chapter.manga.image
-                ? asset('uploads/mangas/' ~ chapter.manga.image)
+              chapter.image
+                ? asset('uploads/mangas/' ~ chapter.image)
                 : 'https://via.placeholder.com/1500'
               }}" />
             <div class="caption-manga {{
-              chapter.date < ('now'|date_modify('-2 days'))
+              chapter.date < ('now'|date_modify('-2 days')|date('Y-m-d H:i:s'))
                 ? ''
                 : 'new'
               }}">

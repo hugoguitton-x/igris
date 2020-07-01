@@ -3,3 +3,5 @@ twig:
     form_themes:  ['bootstrap_4_layout.html.twig']
     date:
         timezone: Europe/Paris
+    globals:
+        mangadex_url: '%mangadex_url%'

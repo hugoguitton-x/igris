@@ -2,14 +2,15 @@
 
 namespace App\Entity;
 
+use App\Repository\LanguageCodeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\MangaRepository")
+ * @ORM\Entity(repositoryClass=LanguageCodeRepository::class)
  */
-class Manga
+class LanguageCode
 {
     /**
      * @ORM\Id()
@@ -21,26 +22,20 @@ class Manga
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $name;
+    private $langCode;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $image;
+    private $libelle;
 
     /**
-     * @ORM\OneToMany(targetEntity=Chapter::class, mappedBy="manga", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Chapter::class, mappedBy="langCode", orphanRemoval=true)
      */
     private $chapters;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $mangaId;
-
     public function __construct()
     {
-        $this->lastChapter = new ArrayCollection();
         $this->chapters = new ArrayCollection();
     }
 
@@ -49,26 +44,26 @@ class Manga
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getLangCode(): ?string
     {
-        return $this->name;
+        return $this->langCode;
     }
 
-    public function setName(string $name): self
+    public function setLangCode(string $langCode): self
     {
-        $this->name = $name;
+        $this->langCode = $langCode;
 
         return $this;
     }
 
-    public function getImage(): ?string
+    public function getLibelle(): ?string
     {
-        return $this->image;
+        return $this->libelle;
     }
 
-    public function setImage(string $image): self
+    public function setLibelle(string $libelle): self
     {
-        $this->image = $image;
+        $this->libelle = $libelle;
 
         return $this;
     }
@@ -85,7 +80,7 @@ class Manga
     {
         if (!$this->chapters->contains($chapter)) {
             $this->chapters[] = $chapter;
-            $chapter->setManga($this);
+            $chapter->setLangCode($this);
         }
 
         return $this;
@@ -96,22 +91,10 @@ class Manga
         if ($this->chapters->contains($chapter)) {
             $this->chapters->removeElement($chapter);
             // set the owning side to null (unless already changed)
-            if ($chapter->getManga() === $this) {
-                $chapter->setManga(null);
+            if ($chapter->getLangCode() === $this) {
+                $chapter->setLangCode(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getMangaId(): ?int
-    {
-        return $this->mangaId;
-    }
-
-    public function setMangaId(int $mangaId): self
-    {
-        $this->mangaId = $mangaId;
 
         return $this;
     }

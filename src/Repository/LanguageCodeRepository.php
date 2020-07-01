@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\Language;
+use App\Entity\LanguageCode;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Language|null find($id, $lockMode = null, $lockVersion = null)
- * @method Language|null findOneBy(array $criteria, array $orderBy = null)
- * @method Language[]    findAll()
- * @method Language[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method LanguageCode|null find($id, $lockMode = null, $lockVersion = null)
+ * @method LanguageCode|null findOneBy(array $criteria, array $orderBy = null)
+ * @method LanguageCode[]    findAll()
+ * @method LanguageCode[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class LanguageRepository extends ServiceEntityRepository
+class LanguageCodeRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Language::class);
+        parent::__construct($registry, LanguageCode::class);
     }
 
     // /**
-    //  * @return Language[] Returns an array of Language objects
+    //  * @return LanguageCode[] Returns an array of LanguageCode objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class LanguageRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Language
+    public function findOneBySomeField($value): ?LanguageCode
     {
         return $this->createQueryBuilder('l')
             ->andWhere('l.exampleField = :val')

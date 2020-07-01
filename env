@@ -1,3 +1,4 @@
 APP_ENV=<mode>
 APP_SECRET=<secret>
 DATABASE_URL=postgresql://<user>:<pwd>@<hostname>:<port>/<db_name>
+MANGADEX_URL=<url>

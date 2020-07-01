@@ -14,25 +14,8 @@ class MangaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
-            ->add('image', FileType::class, [
-                'label' => 'Image',
-                'mapped' => false,
-                'required' => false,
-                'constraints' => [
-                    new File([
-                        'maxSize' => '1024k',
-                        'mimeTypes' => [
-                            'image/jpeg',
-                            'image/png',
-                        ],
-                        'mimeTypesMessage' => 'Veuillez télécharger une image valide (max 1mo)',
-                    ])
-                ],
-            ])
-            ->add('url')
-            ->add('rss')
-        ;
+            ->add('manga_id');
+
     }
 
     public function configureOptions(OptionsResolver $resolver)
