@@ -160,10 +160,10 @@ class MangaController extends AbstractController
             $manager->persist($mangaDB);
             $manager->flush();
         } else {
-            if(!file_exists($this->params->get('kernel.project_dir') . "/public/uploads/mangas/".$info['basename'])){
+            if(!file_exists($this->getParameter('kernel.project_dir') . "/public/uploads/mangas/".$info['basename'])){
 
                 $imageFile = file_get_contents($urlImage);
-                $file = $this->params->get('kernel.project_dir') . "/public/uploads/mangas/".$info['basename'];
+                $file = $this->getParameter('kernel.project_dir') . "/public/uploads/mangas/".$info['basename'];
                 file_put_contents($file, $imageFile);
 
                 $mangaDB->setImage($image);
