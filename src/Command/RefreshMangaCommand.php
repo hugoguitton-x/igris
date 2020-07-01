@@ -101,7 +101,14 @@ class RefreshMangaCommand extends Command
             $manager->persist($mangaDB);
             $manager->flush();
         } else {
-            if($mangaDB->getImage() != $image){
+            if(!file_exists($this->params->get('kernel.project_dir') . "/public/uploads/mangas/".$info['basename'])){
+
+                $imageFile = file_get_contents($urlImage);
+                $file = $this->params->get('kernel.project_dir') . "/public/uploads/mangas/".$info['basename'];
+                file_put_contents($file, $imageFile);
+
+                $mangaDB->setImage($image);
+            } else if($mangaDB->getImage() != $image){
 
                 $imageFile = file_get_contents($urlImage);
                 $file = $this->params->get('kernel.project_dir') . "/public/uploads/mangas/".$info['basename'];
