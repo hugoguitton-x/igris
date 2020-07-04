@@ -67,11 +67,6 @@ class Utilisateur implements UserInterface
     private $password_confirm;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Document", mappedBy="auteur")
-     */
-    private $documents;
-
-    /**
      * @ORM\OneToMany(targetEntity=Avis::class, mappedBy="utilisateur", orphanRemoval=true)
      */
     private $avis;
@@ -187,37 +182,6 @@ class Utilisateur implements UserInterface
 
     public function getSalt()
     {
-    }
-
-    /**
-     * @return Collection|Document[]
-     */
-    public function getDocuments(): Collection
-    {
-        return $this->documents;
-    }
-
-    public function addDocument(Document $document): self
-    {
-        if (!$this->documents->contains($document)) {
-            $this->documents[] = $document;
-            $document->setAuteur($this);
-        }
-
-        return $this;
-    }
-
-    public function removeDocument(Document $document): self
-    {
-        if ($this->documents->contains($document)) {
-            $this->documents->removeElement($document);
-            // set the owning side to null (unless already changed)
-            if ($document->getAuteur() === $this) {
-                $document->setAuteur(null);
-            }
-        }
-
-        return $this;
     }
 
     public function getFirstnameLastname(): ?string
