@@ -130,7 +130,7 @@ class RefreshMangaCommand extends Command
         }
 
         foreach($chapters as $chapter_id => $values){
-            if(!$values->chapter) {
+            if($values->chapter) {
                 $langCode = $values->lang_code;
 
                 $langCodeDB = $langCodeRepo->findOneBy(array(
