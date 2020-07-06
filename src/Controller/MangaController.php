@@ -188,38 +188,40 @@ class MangaController extends AbstractController
         }
 
         foreach($chapters as $chapter_id => $values){
-            $langCode = $values->lang_code;
+            if(!$values->chapter) {
+                $langCode = $values->lang_code;
 
-            $langCodeDB = $langCodeRepo->findOneBy(array(
-                'langCode' => $langCode
-            ));
-
-            if($langCodeDB){
-                $number = $values->chapter;
-                $timestamp = $values->timestamp;
-    
-                $chapterDB = $chapterRepo->findOneBy(array(
-                    'langCode' => $langCodeDB,
-                    'manga' => $mangaDB,
-                    'number' => $number
+                $langCodeDB = $langCodeRepo->findOneBy(array(
+                    'langCode' => $langCode
                 ));
-
-                if($chapterDB){
-                    if($chapterDB->getDate()->getTimestamp() < $timestamp){
-                        $chapterDB->setChapterId($chapter_id);
-                        $chapterDB->setDate(new \DateTime(date('Y-m-d H:i:s',$timestamp)));
-                        $manager->persist($chapterDB);
+    
+                if($langCodeDB){
+                    $number = $values->chapter;
+                    $timestamp = $values->timestamp;
+    
+                    $chapterDB = $chapterRepo->findOneBy(array(
+                        'langCode' => $langCodeDB,
+                        'manga' => $mangaDB,
+                        'number' => $number
+                    ));
+    
+                    if($chapterDB){
+                        if($chapterDB->getDate()->getTimestamp() < $timestamp){
+                            $chapterDB->setChapterId($chapter_id);
+                            $chapterDB->setDate(new \DateTime(date('Y-m-d H:i:s',$timestamp)));
+                            $manager->persist($chapterDB);
+                            $manager->flush();
+                        }
+                    } else {
+                        $chapter = new Chapter();
+                        $chapter->setLangCode($langCodeDB);
+                        $chapter->setManga($mangaDB);
+                        $chapter->setChapterId($chapter_id);
+                        $chapter->setNumber($number);
+                        $chapter->setDate(new \DateTime(date('Y-m-d H:i:s',$timestamp)));
+                        $manager->persist($chapter);
                         $manager->flush();
                     }
-                } else {
-                    $chapter = new Chapter();
-                    $chapter->setLangCode($langCodeDB);
-                    $chapter->setManga($mangaDB);
-                    $chapter->setChapterId($chapter_id);
-                    $chapter->setNumber($number);
-                    $chapter->setDate(new \DateTime(date('Y-m-d H:i:s',$timestamp)));
-                    $manager->persist($chapter);
-                    $manager->flush();
                 }
             }
         }
