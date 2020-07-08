@@ -125,7 +125,7 @@ class MangaController extends AbstractController
         $langCodeRepo = $manager->getRepository(LanguageCode::class);
         $chapterRepo = $manager->getRepository(Chapter::class);
 
-        $mangadexURL =  $_SERVER['MANGADEX_URL'];
+        $mangadexURL = $this->getParameter('mangadex_url');
 
         $client = HttpClient::create(['http_version' => '2.0']);
         $response = $client->request('GET', $mangadexURL.'/api/manga/'.$mangaId);

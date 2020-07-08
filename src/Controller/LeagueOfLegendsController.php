@@ -73,7 +73,7 @@ class LeagueOfLegendsController extends AbstractController
         $client = HttpClient::create(['http_version' => '2.0']);    
         $response = $client->request('GET', 'https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/'.$summonerName, [
             'query' => [
-                'api_key' => $_SERVER['RIOT_API_KEY'],
+                'api_key' => $this->getParameter('riot_api_key'),
             ],
         ]);
         return json_decode($response->getContent());
@@ -83,7 +83,7 @@ class LeagueOfLegendsController extends AbstractController
         $client = HttpClient::create(['http_version' => '2.0']);    
         $response = $client->request('GET', 'https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/'.$summonerName, [
             'query' => [
-                'api_key' => $_SERVER['RIOT_API_KEY'],
+                'api_key' => $this->getParameter('riot_api_key'),
             ],
         ]);
 
@@ -95,7 +95,7 @@ class LeagueOfLegendsController extends AbstractController
         $client = HttpClient::create(['http_version' => '2.0']);    
         $response = $client->request('GET', 'https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/'.$summonerName, [
             'query' => [
-                'api_key' => $_SERVER['RIOT_API_KEY'],
+                'api_key' => $this->getParameter('riot_api_key'),
             ],
         ]);
 
@@ -107,7 +107,7 @@ class LeagueOfLegendsController extends AbstractController
         $client = HttpClient::create(['http_version' => '2.0']);    
         $response = $client->request('GET', 'https://euw1.api.riotgames.com/lol/match/v4/matchlists/by-account/'.$encryptedAccountId, [
             'query' => [
-                'api_key' => $_SERVER['RIOT_API_KEY'],
+                'api_key' => $this->getParameter('riot_api_key'),
             ],
         ]);
 
@@ -119,7 +119,7 @@ class LeagueOfLegendsController extends AbstractController
         $client = HttpClient::create(['http_version' => '2.0']);    
         $response = $client->request('GET', 'https://euw1.api.riotgames.com/lol/match/v4/matches/'.$matchId, [
             'query' => [
-                'api_key' => $_SERVER['RIOT_API_KEY'],
+                'api_key' => $this->getParameter('riot_api_key'),
             ],
         ]);
 
@@ -175,7 +175,7 @@ class LeagueOfLegendsController extends AbstractController
         $client = HttpClient::create(['http_version' => '2.0']);    
         $response = $client->request('GET', 'https://euw1.api.riotgames.com/lol/league/v4/entries/by-summoner/'.$encryptedSummonerId, [
             'query' => [
-                'api_key' => $_SERVER['RIOT_API_KEY'],
+                'api_key' => $this->getParameter('riot_api_key'),
             ],
         ]);
 
