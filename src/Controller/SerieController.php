@@ -14,6 +14,7 @@ use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class SerieController extends AbstractController
 {
@@ -101,59 +102,24 @@ class SerieController extends AbstractController
         AvisRepository $repo,
         Serie $serie,
         Request $request,
-        EntityManagerInterface $manager,
-        Avis $avis = null
+        EntityManagerInterface $manager
     ) {
-        if (!$avis) {
-            $avis = new Avis();
-            $avis->setCreatedAt(new \DateTime());
-            $avis->setUtilisateur($this->getUser());
-            $avis->setSerie($serie);
-        }
-
         $avisList = $repo->findBy(
             ['serie' => $serie],
             ['createdAt' => 'DESC'],
             5
         );
 
-        $form = $this->createForm(AvisType::class, $avis);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $avis->setCommentaire(nl2br($avis->getCommentaire()));
-            $manager->persist($avis);
-
-            $listAvis = $serie->getAvis();
-
-            $total = $avis->getNote();
-            foreach ($listAvis as $avis) {
-                $total += $avis->getNote();
-            }
-
-            $serie->setNoteMoyenne(round($total / (sizeof($listAvis) + 1), 2));
-            $manager->persist($serie);
-
-            $manager->flush();
-
-            return $this->redirectToRoute('serie');
-        }
-
         $checkAvisUser = $repo->findBy(
             ['utilisateur' => $this->getUser(), 'serie' => $serie],
             [],
             1
         );
-        if (!$checkAvisUser) {
-            $formAvis = $form->createView();
-        } else {
-            $formAvis = null;
-        }
 
         return $this->render('serie/show.html.twig', [
             'controller_name' => 'SerieController',
             'serie' => $serie,
-            'formAvis' => $formAvis,
+            'checkAvisUser' => $checkAvisUser,
             'avisList' => $avisList,
         ]);
     }
@@ -179,6 +145,66 @@ class SerieController extends AbstractController
         return $this->render('serie/avis.html.twig', [
             'avisList' => $avisList,
             'serie' => $serie,
+        ]);
+    }
+
+    
+     /**
+     * @Route("/serie/{id}/avis/new", name="avis_new")
+     */
+    public function formAvis(
+        AvisRepository $repo,
+        Request $request,
+        EntityManagerInterface $manager,
+        Serie $serie = null
+    ) {
+
+        if ($serie) {
+            $avis = new Avis();
+            $avis->setCreatedAt(new \DateTime());
+            $avis->setUtilisateur($this->getUser());
+            $avis->setSerie($serie);
+        } else {
+            throw new NotFoundHttpException('Serie with id : ' .$request->get('id'). ' doesn\'t exist');
+        }
+
+        $checkAvisUser = $repo->findBy(
+            ['utilisateur' => $this->getUser(), 'serie' => $serie],
+            [],
+            1
+        );
+
+        if($checkAvisUser) {
+            $this->addFlash('warning', 'Vous avez déjà écrit un commentaire pour cette série');
+            return $this->redirectToRoute('serie_show', ['id' => $serie->getId()]);
+        }
+ 
+        $form = $this->createForm(AvisType::class, $avis);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $avis->setCommentaire(nl2br($avis->getCommentaire()));
+            $manager->persist($avis);
+
+            $listAvis = $serie->getAvis();
+
+            $total = $avis->getNote();
+            foreach ($listAvis as $avis) {
+                $total += $avis->getNote();
+            }
+
+            $serie->setNoteMoyenne(round($total / (sizeof($listAvis) + 1), 2));
+            $manager->persist($serie);
+
+            $manager->flush();
+
+            return $this->redirectToRoute('serie_show', ['id' => $serie->getId()]);
+        }
+
+        return $this->render('serie/form_avis.html.twig', [
+            'controller_name' => 'SerieController',
+            'serie' => $serie,
+            'formAvis' => $form->createView()
         ]);
     }
 }

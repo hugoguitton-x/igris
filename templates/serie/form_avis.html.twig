@@ -1,0 +1,42 @@
+{% extends 'page.html.twig' %}
+
+{% form_theme formAvis 'bootstrap_4_layout.html.twig' %}
+
+{% block container %}
+  {{ parent() }}
+  <h1 class="mt-4">
+      Ajouter mon avis
+  </h1>
+
+    {{ form_start(formAvis) }}
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-10">
+          {{ form_label(formAvis.commentaire) }}
+          {{ form_widget(formAvis.commentaire) }}
+        </div>
+        <div class="col-sm-2">
+          {{ form_label(formAvis.note) }}
+          {{ form_widget(formAvis.note) }}
+          {{ form_widget(formAvis._token) }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm">
+          <button type="submit" class="btn btn-success avis-bouton">
+            Ajouter l'avis
+          </button>
+        </div>
+      </div>
+    </div>
+
+    {{
+      form_end(
+        formAvis,
+        {
+          render_rest: false
+        }
+      )
+    }}
+
+{% endblock %}

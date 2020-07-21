@@ -1,0 +1,16 @@
+.container_text_serie{
+    position: relative;
+}
+
+.img_serie {
+  float: left;
+  width: 200px;
+  height: auto;
+  margin-right: 10px;
+}
+
+.link_avis_form {
+  right: 0;
+  bottom: 0;
+  position: absolute;
+}
