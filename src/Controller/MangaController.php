@@ -62,7 +62,6 @@ class MangaController extends AbstractController
 
             $manga =  $this->loadMangaFromMangadexApi($form->get('manga_id')->getData(), $manager);
 
-
             if($edit){
                 $this->addFlash('success', $manga->getName().' modifié avec succès');
             } else {

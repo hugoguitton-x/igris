@@ -1,5 +1,11 @@
 {% extends 'page.html.twig' %}
 
+{% block stylesheets %}
+  {{ parent() }}
+  <link rel="stylesheet" href="/css/league.css" />
+{% endblock %}
+
+
 {% block body %}
     {% for game in historic %}
     <div class="table-wrapper">
@@ -36,7 +42,6 @@
     </div>
     {% endfor %}
 
-
     {% for queueType, keys in ranks %}
       <div class="row">
         <img width="80" src="{{ asset('images/league/ranks/emblem_' ~ keys.tier ~ '.png') }}" alt="image" style="vertical-align:middle">
@@ -59,7 +64,12 @@
               )
             {% endif %}
           </p>
-          <p>({{ keys.wins }}V {{ keys.losses }}D) <i>({{ keys.ratio }})</i></p>
+          <p>
+          (<span class="lol_wins">{{ keys.wins }}V</span> <span class="lol_losses">{{ keys.losses }}D</span>) 
+          (<i class="{% if keys.ratio > 50 %} {{ "lol_positive" }} {% elseif keys.ratio < 50 %} {{ "lol_negative" }} {% else %} {{ "lol_balance" }} {% endif %}">  
+            {{ keys.ratio ~ '%' }}
+          </i>)
+          </p>
         </div>
       </div>
     {% endfor %}

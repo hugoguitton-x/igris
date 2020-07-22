@@ -13,7 +13,7 @@ class LeagueOfLegendsController extends AbstractController
      */
     public function index()
     {
-        $summonerName = 'Jadrixx';
+        $summonerName = 'MorikamiX2';
 
         $accountId = $this->getAccountId($summonerName);
         $summonerId = $this->getSummonerId($summonerName);
@@ -27,7 +27,7 @@ class LeagueOfLegendsController extends AbstractController
                 "leaguePoints" => $rank->leaguePoints,
                 "wins" => $rank->wins,
                 "losses" => $rank->losses,
-                "ratio" =>  round($rank->wins/($rank->wins+$rank->losses)*100, 2) .'%'
+                "ratio" =>  round($rank->wins/($rank->wins+$rank->losses)*100, 2)
             ];
 
             if(!empty($rank->miniSeries)){

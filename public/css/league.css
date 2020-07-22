@@ -1,0 +1,13 @@
+span.lol_wins,
+i.lol_positive {
+    color:rgb(141, 190, 61);
+}
+
+span.lol_losses, 
+i.lol_negative {
+    color:rgb(190, 61, 61);
+}
+
+i.lol_balance {
+    color:rgb(51, 51, 51);
+}
