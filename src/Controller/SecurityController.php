@@ -24,13 +24,6 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("/logout", name="security_logout")
-     */
-    public function logout()
-    {
-    }
-
-    /**
      * @Route("/{_locale}", name="home_page")
      * requirements={
      *  "_locale": "%app.locales%"
@@ -104,5 +97,12 @@ class SecurityController extends AbstractController
             'last_username' => $lastUsername,
             'error' => $error
         ]);
+    }
+
+    /**
+     * @Route("/logout", name="security_logout")
+     */
+    public function logout()
+    {
     }
 }
