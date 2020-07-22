@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-  Igris - {{ 'Login'|trans }}
+  Igris - Connexion
 {% endblock %}
 
 {% block stylesheets %}
@@ -21,7 +21,7 @@
       method="POST"
       class="form-signin">
       <h1 class="h2 mb-3 font-weight-normal">
-        {{ 'Login'|trans }}
+        Connexion
       </h1>
       {% if error %}
         <div class="alert alert-danger">
@@ -29,7 +29,7 @@
         </div>
       {% endif %}
 
-      <input placeholder="{{ 'Username'|trans }}"
+      <input placeholder="Nom d'utilisateur"
         value="{{ last_username }}"
         name="_username"
         type="text"
@@ -37,7 +37,7 @@
         required
         autofocus />
 
-      <input placeholder="{{ 'Password'|trans }}"
+      <input placeholder="Mot de passe"
         name="_password"
         type="password"
         class="form-control"
@@ -45,7 +45,7 @@
 
       <div class="checkbox mb-3">
         <input type="checkbox" id="remember_me" name="_remember_me" />
-        <label for="remember_me">{{ 'Remember me'|trans }}</label>
+        <label for="remember_me">Rester identifié</label>
       </div>
 
       <input type="hidden"
@@ -54,9 +54,9 @@
 
       <div class="form-group">
         <button type="submit" class="btn btn-lg btn-primary btn-block">
-          {{ 'Login'|trans }}
+          Se connecter
         </button>
-        <a href="{{ path('security_registration') }}">{{ 'Sign Up'|trans }}</a>
+        <a href="{{ path('security_registration') }}">Créer un compte</a>
       </div>
 
       <p class="mt-5 mb-3 text-muted">

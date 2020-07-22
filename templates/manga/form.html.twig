@@ -6,9 +6,9 @@
   {{ parent() }}
   <h1 class="mt-4">
     {% if editMode %}
-      {{ 'Modify'|trans }}
+      Modification du manga
     {% else %}
-      {{ 'Add'|trans }}
+      Ajouter un manga
     {% endif %}
   </h1>
 
@@ -17,7 +17,11 @@
   {{ form_widget(formManga._token) }}
 
   <button type="submit" class="btn btn-primary">
-    {{ 'Submit'|trans }}
+    {% if editMode %}
+      Modifier le manga
+    {% else %}
+      Ajouter le manga
+    {% endif %}
   </button>
 
   {{

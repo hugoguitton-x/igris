@@ -17,27 +17,14 @@ class SecurityController extends AbstractController
 {
 
     /**
-     * @Route("", name="home_page_redirection")
-     */
-    public function homepageRedirection() {
-        return $this->redirectToRoute('home_page');
-    }
-
-    /**
-     * @Route("/{_locale}", name="home_page")
-     * requirements={
-     *  "_locale": "%app.locales%"
-     * }
+     * @Route("/", name="home_page")
      */
     public function homepage() {
         return $this->render('site/home_page.html.twig');
     }
 
     /**
-     * @Route("/{_locale}/register", name="security_registration")
-     * requirements={
-     *  "_locale": "%app.locales%"
-     * }
+     * @Route("/register", name="security_registration")
      */
     public function registration(
         Request $request,
@@ -81,10 +68,7 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("/{_locale}/login", name="security_login")
-     * requirements={
-     *  "_locale": "%app.locales%"
-     * }
+     * @Route("/login", name="security_login")
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {

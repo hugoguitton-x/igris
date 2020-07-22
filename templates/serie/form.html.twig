@@ -6,9 +6,9 @@
   {{ parent() }}
   <h1 class="mt-4">
     {% if editMode %}
-      {{ 'Modify'|trans }}
+      Modification de la série
     {% else %}
-      {{ 'Add'|trans }}
+      Ajouter une série
     {% endif %}
   </h1>
 
@@ -22,7 +22,11 @@
   {{ form_widget(formSerie._token) }}
 
   <button type="submit" class="btn btn-primary">
-    {{ 'Submit'|trans }}
+    {% if editMode %}
+      Modifier la série
+    {% else %}
+      Ajouter la série
+    {% endif %}
   </button>
 
   {{ form_end(formSerie) }}

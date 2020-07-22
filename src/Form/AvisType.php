@@ -7,7 +7,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class AvisType extends AbstractType
 {
@@ -15,7 +14,6 @@ class AvisType extends AbstractType
     {
         $builder
             ->add('note', ChoiceType::class, [
-                'label' => "Rating",
                 'choices'  => [
                     0 => 0,
                     1 => 1,
@@ -30,9 +28,7 @@ class AvisType extends AbstractType
                     10 => 10,
                 ]
             ])
-            ->add('commentaire', TextareaType::class, [
-                'label' => "Review"
-            ])
+            ->add('commentaire')
         ;
     }
 

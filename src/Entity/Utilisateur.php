@@ -57,12 +57,12 @@ class Utilisateur implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min="8", minMessage="Your password must be at least {{ limit }} characters long.")
+     * @Assert\Length(min="8", minMessage="Votre mot de passe doit faire minimum {{ limit }} caractères")
      */
     private $password;
 
     /**
-     * @Assert\EqualTo(propertyPath="password", message="You did not enter the same password.")
+     * @Assert\EqualTo(propertyPath="password", message="Vous n'avez pas tapé le même mot de passe")
      */
     private $password_confirm;
 

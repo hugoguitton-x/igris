@@ -12,30 +12,30 @@
   <div class="list-group list-group-flush">
     <a href="{{ path('admin_user') }}"
       class="list-group-item list-group-item-action bg-dark text-light">
-      {{ 'Users'|trans }}
+      Utilisateurs
     </a>
     <a href="#"
       class="list-group-item list-group-item-action bg-dark text-light"
       data-toggle="collapse"
       data-target="#mangas">
-      {{ 'Mangas'|trans }}<i class="fas fa-chevron-down"></i>
+      Mangas<i class="fas fa-chevron-down"></i>
     </a>
     <div class="sub-menu collapse" id="mangas">
-      <a href="{{ path('admin_manga_new') }}"
+      <a href="{{ path('manga_new') }}"
         class="list-group-item list-group-item-action bg-dark text-light">
-        {{ 'Add'|trans }}
+        Ajouter
       </a>
     </div>
         <a href="#"
       class="list-group-item list-group-item-action bg-dark text-light"
       data-toggle="collapse"
       data-target="#series">
-      {{ 'Serie'|trans }}<i class="fas fa-chevron-down"></i>
+      Série<i class="fas fa-chevron-down"></i>
     </a>
     <div class="sub-menu collapse" id="series">
-      <a href="{{ path('admin_serie_new') }}"
+      <a href="{{ path('serie_new') }}"
         class="list-group-item list-group-item-action bg-dark text-light">
-        {{ 'Add'|trans }}
+        Ajouter
       </a>
     </div>
   </div>

@@ -3,7 +3,7 @@
 {% block container %}
   {{ parent() }}
   <h1>
-    {{ 'Modify'|trans ~ ' ' ~ formUser.username.vars.value|capitalize }}
+    Modifier un utilisateur
   </h1>
 
   {{ form_start(formUser) }}
@@ -14,7 +14,7 @@
 
   {{ form_widget(formUser._token) }}
 
-  <button type="submit" class="btn btn-primary">{{ 'Modify'|trans }}</button>
+  <button type="submit" class="btn btn-primary">Modifier l'utilisateur</button>
   {{
     form_end(
       formUser,
