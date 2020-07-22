@@ -7,6 +7,12 @@ parameters:
     uploads_directory: '%kernel.project_dir%/public/uploads/'
     mangadex_url: '%env(MANGADEX_URL)%'
     riot_api_key: '%env(RIOT_API_KEY)%'
+    app.locales: 'en|fr'
+    app.locales.array: ['en', 'fr']
+
+twig:
+    globals:
+        locales: "%app.locales.array%"
 
 services:
     # default configuration for services in *this* file
@@ -39,3 +45,6 @@ services:
     App\EventListener\LoginListener:
         tags:
             - { name: 'kernel.event_listener', event: 'security.interactive_login' }
+
+    App\EventSubscriber\LocaleSubscriber:
+        arguments: ['%kernel.default_locale%']

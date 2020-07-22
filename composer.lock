@@ -1589,16 +1589,16 @@
         },
         {
             "name": "knplabs/knp-components",
-            "version": "v2.4.1",
+            "version": "v2.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/KnpLabs/knp-components.git",
-                "reference": "fd116833e70d2b4a017971fa5276f3947499ad14"
+                "reference": "8486446af9591c9c3decaae6c234739288c80a5f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/KnpLabs/knp-components/zipball/fd116833e70d2b4a017971fa5276f3947499ad14",
-                "reference": "fd116833e70d2b4a017971fa5276f3947499ad14",
+                "url": "https://api.github.com/repos/KnpLabs/knp-components/zipball/8486446af9591c9c3decaae6c234739288c80a5f",
+                "reference": "8486446af9591c9c3decaae6c234739288c80a5f",
                 "shasum": ""
             },
             "require": {
@@ -1661,7 +1661,7 @@
                 "pager",
                 "paginator"
             ],
-            "time": "2020-07-13T09:42:30+00:00"
+            "time": "2020-07-22T07:39:34+00:00"
         },
         {
             "name": "knplabs/knp-paginator-bundle",

@@ -5,7 +5,7 @@
 {% block container %}
   {{ parent() }}
   <h1 class="mt-4">
-      Ajouter mon avis
+      {{ 'My review'|trans }}
   </h1>
 
     {{ form_start(formAvis) }}
@@ -24,7 +24,7 @@
       <div class="row">
         <div class="col-sm">
           <button type="submit" class="btn btn-success avis-bouton">
-            Ajouter l'avis
+            {{ 'Submit'|trans }}
           </button>
         </div>
       </div>

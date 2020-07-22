@@ -6,10 +6,16 @@ use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+/**
+ * @Route("/{_locale}/league", name="league_")
+ * requirements={
+ *  "_locale": "%app.locales%"
+ * }
+ */
 class LeagueOfLegendsController extends AbstractController
 {
     /**
-     * @Route("/lol", name="league_of_legends")
+     * @Route("", name="index")
      */
     public function index()
     {

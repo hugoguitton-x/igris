@@ -23,7 +23,7 @@
           {{ avis.utilisateur.username|capitalize }}
         </span>
         <i class="avis-petit">
-          {{ avis.createdAt|format_date('medium', locale = 'fr') }}
+          {{ avis.createdAt|format_date('medium', locale = app.request.getLocale()) }}
         </i>
         {{ ' - ' }}
         <span class="avis-petit">

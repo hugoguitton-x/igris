@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-  Igris - Inscription
+  Igris - {{ 'Registration'|trans }}
 {% endblock %}
 
 {% block stylesheets %}
@@ -28,94 +28,42 @@
       )
     }}
     <h1 class="h2 mb-3 font-weight-normal">
-      Inscription
+      {{ 'Registration'|trans }}
     </h1>
 
     <div class="form-group">
       {{ form_errors(form.username) }}
-      {{
-        form_widget(
-          form.username,
-          {
-            attr: {
-              placeholder: "Nom d'utilisateur",
-              autofocus: true
-            }
-          }
-        )
-      }}
+      {{ form_widget(form.username) }}
+
       {{ form_widget(form.avatar) }}
       {{ form_errors(form.avatar) }}
     </div>
 
     <div class="form-group">
-      {{
-        form_widget(
-          form.email,
-          {
-            attr: {
-              placeholder: 'Adresse Email'
-            }
-          }
-        )
-      }}
+      {{ form_widget(form.email) }}
       {{ form_errors(form.email) }}
     </div>
 
     <div class="form-group d-inline-flex">
       {{ form_errors(form.firstname) }}
-      {{
-        form_widget(
-          form.firstname,
-          {
-            attr: {
-              placeholder: 'Prénom'
-            }
-          }
-        )
-      }}
-      {{
-        form_widget(
-          form.lastname,
-          {
-            attr: {
-              placeholder: 'Nom'
-            }
-          }
-        )
-      }}
+      {{ form_widget(form.firstname) }}
+
+      {{ form_widget(form.lastname) }}
       {{ form_errors(form.lastname) }}
     </div>
 
     <div class="form-group">
       {{ form_errors(form.password) }}
-      {{
-        form_widget(
-          form.password,
-          {
-            attr: {
-              placeholder: 'Mot de passe'
-            }
-          }
-        )
-      }}
-      {{
-        form_widget(
-          form.password_confirm,
-          {
-            attr: {
-              placeholder: 'Confirmation mot de passe'
-            }
-          }
-        )
-      }}
+      {{ form_widget(form.password) }}
+
+      {{ form_widget(form.password_confirm) }}
       {{ form_errors(form.password_confirm) }}
     </div>
     <div class="form-group">
       <button type="submit" class="btn btn-lg btn-primary btn-block">
-        S'inscrire
+        {{ 'Sign Up'|trans }}
       </button>
-      <a href="{{ path('security_login') }}">Se connecter</a>
+      <a href="{{ path('security_login') }}">{{ 'Login'|trans }}</a>
     </div>
 
     <p class="mt-5 mb-3 text-muted">
@@ -124,7 +72,6 @@
     {{ form_end(form) }}
   </div>
 {% endblock %}
-
 
 {% block javascripts %}
   {{ parent() }}

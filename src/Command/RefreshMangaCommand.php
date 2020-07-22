@@ -34,9 +34,7 @@ class RefreshMangaCommand extends Command
 
     protected function configure()
     {
-        $this
-            ->setDescription('Met à jour les informations des mangas')
-        ;
+        $this->setDescription('Met à jour les informations des mangas');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
@@ -53,7 +51,6 @@ class RefreshMangaCommand extends Command
         foreach ($mangas as $manga) {
             $this->refresh($manga->getMangaId(), $this->manager, $output);
         }
-        
 
         $io->success('La liste des mangas a bien été mise à jour !');
 
@@ -102,7 +99,7 @@ class RefreshMangaCommand extends Command
             $manager->flush();
         } else {
             if(!file_exists($this->params->get('kernel.project_dir') . "/public/uploads/mangas/".$info['basename'])){
-
+                
                 $imageFile = file_get_contents($urlImage);
                 $file = $this->params->get('kernel.project_dir') . "/public/uploads/mangas/".$info['basename'];
                 file_put_contents($file, $imageFile);

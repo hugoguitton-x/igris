@@ -22,11 +22,11 @@
     <ul class="navbar-nav mr-auto">
       {% if app.user %}
         <li class="nav-item">
-          <a class="nav-link" href="{{ path('manga') }}">Manga</a>
+          <a class="nav-link" href="{{ path('manga_index') }}">{{ 'Manga'|trans }}</a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="{{ path('serie') }}">Série</a>
+          <a class="nav-link" href="{{ path('serie_index') }}">{{ 'Serie'|trans }}</a>
         </li>
       {% endif %}
     </ul>
@@ -34,14 +34,14 @@
       {% if app.user %}
         {% if is_granted('ROLE_ADMIN') %}
           <li class="nav-item">
-            <a href="{{ path('administration') }}" class="nav-link">
-              <i class="fas fa-cog"></i> Administration
+            <a href="{{ path('admin_index') }}" class="nav-link">
+              <i class="fas fa-cog"></i> {{ 'Administration'|trans }}
             </a>
           </li>
         {% endif %}
         <li class="nav-item">
           <a href="{{ path('security_logout') }}" class="nav-link">
-            <i class="fas fa-sign-out-alt"></i> Déconnexion
+            <i class="fas fa-sign-out-alt"></i> {{ 'Logout'|trans }}
           </a>
         </li>
       {% endif %}

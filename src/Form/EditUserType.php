@@ -8,6 +8,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class EditUserType extends AbstractType
@@ -15,19 +17,23 @@ class EditUserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username')
-            ->add('email')
+            ->add('username', TextType::class, [
+                'label' => 'Username'
+            ])
+            ->add('email', EmailType::class, [
+                'label' => 'Email'
+            ])
             ->add('roles', ChoiceType::class, [
                 'choices' => [
-                    'Utilisateur' => 'ROLE_USER',
-                    'Administrateur' => 'ROLE_ADMIN'
+                    'User' => 'ROLE_USER',
+                    'Administrator' => 'ROLE_ADMIN'
                 ],
                 'expanded' => true,
                 'multiple' => true,
-                'label' => 'Rôles' 
+                'label' => 'Roles' 
             ])
             ->add('avatar', FileType::class, [
-                'label' => 'Image',
+                'label' => 'Picture',
                 'mapped' => false,
                 'required' => false,
                 'constraints' => [
