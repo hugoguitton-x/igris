@@ -8,15 +8,18 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class SerieType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom')
+            ->add('nom', TextType::class, [
+                'label' => 'Name'
+            ])
             ->add('image', FileType::class, [
-                'label' => 'Image',
+                'label' => 'Picture',
                 'mapped' => false,
                 'required' => false,
                 'constraints' => [
@@ -26,14 +29,22 @@ class SerieType extends AbstractType
                             'image/jpeg',
                             'image/png',
                         ],
-                        'mimeTypesMessage' => 'Veuillez télécharger une image valide (max 1mo)',
+                        'mimeTypesMessage' => 'Please upload a valid image (max 1mb)',
                     ])
                 ],
             ])
-            ->add('synopsis')
-            ->add('lien')
-            ->add('nombreEpisodes')
-            ->add('dureeEpisode')
+            ->add('synopsis', TextareaType::class, [
+                'label' => 'Synopsis'
+            ])
+            ->add('lien', UrlType::class, [
+                'label' => 'Link'
+            ])
+            ->add('nombreEpisodes', NumberType::class, [
+                'label' => 'Number of episodes'
+            ])
+            ->add('dureeEpisode',  NumberType::class, [
+                'label' => 'Duration of episodes'
+            ])
         ;
     }
 

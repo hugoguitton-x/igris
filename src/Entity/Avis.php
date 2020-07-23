@@ -12,7 +12,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @UniqueEntity(
  *     fields={"utilisateur", "serie"},
  *     errorPath="commentaire",
- *     message="Vous avez déjà posté un avis avec votre compte pour cette série."
+ *     message="You have already posted a review with your account for this series."
  * )
  */
 class Avis

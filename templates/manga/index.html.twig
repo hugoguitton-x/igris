@@ -34,9 +34,9 @@
                 ? ''
                 : 'new'
               }}">
-              <b>Chapitre n° {{ chapter.number }}</b>
+              <b>{{ 'Chapter'|trans }} n° {{ chapter.number }}</b>
               <br />
-              <i>{{ chapter.date|format_date('medium', locale = 'fr') }}</i>
+              <i>{{ chapter.date|format_date('medium', locale = app.request.getLocale()) }}</i>
             </div>
           </div>
         </a>

@@ -6,10 +6,13 @@ use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+/**
+ * @Route("/league", name="league_")
+ */
 class LeagueOfLegendsController extends AbstractController
 {
     /**
-     * @Route("/lol", name="league_of_legends")
+     * @Route("", name="index")
      */
     public function index()
     {

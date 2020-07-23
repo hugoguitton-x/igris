@@ -5,3 +5,4 @@ twig:
         timezone: Europe/Paris
     globals:
         mangadex_url: '%mangadex_url%'
+        locales: "%app.locales.array%"

@@ -16,10 +16,13 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
+/**
+ * @Route("/serie", name="serie_")
+ */
 class SerieController extends AbstractController
 {
     /**
-     * @Route("/serie", name="serie")
+     * @Route("", name="index")
      */
     public function index(
         SerieRepository $repo,
@@ -42,67 +45,11 @@ class SerieController extends AbstractController
     }
 
     /**
-     * @Route("/serie/new", name="serie_new")
-     * @Route("/serie/edit/{id}", name="serie_edit")
-     */
-    public function form(
-        Request $request,
-        EntityManagerInterface $manager,
-        Serie $serie = null,
-        FileUploader $fileUploader
-    ) {
-        if (!$serie) {
-            $serie = new Serie();
-            $serie->setNoteMoyenne(0);
-        }
-
-        $form = $this->createForm(SerieType::class, $serie);
-        $form->handleRequest($request);
-
-        if($serie->getId() !== null){
-            $edit = true;
-        } else {
-            $edit = false;
-        }
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $imageFile = $form->get('image')->getData();
-            if ($imageFile) {
-                $imageFile = $fileUploader->uploadImage($imageFile, 'series');
-            } else {
-                $imageFile = '';
-            }
-
-            $serie->setSynopsis(nl2br($serie->getSynopsis()));
-            $serie->setCreatedAt(new \DateTime());
-            $serie->setImage($imageFile);
-
-            $manager->persist($serie);
-            $manager->flush();
-
-            if($edit){
-                $this->addFlash('success', $serie->getNom().' modifié avec succès');
-            } else {
-                $this->addFlash('success', $serie->getNom().' ajouté avec succès');
-            }
-
-            return $this->redirectToRoute('serie');
-        }
-
-        return $this->render('serie/form.html.twig', [
-            'formSerie' => $form->createView(),
-            'editMode' => $edit,
-        ]);
-    }
-
-    /**
-     * @Route("/serie/{id}", name="serie_show")
+     * @Route("/{id}", name="show")
      */
     public function showSerie(
         AvisRepository $repo,
-        Serie $serie,
-        Request $request,
-        EntityManagerInterface $manager
+        Serie $serie
     ) {
         $avisList = $repo->findBy(
             ['serie' => $serie],
@@ -125,12 +72,11 @@ class SerieController extends AbstractController
     }
 
     /**
-     * @Route("/serie/{id}/avis", name="avis_serie_show")
+     * @Route("/{id}/avis", name="avis_show")
      */
     public function showAvis(
         AvisRepository $repo,
         Serie $serie,
-        EntityManagerInterface $manager,
         PaginatorInterface $paginator,
         Request $request
     ) {
@@ -150,7 +96,7 @@ class SerieController extends AbstractController
 
     
      /**
-     * @Route("/serie/{id}/avis/new", name="avis_new")
+     * @Route("/{id}/avis/new", name="avis_new")
      */
     public function formAvis(
         AvisRepository $repo,
@@ -175,7 +121,7 @@ class SerieController extends AbstractController
         );
 
         if($checkAvisUser) {
-            $this->addFlash('warning', 'Vous avez déjà écrit un commentaire pour cette série');
+            $this->addFlash('warning', 'You have already posted a review with your account for this series.');
             return $this->redirectToRoute('serie_show', ['id' => $serie->getId()]);
         }
  

@@ -12,12 +12,12 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UtilisateurRepository")
  * @UniqueEntity(
- * fields={"email"}, 
- * message="L'email que vous avez indiqué est déjà utilisé"
+ *  fields={"email"}, 
+ *  message="L'email que vous avez indiqué est déjà utilisé."
  * )
  * @UniqueEntity(
- * fields={"username"}, 
- * message="Le nom d'utilisateur que vous avez indiqué est déjà utilisé"
+ *  fields={"username"}, 
+ *  message="The username you entered is already in use."
  * )
  */
 class Utilisateur implements UserInterface 
@@ -57,12 +57,12 @@ class Utilisateur implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min="8", minMessage="Votre mot de passe doit faire minimum {{ limit }} caractères")
+     * @Assert\Length(min="8", minMessage="Your password must be at least {{ limit }} characters long.")
      */
     private $password;
 
     /**
-     * @Assert\EqualTo(propertyPath="password", message="Vous n'avez pas tapé le même mot de passe")
+     * @Assert\EqualTo(propertyPath="password", message="You did not enter the same password.")
      */
     private $password_confirm;
 
