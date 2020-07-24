@@ -148,7 +148,7 @@ class MangaController extends AbstractController
 
         if(!$mangaDB){
             $mangaDB = new Manga();
-            $mangaDB->setName($manga->title);
+            $mangaDB->setName(htmlspecialchars_decode($manga->title));
 
             $imageFile = file_get_contents($urlImage);
             $file = $this->getParameter('kernel.project_dir') . "/public/uploads/mangas/".$info['basename'];
