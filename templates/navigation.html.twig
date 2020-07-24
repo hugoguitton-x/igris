@@ -32,6 +32,22 @@
     </ul>
     <ul class="navbar-nav">
       {% if app.user %}
+          <li class="nav-item dropdown">
+ 
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-globe" aria-hidden="true"></i>
+                <span class="caret"></span>
+                <span class="sr-only">{{ 'menu.choose_language'|trans }}</span>
+            </a>
+
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                {% for locale in locales() %}
+                  <a {% if app.request.locale == locale.code %} aria-checked="true" class="dropdown-item active" {% else %} aria-checked="false" class="dropdown-item" {% endif %}  href="{{ path(app.request.get('_route', 'home_page'), app.request.get('_route_params', [])|merge({_locale: locale.code})) }}">
+                    {{ locale.name|capitalize }} <small>{{ locale.code[0:2] }}</small>
+                  </a>
+                {% endfor %}
+              </div>
+          </li>
         {% if is_granted('ROLE_ADMIN') %}
           <li class="nav-item">
             <a href="{{ path('admin_index') }}" class="nav-link">

@@ -11,6 +11,9 @@
 {% endblock %}
 
 {% block container %}
+
+  {% include '/security/local_switcher.html.twig' %}
+
   <div class="text-center body">
     <img class="mb-1"
       src="{{ asset('images/logos/logo.svg') }}"

@@ -7,6 +7,7 @@ use App\Service\FileUploader;
 use App\Form\RegistrationType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,12 +17,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class SecurityController extends AbstractController
 {
 
-    /**
-     * @Route("/", name="home_page")
-     */
-    public function homepage() {
-        return $this->render('site/home_page.html.twig');
-    }
+
 
     /**
      * @Route("/register", name="security_registration")
@@ -30,8 +26,13 @@ class SecurityController extends AbstractController
         Request $request,
         EntityManagerInterface $manager,
         UserPasswordEncoderInterface $encoder,
-        FileUploader $fileUploader
+        FileUploader $fileUploader,
+        Security $security
     ) {
+        if ($security->isGranted('ROLE_USER')) {
+            return $this->redirectToRoute('home_page');
+        }
+
         $utilisateur = new Utilisateur();
 
         $form = $this->createForm(RegistrationType::class, $utilisateur);
@@ -70,8 +71,12 @@ class SecurityController extends AbstractController
     /**
      * @Route("/login", name="security_login")
      */
-    public function login(AuthenticationUtils $authenticationUtils): Response
+    public function login(Request $request, Security $security, AuthenticationUtils $authenticationUtils): Response
     {
+        if ($security->isGranted('ROLE_USER')) {
+            return $this->redirectToRoute('home_page');
+        }
+
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
@@ -88,5 +93,6 @@ class SecurityController extends AbstractController
      */
     public function logout()
     {
+        throw new \Exception('This should never be reached!');
     }
 }

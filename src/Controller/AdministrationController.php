@@ -24,14 +24,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/admin", name="admin_")
- * requirements={
- *  "_locale": "%app.locales%"
- * }
  */
 class AdministrationController extends AbstractController
 {
     /**
-     * @Route("/", name="index")
+     * @Route("", name="index")
      */
     public function index()
     {

@@ -77,7 +77,8 @@ Write a review: Ajouter une critique
 # Y
 You have already posted a review with your account for this series.: Vous avez déjà posté un avis avec votre compte pour cette série.
 
-# FLASH
+# CODE
+menu.choose_language: Choisir la langue
 successfully.added: "%slug% ajouté avec succès."
 successfully.deleted: "%slug% supprimé avec succès."
 successfully.modified: "%slug% modifié avec succès."
