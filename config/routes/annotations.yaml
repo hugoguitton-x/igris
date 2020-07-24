@@ -5,4 +5,4 @@ controllers:
     requirements:
         _locale: '%app_locales%'
     defaults:
-        _locale: '%app_locales%'
+        _locale: '%locale%'

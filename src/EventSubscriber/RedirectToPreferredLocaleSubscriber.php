@@ -34,6 +34,7 @@ class RedirectToPreferredLocaleSubscriber implements EventSubscriberInterface
 
     public function __construct(UrlGeneratorInterface $urlGenerator, string $locales, string $defaultLocale = null)
     {
+       
         $this->urlGenerator = $urlGenerator;
 
         $this->locales = explode('|', trim($locales));
@@ -75,11 +76,13 @@ class RedirectToPreferredLocaleSubscriber implements EventSubscriberInterface
         if (null !== $referrer && u($referrer)->ignoreCase()->startsWith($request->getSchemeAndHttpHost())) {
             return;
         }
-
         $preferredLanguage = $request->getPreferredLanguage($this->locales);
 
         if ($preferredLanguage !== $this->defaultLocale) {
             $response = new RedirectResponse($this->urlGenerator->generate('home_page', ['_locale' => $preferredLanguage]));
+            $event->setResponse($response);
+        } else {
+            $response = new RedirectResponse($this->urlGenerator->generate('home_page', ['_locale' => $this->defaultLocale]));
             $event->setResponse($response);
         }
     }
