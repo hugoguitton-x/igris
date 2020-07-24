@@ -90,7 +90,7 @@ class RefreshMangaCommand extends Command
 
         if(!$mangaDB){
             $mangaDB = new Manga();
-            $mangaDB->setName($manga->title);
+            $mangaDB->setName(htmlspecialchars_decode($manga->title));
 
             $imageFile = file_get_contents($urlImage);
             $file = $this->params->get('kernel.project_dir') . "/public/uploads/mangas/".$info['basename'];
