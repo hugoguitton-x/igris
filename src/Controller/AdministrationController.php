@@ -149,7 +149,7 @@ class AdministrationController extends AbstractController
                 $this->addFlash('success', $translator->trans('successfully.added', ['%slug%' => ucfirst($serie->getNom())]));
             }
 
-            return $this->redirectToRoute('serie');
+            return $this->redirectToRoute('serie_index');
         }
 
         return $this->render('serie/form.html.twig', [
@@ -191,7 +191,7 @@ class AdministrationController extends AbstractController
                 $this->addFlash('success', $translator->trans('successfully.added', ['%slug%' => ucfirst($manga->getName())]));
             }
 
-            return $this->redirectToRoute('manga');
+            return $this->redirectToRoute('manga_index');
         }
 
         return $this->render('manga/form.html.twig', [
