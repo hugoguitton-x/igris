@@ -9,9 +9,7 @@ use App\Repository\MangaRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -42,13 +40,15 @@ class RefreshMangaCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
-
-        $output->writeln('Récupération de l\'ensemble des mangas.');
+        $output->writeln('<comment>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</comment>');
+        $output->writeln('<info>'.(new \DateTime())->format('Y-m-d H:i:s').'</info>');
+        $output->writeln('<comment>=======================================</comment>');
+        $output->writeln('<comment>Récupération de l\'ensemble des mangas.</comment>');
         $mangas = $this->mangaRepo->findAll();
-        $output->writeln('=======================================');
+        $output->writeln('<comment>=======================================</comment>');
 
-        $output->writeln('Mise à jour de l\'ensemble des informations des mangas.');
-        $output->writeln('=======================================');
+        $output->writeln('<comment>Mise à jour de l\'ensemble des informations des mangas.</comment>');
+        $output->writeln('<comment>=======================================</comment>');
 
         foreach ($mangas as $manga) {
             $this->refresh($manga->getMangaId(), $this->manager, $output);
