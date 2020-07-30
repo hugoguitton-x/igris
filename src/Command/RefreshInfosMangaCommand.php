@@ -14,9 +14,9 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
-class RefreshMangaCommand extends Command
+class RefreshInfosMangaCommand extends Command
 {
-    protected static $defaultName = 'app:refresh-manga';
+    protected static $defaultName = 'app:refresh-infos-manga';
 
     protected $manager;
     protected $mangaRepo;
@@ -51,7 +51,9 @@ class RefreshMangaCommand extends Command
         $output->writeln('<comment>=======================================</comment>');
 
         foreach ($mangas as $manga) {
-            $this->refresh($manga->getMangaId(), $this->manager, $output);
+            $output->writeln('<comment> -- '. $manga->getName() .' -- </comment>');
+            $this->refreshInfos($manga->getMangaId(), $this->manager, $output);
+            $output->writeln('<info> OK </info>');
         }
         
 
@@ -60,7 +62,7 @@ class RefreshMangaCommand extends Command
         return 0;
     }
 
-    private function refresh(string $mangaId, EntityManagerInterface $manager, OutputInterface $output)
+    private function refreshInfos(string $mangaId, EntityManagerInterface $manager, OutputInterface $output)
     {
         $mangaRepo = $manager->getRepository(Manga::class);
         $langCodeRepo = $manager->getRepository(LanguageCode::class);
@@ -72,7 +74,7 @@ class RefreshMangaCommand extends Command
         $response = $client->request('GET', $mangadexURL.'/api/manga/'.$mangaId);
 
         if($response->getStatusCode() != 200){
-            throw new \Exception('Pas de chance');
+            $output->writeln("<error>API for can't be reach for this manga</error>");
         }
  
         $data = json_decode($response->getContent());
@@ -101,26 +103,6 @@ class RefreshMangaCommand extends Command
             $manager->persist($mangaDB);
             $manager->flush();
         } else {
-            if(!file_exists($this->params->get('kernel.project_dir') . "/public/uploads/mangas/".$info['basename'])){
-
-                $imageFile = file_get_contents($urlImage);
-                $file = $this->params->get('kernel.project_dir') . "/public/uploads/mangas/".$info['basename'];
-                file_put_contents($file, $imageFile);
-
-                $mangaDB->setImage($image);
-            } else if($mangaDB->getImage() != $image){
-
-                $imageFile = file_get_contents($urlImage);
-                $file = $this->params->get('kernel.project_dir') . "/public/uploads/mangas/".$info['basename'];
-                file_put_contents($file, $imageFile);
-
-                $mangaDB->setImage($image);
-            } else if(md5(file_get_contents($urlImage)) != md5(file_get_contents($this->params->get('kernel.project_dir') . "/public/uploads/mangas/".$info['basename']))) {
-                $imageFile = file_get_contents($urlImage);
-                $file = $this->params->get('kernel.project_dir') . "/public/uploads/mangas/".$info['basename'];
-                file_put_contents($file, $imageFile);
-            } 
-
             if($mangaDB->getMangaId() != $mangaId){
                 $mangaDB->setMangaId($mangaId);
             }
