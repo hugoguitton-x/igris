@@ -20,4 +20,9 @@
       {{ message|trans }}
     </div>
   {% endfor %}
+  {% for message in app.flashes('danger') %}
+    <div class="alert alert-danger">
+      {{ message|trans }}
+    </div>
+  {% endfor %}
 {% endblock %}

@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use Discord\Discord;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

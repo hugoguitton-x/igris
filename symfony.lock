@@ -1,4 +1,7 @@
 {
+    "abraham/twitteroauth": {
+        "version": "1.1.0"
+    },
     "debril/feed-io": {
         "version": "v4.5.3"
     },

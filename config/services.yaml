@@ -7,6 +7,14 @@ parameters:
     uploads_directory: '%kernel.project_dir%/public/uploads/'
     mangadex_url: '%env(MANGADEX_URL)%'
     riot_api_key: '%env(RIOT_API_KEY)%'
+
+    #Twitter
+    consumer_key: '%env(TWITTER_CONSUMER_KEY)%'
+    consumer_secret: '%env(TWITTER_CONSUMER_SECRET)%'
+    oauth_token: '%env(TWITTER_ACCESS_TOKEN)%'
+    oauth_token_secret: '%env(TWITTER_ACCESS_TOKEN_SECRET)%'
+
+    #Locale
     locale: 'en'
     app_locales_array: ['en', 'fr']
     app_locales: 'en|fr'

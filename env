@@ -3,3 +3,9 @@ APP_SECRET=<secret>
 DATABASE_URL=postgresql://<user>:<pwd>@<hostname>:<port>/<db_name>
 RIOT_API_KEY=<api_key>
 MANGADEX_URL=<url>
+
+# TWITTER
+TWITTER_CONSUMER_KEY=<api_consumer_key>
+TWITTER_CONSUMER_SECRET=<api_comsumer_secret>
+TWITTER_ACCESS_TOKEN=<api_access_token>
+TWITTER_ACCESS_TOKEN_SECRET=<api_access_token_secret>
