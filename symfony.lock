@@ -1,16 +1,4 @@
 {
-    "cache/adapter-common": {
-        "version": "0.3.3"
-    },
-    "cache/array-adapter": {
-        "version": "0.4.2"
-    },
-    "cache/hierarchical-cache": {
-        "version": "0.3.0"
-    },
-    "cache/taggable-cache": {
-        "version": "0.4.3"
-    },
     "debril/feed-io": {
         "version": "v4.5.3"
     },
@@ -111,9 +99,6 @@
     "egulias/email-validator": {
         "version": "2.1.15"
     },
-    "evenement/evenement": {
-        "version": "v2.1.0"
-    },
     "fzaninotto/faker": {
         "version": "v1.9.1"
     },
@@ -125,12 +110,6 @@
     },
     "guzzlehttp/psr7": {
         "version": "1.6.1"
-    },
-    "illuminate/contracts": {
-        "version": "v7.22.4"
-    },
-    "illuminate/support": {
-        "version": "v7.22.4"
     },
     "knplabs/knp-components": {
         "version": "v2.3.1"
@@ -149,9 +128,6 @@
     },
     "monolog/monolog": {
         "version": "2.0.2"
-    },
-    "nesbot/carbon": {
-        "version": "2.37.0"
     },
     "nikic/php-parser": {
         "version": "v4.3.0"
@@ -183,6 +159,9 @@
     "psr/event-dispatcher": {
         "version": "1.0.0"
     },
+    "psr/http-client": {
+        "version": "1.0.1"
+    },
     "psr/http-message": {
         "version": "1.0.1"
     },
@@ -192,50 +171,8 @@
     "psr/log": {
         "version": "1.1.2"
     },
-    "psr/simple-cache": {
-        "version": "1.0.1"
-    },
     "ralouphie/getallheaders": {
         "version": "3.0.3"
-    },
-    "ratchet/pawl": {
-        "version": "v0.2.3"
-    },
-    "ratchet/rfc6455": {
-        "version": "v0.2.6"
-    },
-    "react/cache": {
-        "version": "v1.0.0"
-    },
-    "react/datagram": {
-        "version": "v1.5.0"
-    },
-    "react/dns": {
-        "version": "v0.4.19"
-    },
-    "react/event-loop": {
-        "version": "v0.4.3"
-    },
-    "react/http-client": {
-        "version": "v0.4.17"
-    },
-    "react/partial": {
-        "version": "v2.0.2"
-    },
-    "react/promise": {
-        "version": "v2.8.0"
-    },
-    "react/promise-timer": {
-        "version": "v1.6.0"
-    },
-    "react/socket-client": {
-        "version": "v0.5.3"
-    },
-    "react/stream": {
-        "version": "v0.4.6"
-    },
-    "rocketmates/discord-php": {
-        "version": "dev-master"
     },
     "sensio/framework-extra-bundle": {
         "version": "5.2",
@@ -620,9 +557,6 @@
     "symfony/yaml": {
         "version": "v5.0.4"
     },
-    "trafficcophp/bytebuffer": {
-        "version": "v0.3"
-    },
     "twig/extra-bundle": {
         "version": "v3.0.1"
     },
@@ -632,19 +566,10 @@
     "twig/twig": {
         "version": "v3.0.1"
     },
-    "voku/portable-ascii": {
-        "version": "1.5.3"
-    },
     "webimpress/safe-writer": {
         "version": "2.0.0"
     },
     "webmozart/assert": {
         "version": "1.6.0"
-    },
-    "wyrihaximus/react-guzzle-http-client": {
-        "version": "3.0.3"
-    },
-    "wyrihaximus/react-guzzle-psr7": {
-        "version": "1.0.0"
     }
 }
