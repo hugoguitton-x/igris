@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Discord\Discord;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,6 +17,21 @@ class LeagueOfLegendsController extends AbstractController
      */
     public function index()
     {
+        $discord = new Discord([
+            'token' => '',
+        ]);
+        
+        $discord->on('ready', function ($discord) {
+            echo "Bot is ready!", PHP_EOL;
+        
+            // Listen for messages.
+            $discord->on('message', function ($message, $discord) {
+                echo "{$message->author->username}: {$message->content}",PHP_EOL;
+            });
+        });
+        
+        $discord->run();
+        die;
         $summonerName = 'MorikamiX2';
 
         $accountId = $this->getAccountId($summonerName);
