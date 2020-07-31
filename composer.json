@@ -6,6 +6,7 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "debril/feed-io": "^4.5",
+        "rocketmates/discord-php": "dev-master",
         "knplabs/knp-paginator-bundle": "^5.1",
         "sensio/framework-extra-bundle": "^5.1",
         "symfony/asset": "5.0.*",
