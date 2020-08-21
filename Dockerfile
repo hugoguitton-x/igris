@@ -34,7 +34,7 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
 ENV TZ=Europe/Paris
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-WORKDIR /usr/src/app/public/build
+WORKDIR /usr/src/app/public
 
 COPY --from=build /usr/src/app/public/build .
 
