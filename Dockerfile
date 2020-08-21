@@ -34,10 +34,6 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
 ENV TZ=Europe/Paris
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-WORKDIR /usr/src/app/public
-
-COPY --from=build /usr/src/app/public/build .
-
 WORKDIR /usr/src/app
 
 # UID dépendant de la machine (echo $UID)
@@ -48,5 +44,9 @@ RUN usermod -G staff www-data
 RUN PATH=$PATH:/usr/src/apps/vendor/bin:bin
 
 RUN chmod +x /usr/src/app/entrypoint.sh
+
+WORKDIR /usr/src/app/public
+
+COPY --from=build /usr/src/app/public/build .
 
 ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
