@@ -1,70 +1,53 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-  Igris - {{ 'Login'|trans }}
+	Igris -
+	{{ 'Login'|trans }}
 {% endblock %}
 
 {% block stylesheets %}
-  {{ parent() }}
-  <link rel="stylesheet" href="/css/signin_up.css" />
-  <link rel="stylesheet" href="/css/fade_in.css" />
+	{{ parent() }}
+	<link rel="stylesheet" href="/css/signin_up.css"/>
+	<link rel="stylesheet" href="/css/fade_in.css"/>
 {% endblock %}
 
 {% block container %}
 
-  {% include '/security/local_switcher.html.twig' %}
+	{% include '/security/local_switcher.html.twig' %}
 
-  <div class="text-center body">
-    <img class="mb-1"
-      src="{{ asset('images/logos/logo.svg') }}"
-      alt=""
-      width="120"
-      height="120" />
-    <form action="{{ path('security_login') }}"
-      method="POST"
-      class="form-signin">
-      <h1 class="h2 mb-3 font-weight-normal">
-        {{ 'Login'|trans }}
-      </h1>
-      {% if error %}
-        <div class="alert alert-danger">
-          {{ error.messageKey|trans(error.messageData, 'security') }}
-        </div>
-      {% endif %}
+	<div class="text-center body">
+		<img class="mb-1" src="{{ asset('images/logos/logo.svg') }}" alt="" width="120" height="120"/>
+		<form action="{{ path('security_login') }}" method="POST" class="form-signin">
+			<h1 class="h2 mb-3 font-weight-normal">
+				{{ 'Login'|trans }}
+			</h1>
+			{% if error %}
+				<div class="alert alert-danger">
+					{{ error.messageKey|trans(error.messageData, 'security') }}
+				</div>
+			{% endif %}
 
-      <input placeholder="{{ 'Username'|trans }}"
-        value="{{ last_username }}"
-        name="_username"
-        type="text"
-        class="form-control"
-        required
-        autofocus />
+			<input placeholder="{{ 'Username'|trans }}" value="{{ last_username }}" name="_username" type="text" class="form-control" required autofocus/>
 
-      <input placeholder="{{ 'Password'|trans }}"
-        name="_password"
-        type="password"
-        class="form-control"
-        required />
+			<input placeholder="{{ 'Password'|trans }}" name="_password" type="password" class="form-control" required/>
 
-      <div class="checkbox mb-3">
-        <input type="checkbox" id="remember_me" name="_remember_me" />
-        <label for="remember_me">{{ 'Remember me'|trans }}</label>
-      </div>
+			<div class="checkbox mb-3">
+				<input type="checkbox" id="remember_me" name="_remember_me"/>
+				<label for="remember_me">{{ 'Remember me'|trans }}</label>
+			</div>
 
-      <input type="hidden"
-        name="_csrf_token"
-        value="{{ csrf_token('authenticate') }}" />
+			<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
 
-      <div class="form-group">
-        <button type="submit" class="btn btn-lg btn-primary btn-block">
-          {{ 'Login'|trans }}
-        </button>
-        <a href="{{ path('security_registration') }}">{{ 'Sign Up'|trans }}</a>
-      </div>
+			<div class="form-group">
+				<button type="submit" class="btn btn-lg btn-primary btn-block">
+					{{ 'Login'|trans }}
+				</button>
+				<a href="{{ path('security_registration') }}">{{ 'Sign Up'|trans }}</a>
+			</div>
 
-      <p class="mt-5 mb-3 text-muted">
-        IGRIS © 2019-2020
-      </p>
-    </form>
-  </div>
+			<p class="mt-5 mb-3 text-muted">
+				IGRIS © 2019-2020
+			</p>
+		</form>
+	</div>
 {% endblock %}

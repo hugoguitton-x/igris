@@ -1,76 +1,72 @@
 {% extends 'page.html.twig' %}
 
 {% block stylesheets %}
-  {{ parent() }}
-  <link rel="stylesheet" href="/css/league.css" />
+	{{ parent() }}
+	<link rel="stylesheet" href="/css/league.css"/>
 {% endblock %}
 
 
 {% block body %}
-    {% for game in historic %}
-    <div class="table-wrapper">
-      <table class="table table-striped table-hover">
-        <thead>
-          <tr>
-            <th>
-              Temp
-            </th>
-            <th>
-              Temp
-            </th>
-            <th>
-              Temp
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-            <tr>
-              <td>
-                <img src="{{ game.thumbnail }}" width="50" heigh="50"
-                  class="avatar"
-                  alt="Avatar" />
-                {{ game.summonerName|capitalize }}
-              </td>
-              <td>
-                {{ game.kills ~ '/' ~ game.deaths ~ '/' ~ game.assists  }}
-              </td>
-              <td>
-                {{ game.win ? 'Victoire' : 'Défaite' }}
-            </tr>
-        </tbody>
-      </table>
-    </div>
-    {% endfor %}
+{% for game in historic %}
+	<div class="table-wrapper">
+		<table class="table table-striped table-hover">
+			<thead>
+				<tr>
+					<th>
+						Temp
+					</th>
+					<th>
+						Temp
+					</th>
+					<th>
+						Temp
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>
+						<img src="{{ game.thumbnail }}" width="50" heigh="50" class="avatar" alt="Avatar"/>
+						{{ game.summonerName|capitalize }}
+					</td>
+					<td>
+						{{ game.kills ~ '/' ~ game.deaths ~ '/' ~ game.assists  }}
+					</td>
+					<td>{{ game.win ? 'Victoire' : 'Défaite' }}
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+{% endfor %}
 
-    {% for queueType, keys in ranks %}
-      <div class="row">
-        <img width="80" src="{{ asset('images/league/ranks/emblem_' ~ keys.tier ~ '.png') }}" alt="image" style="vertical-align:middle">
-          <div style="display:inline; vertical-align:middle">
-          <p >
-            {{ keys.tier }} {{ keys.rank }} - 
-            {{ keys.leaguePoints }} LP 
-            {% if keys.miniSeries is defined %}
-              BO {{ keys.miniSeries.type }} 
-              (
-                {% for progress in keys.miniSeries.progress|split('') %} 
-                  {% if progress == 'W' %}
-                    V
-                  {% elseif progress == 'L' %}
-                    D
-                  {% else %}
-                    -
-                  {% endif %}
-                {% endfor %}
-              )
-            {% endif %}
-          </p>
-          <p>
-          (<span class="lol_wins">{{ keys.wins }}V</span> <span class="lol_losses">{{ keys.losses }}D</span>) 
-          (<i class="{% if keys.ratio > 50 %} {{ "lol_positive" }} {% elseif keys.ratio < 50 %} {{ "lol_negative" }} {% else %} {{ "lol_balance" }} {% endif %}">  
-            {{ keys.ratio ~ '%' }}
-          </i>)
-          </p>
-        </div>
-      </div>
-    {% endfor %}
-{% endblock %}
+{% for queueType, keys in ranks %}
+	<div class="row">
+		<img width="80" src="{{ asset('images/league/ranks/emblem_' ~ keys.tier ~ '.png') }}" alt="image" style="vertical-align:middle">
+		<div style="display:inline; vertical-align:middle">
+			<p>
+				{{ keys.tier }}
+				{{ keys.rank }}
+				-
+				{{ keys.leaguePoints }}
+				LP
+				{% if keys.miniSeries is defined %}
+					BO
+					{{ keys.miniSeries.type }}
+					(
+					{% for progress in keys.miniSeries.progress|split('') %}
+						{% if progress == 'W' %}
+							V
+						{% elseif progress == 'L' %}
+							D
+						{% else %}
+							-
+						{% endif %}
+					{% endfor %}
+					)
+				{% endif %}
+			</p>
+			<p>
+				(<span class="lol_wins">{{ keys.wins }}V</span>
+				<span class="lol_losses">{{ keys.losses }}D</span>) 
+					          (<i

@@ -3,24 +3,22 @@
 {% form_theme formManga 'bootstrap_4_layout.html.twig' %}
 
 {% block container %}
-  {{ parent() }}
-  <h1 class="mt-4">
-    {% if editMode %}
-      {{ 'Modify'|trans }}
-    {% else %}
-      {{ 'Add'|trans }}
-    {% endif %}
-  </h1>
+	{{ parent() }}
+	<h1 class="mt-4">
+		{% if editMode %}
+			{{ 'Modify'|trans }}
+		{% else %}
+			{{ 'Add'|trans }}
+		{% endif %}
+	</h1>
 
-  {{ form_start(formManga) }}
-  {{ form_row(formManga.manga_id) }}
-  {{ form_widget(formManga._token) }}
+	{{ form_start(formManga) }}
+	{{ form_row(formManga.manga_id) }}
+	{{ form_widget(formManga._token) }}
 
-  <button type="submit" class="btn btn-primary">
-    {{ 'Submit'|trans }}
-  </button>
+	<button type="submit" class="btn btn-primary">{{ 'Submit'|trans }}</button>
 
-  {{
+	{{
     form_end(
       formManga,
       {
@@ -31,10 +29,5 @@
 {% endblock %}
 
 {% block javascripts %}
-  {{ parent() }}
-  <script>
-    $('.custom-file-input').on('change', function(event) { var inputFile =
-    event.currentTarget; $(inputFile).parent() .find('.custom-file-label')
-    .html(inputFile.files[0].name); });
-  </script>
+	{{ encore_entry_script_tags('form') }}
 {% endblock %}

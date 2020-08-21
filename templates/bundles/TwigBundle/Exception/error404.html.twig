@@ -1,6 +1,9 @@
 {% extends 'page.html.twig' %}
 
 {% block container %}
-    <h1>Erreur {{ status_code }}</h1>
-    {{ exception.message }}
+	<h1>
+		Erreur
+		{{ status_code }}
+	</h1>
+	{{ exception.message }}
 {% endblock %}

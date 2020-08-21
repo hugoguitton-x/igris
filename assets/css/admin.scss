@@ -1,0 +1,9 @@
+@import "../css/variables";
+@import "../css/mixins";
+
+
+@import "../css/admin_sass/sidebar";
+@import "../css/admin_sass/users";
+
+// Bootstrap and its default variables
+@import "../../node_modules/bootstrap/scss/bootstrap";
