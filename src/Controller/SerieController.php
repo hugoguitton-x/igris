@@ -38,6 +38,11 @@ class SerieController extends AbstractController
             16
         );
 
+        $series->setCustomParameters([
+            'align' => 'center', # center|right
+            'size' => 'small', # small|large
+        ]);
+
         return $this->render('serie/index.html.twig', [
             'controller_name' => 'SerieController',
             'series' => $series,
@@ -87,6 +92,11 @@ class SerieController extends AbstractController
             $request->query->getInt('page', 1),
             10
         );
+
+        $avisList->setCustomParameters([
+            'align' => 'center', # center|right
+            'size' => 'small', # small|large
+        ]);
 
         return $this->render('serie/avis.html.twig', [
             'avisList' => $avisList,

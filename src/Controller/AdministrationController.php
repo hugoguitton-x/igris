@@ -51,6 +51,11 @@ class AdministrationController extends AbstractController
             20
         );
 
+        $users->setCustomParameters([
+            'align' => 'center', # center|right
+            'size' => 'small', # small|large
+        ]);
+
         return $this->render('administration/user.html.twig', [
             'controller_name' => 'AdministrationController',
             'users' => $users

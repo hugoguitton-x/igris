@@ -29,6 +29,11 @@ class MangaController extends AbstractController
             16
         );
 
+        $chapters->setCustomParameters([
+            'align' => 'center', # center|right
+            'size' => 'small', # small|large
+        ]);
+
         return $this->render('manga/index.html.twig', [
             'controller_name' => 'MangaController',
             'chapters' => $chapters
@@ -47,6 +52,11 @@ class MangaController extends AbstractController
             $request->query->getInt('page', 1),
             24
         );
+
+        $mangas->setCustomParameters([
+            'align' => 'center', # center|right
+            'size' => 'small', # small|large
+        ]);
 
         return $this->render('manga/liste.html.twig', [
             'controller_name' => 'MangaController',
@@ -70,6 +80,11 @@ class MangaController extends AbstractController
             $request->query->getInt('page', 1),
             16
         );
+
+        $chapters->setCustomParameters([
+            'align' => 'center', # center|right
+            'size' => 'small', # small|large
+        ]);
 
         return $this->render('manga/index.html.twig', [
             'controller_name' => 'MangaController',
