@@ -1,3 +1,14 @@
+## build
+FROM node:latest AS build
+RUN mkdir /usr/src/app
+WORKDIR /usr/src/app
+ENV PATH ./node_modules/.bin:$PATH
+COPY package.json ./package.json
+RUN npm install --silent
+COPY . .
+RUN npm run build
+
+## production
 FROM php:7.4-fpm
 
 RUN docker-php-ext-install pdo_mysql
@@ -22,6 +33,10 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
     
 ENV TZ=Europe/Paris
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+WORKDIR /usr/src/app/public/build
+
+COPY --from=build /usr/src/app/public/build .
 
 WORKDIR /usr/src/app
 
