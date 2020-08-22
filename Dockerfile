@@ -1,13 +1,3 @@
-## build
-FROM node:latest AS build
-RUN mkdir /usr/src/app
-WORKDIR /usr/src/app
-ENV PATH ./node_modules/.bin:$PATH
-COPY package.json ./package.json
-RUN npm install --silent
-COPY . .
-RUN npm run build
-
 ## production
 FROM php:7.4-fpm
 
@@ -38,10 +28,6 @@ WORKDIR /usr/src/app
 
 # UID dépendant de la machine (echo $UID)
 COPY --chown=1001:1001 . /usr/src/app
-
-WORKDIR /usr/src/app/public
-
-COPY --from=build /usr/src/app/public/build .
 
 RUN usermod -u 1001 www-data
 RUN usermod -G staff www-data
