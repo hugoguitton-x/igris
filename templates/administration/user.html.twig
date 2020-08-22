@@ -2,7 +2,7 @@
 
 {% block container %}
 	{{ parent() }}
-	<div class="my-3 p-3 bg-white rounded box-shadow text-left">
+	<div class="my-3 bg-white rounded box-shadow text-left">
 		{% for message in app.flashes('success') %}
 			<div class="alert alert-success">
 				{{ message }}
