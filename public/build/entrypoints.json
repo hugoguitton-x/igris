@@ -5,10 +5,10 @@
         "/build/runtime.d94b3b43.js",
         "/build/0.cf60d32b.js",
         "/build/1.ada2274d.js",
-        "/build/app.a7d7b431.js"
+        "/build/app.e39d96e4.js"
       ],
       "css": [
-        "/build/app.57826511.css"
+        "/build/app.57a3232e.css"
       ]
     },
     "admin": {
@@ -16,10 +16,10 @@
         "/build/runtime.d94b3b43.js",
         "/build/0.cf60d32b.js",
         "/build/1.ada2274d.js",
-        "/build/admin.274285c0.js"
+        "/build/admin.4ce09860.js"
       ],
       "css": [
-        "/build/admin.6138a8f1.css"
+        "/build/admin.db2d2bc8.css"
       ]
     },
     "base": {
@@ -35,6 +35,15 @@
         "/build/0.cf60d32b.js",
         "/build/2.23f9862e.js",
         "/build/form.ad457a83.js"
+      ]
+    },
+    "signup": {
+      "js": [
+        "/build/runtime.d94b3b43.js",
+        "/build/signup.bd42fcee.js"
+      ],
+      "css": [
+        "/build/signup.4acbc92d.css"
       ]
     }
   }

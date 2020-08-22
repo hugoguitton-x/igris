@@ -1,23 +1,25 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-	Igris -
-	{{ 'Registration'|trans }}
+  Igris -
+  {{ 'Registration'|trans }}
 {% endblock %}
 
 {% block stylesheets %}
-	{{ parent() }}
-	<link rel="stylesheet" href="/css/signin_up.css"/>
-	<link rel="stylesheet" href="/css/fade_in.css"/>
+  {{ parent() }}
+  {{ encore_entry_link_tags('signup') }}
 {% endblock %}
 
 {% block container %}
+  {% include '/security/local_switcher.html.twig' %}
 
-	{% include '/security/local_switcher.html.twig' %}
-
-	<div class="text-center body">
-		<img class="mb-1" src="{{ asset('images/logos/logo.svg') }}" alt="" width="120" height="120"/>
-		{{
+  <div class="text-center body">
+    <img class="mb-1"
+      src="{{ asset('images/logos/logo.svg') }}"
+      alt=""
+      width="120"
+      height="120" />
+    {{
       form_start(
         form,
         {
@@ -27,51 +29,51 @@
         }
       )
     }}
-		<h1 class="h2 mb-3 font-weight-normal">
-			{{ 'Registration'|trans }}
-		</h1>
+    <h1 class="h2 mb-3 font-weight-normal">
+      {{ 'Registration'|trans }}
+    </h1>
 
-		<div class="form-group">
-			{{ form_errors(form.username) }}
-			{{ form_widget(form.username) }}
-			{{ form_widget(form.avatar) }}
-			{{ form_errors(form.avatar) }}
-		</div>
+    <div class="form-group">
+      {{ form_errors(form.username) }}
+      {{ form_widget(form.username) }}
+      {{ form_widget(form.avatar) }}
+      {{ form_errors(form.avatar) }}
+    </div>
 
-		<div class="form-group">
-			{{ form_widget(form.email) }}
-			{{ form_errors(form.email) }}
-		</div>
+    <div class="form-group">
+      {{ form_widget(form.email) }}
+      {{ form_errors(form.email) }}
+    </div>
 
-		<div class="form-group d-inline-flex">
-			{{ form_errors(form.firstname) }}
-			{{ form_widget(form.firstname) }}
+    <div class="form-group d-inline-flex">
+      {{ form_errors(form.firstname) }}
+      {{ form_widget(form.firstname) }}
 
-			{{ form_widget(form.lastname) }}
-			{{ form_errors(form.lastname) }}
-		</div>
+      {{ form_widget(form.lastname) }}
+      {{ form_errors(form.lastname) }}
+    </div>
 
-		<div class="form-group">
-			{{ form_errors(form.password) }}
-			{{ form_widget(form.password) }}
+    <div class="form-group">
+      {{ form_errors(form.password) }}
+      {{ form_widget(form.password) }}
 
-			{{ form_widget(form.password_confirm) }}
-			{{ form_errors(form.password_confirm) }}
-		</div>
-		<div class="form-group">
-			<button type="submit" class="btn btn-lg btn-primary btn-block">
-				{{ 'Sign Up'|trans }}
-			</button>
-			<a href="{{ path('security_login') }}">{{ 'Login'|trans }}</a>
-		</div>
+      {{ form_widget(form.password_confirm) }}
+      {{ form_errors(form.password_confirm) }}
+    </div>
+    <div class="form-group">
+      <button type="submit" class="btn btn-lg btn-primary btn-block">
+        {{ 'Sign Up'|trans }}
+      </button>
+      <a href="{{ path('security_login') }}">{{ 'Login'|trans }}</a>
+    </div>
 
-		<p class="mt-5 mb-3 text-muted">
-			IGRIS © 2019-2020
-		</p>
-		{{ form_end(form) }}
-	</div>
+    <p class="mt-5 mb-3 text-muted">
+      IGRIS © 2019-2020
+    </p>
+    {{ form_end(form) }}
+  </div>
 {% endblock %}
 
 {% block javascripts %}
-	{{ encore_entry_script_tags('form') }}
+  {{ encore_entry_script_tags('form') }}
 {% endblock %}

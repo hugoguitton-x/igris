@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([["admin"],{"iA/y":function(n,e,t){"use strict";t.r(e);t("mPeE"),t("SYky"),t("XtFL"),t("tjRy"),t("3oCa"),t("OP0w");var i=t("EVdn"),o=t.n(i);o()("#menu-toggle").click((function(n){n.preventDefault(),o()("#wrapper").toggleClass("toggled")}))},mPeE:function(n,e,t){}},[["iA/y","runtime",0,1]]]);

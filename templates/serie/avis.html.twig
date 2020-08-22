@@ -1,35 +1,41 @@
 {% extends 'page.html.twig' %}
 
 {% block container %}
-	<div class="container block-avis">
-		<h1 class="titre-serie-avis">
-			<a href="{{ path( 'serie_show', { id: serie.id } ) }}">
-				{{ serie.nom }}
-			</a>
-		</h1>
-		{% for avis in avisList %}
-			<div>
-				{% if loop.index0 > 0 %}
-					<hr class="delimiter-avis"/>
-				{% endif %}
-				<span class="utilisateur-avis">
-					{{ avis.utilisateur.username|capitalize }}
-				</span>
-				<i class="avis-petit">
-					{{ avis.createdAt|format_date('medium', app.request.getLocale()) }}
-				</i>
-				{{ ' - ' }}
-				<span class="avis-petit">
-					{{ avis.note }}
-					<i class="fa fa-star"></i>
-				</span>
-			</div>
-			<div class="commentaire-avis">
-				{{ avis.commentaire|raw }}
-			</div>
-		{% endfor %}
-	</div>
+  <div class="container block-avis">
+    <h1 class="titre-serie-avis">
+      <a href="{{
+        path(
+          'serie_show',
+          {
+            id: serie.id
+          }
+        )
+        }}">
+        {{ serie.nom }}
+      </a>
+    </h1>
+    {% for avis in avisList %}
+      <div>
+        {% if loop.index0 > 0 %}
+          <hr class="delimiter-avis" />
+        {% endif %}
+        <span class="utilisateur-avis">
+          {{ avis.utilisateur.username|capitalize }}
+        </span>
+        <i class="avis-petit">
+          {{ avis.createdAt|format_date('medium', app.request.getLocale()) }}
+        </i>
+        {{ ' - ' }}
+        <span class="avis-petit">
+          {{ avis.note }}
+          <i class="fa fa-star"></i>
+        </span>
+      </div>
+      <div class="commentaire-avis">
+        {{ avis.commentaire|raw }}
+      </div>
+    {% endfor %}
+  </div>
 
-	{{ knp_pagination_render(avisList) }}
-
+  {{ knp_pagination_render(avisList) }}
 {% endblock %}

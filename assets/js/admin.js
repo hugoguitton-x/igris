@@ -1,4 +1,4 @@
-import "../css/admin.scss";
+import "../sass/admin.scss";
 
 import "bootstrap";
 

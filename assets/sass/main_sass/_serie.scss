@@ -1,0 +1,71 @@
+.container_text_serie {
+  position: relative;
+}
+
+.img_serie {
+  float: left;
+  width: 200px;
+  height: auto;
+  margin-right: 10px;
+}
+
+.link_avis_form {
+  right: 0;
+  bottom: 0;
+  position: absolute;
+}
+
+
+.fa-star {
+  color: $star-color;
+}
+
+// GRID
+.serie-site {
+  position: absolute;
+  color: white;
+  top: 4px;
+  right: 19px;
+  z-index: 20;
+  font-size: 1.6em;
+
+  &:hover,
+  &:focus {
+    color: red;
+  }
+}
+
+.wrapper.link-serie {
+  &:hover {
+    text-decoration: none;
+    img {
+      opacity: 0.9;
+    }
+  }
+
+  .corps-serie {
+    position: relative;
+    flex: 1;
+    width: 100%;
+
+    .caption-serie {
+      position: absolute;
+      bottom: 0px;
+      left: 0px;
+      width: 100%;
+      text-align: center;
+      background-color: rgba($brand-dark, 0.85);
+      color: white;
+      padding: 5px;
+      font-size: 0.85rem;
+    }
+
+    .image-serie {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
+  }
+}
+
+

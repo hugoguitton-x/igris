@@ -1,66 +1,94 @@
 {% extends 'page.html.twig' %}
 
-{% block stylesheets %}
-	{{ parent() }}
-	<link rel="stylesheet" href="/css/serie.css"/>
-{% endblock %}
-
 {% block container %}
+  <div class="container">
+    <h1 class="titre-serie">
+      {{ serie.nom }}
+    </h1>
+    <h6>
+      {{ serie.nombreEpisodes }}
+      {{ 'Episodes'|trans|lower }}
+      x
+      {{ serie.dureeEpisode }}
+      min |
+      <a href="{{ serie.lien }}" target="_blank">{{ 'Site'|trans }}</a>
+      |
+      <span class="avis-petit">
+        {{ serie.noteMoyenne }}
+        <i class="fa fa-star"></i>
+        <i>
+          -
+          {{ serie.avis|length }}
+          {{ 'Ratings'|trans }}
+        </i>
+      </span>
+    </h6>
+    <div class="row">
+      <div class="col-md-12" class="container_text_serie">
+        <img class="img_serie"
+          src="{{ asset('uploads/series/' ~ serie.image) }}" />
+        <p>
+          {{ serie.synopsis|raw }}
+        </p>
+        {% if not checkAvisUser %}
+          <a href="{{
+            path(
+              'serie_avis_new',
+              {
+                id: serie.id
+              }
+            )
+            }}"
+            class="link_avis_form">
+            {{ 'Write a review'|trans }}
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
 
-	<div class="container">
-		<h1 class="titre-serie">{{ serie.nom }}</h1>
-		<h6>
-			{{ serie.nombreEpisodes }}
-			{{ 'Episodes'|trans|lower }}
-			x
-			{{ serie.dureeEpisode }}
-			min |
-			<a href="{{ serie.lien }}" target="_blank">
-				{{ 'Site'|trans }}
-			</a>
-			|
-			<span class="avis-petit">
-				{{ serie.noteMoyenne }}
-				<i class="fa fa-star"></i>
-				<i>-
-					{{ serie.avis|length }}
-					{{ 'Ratings'|trans }}</i>
-			</span>
-		</h6>
-		<div class="row">
-			<div class="col-md-12" class="container_text_serie">
-				<img class="img_serie" src="{{ asset('uploads/series/' ~ serie.image) }}"/>
-				<p>{{ serie.synopsis|raw }}</p>
-				{% if not checkAvisUser %}
-					<a href="{{ path( 'serie_avis_new', { id: serie.id } ) }}" class="link_avis_form">{{ 'Write a review'|trans }}
-					</a>
-				{% endif %}
-			</div>
-		</div>
-	</div>
+  <h3 class="h3-avis">
+    {{ 'Reviews'|trans }}
+  </h3>
+  <div class="container block-avis">
+    {% for avis in avisList %}
+      <div>
+        <hr class="delimiter-avis" />
+        <span class="utilisateur-avis">
+          {{ avis.utilisateur.username|capitalize }}
+        </span>
+        <i class="avis-petit">
+          {{
+            avis.createdAt|format_date(
+              'medium',
+              locale = app.request.getLocale()
+            )
+          }}
+        </i>
+        {{ ' - ' }}
+        <span class="avis-petit">
+          {{ avis.note }}
+          <i class="fa fa-star"></i>
+        </span>
+      </div>
+      <div class="commentaire-avis">
+        {{ avis.commentaire|raw }}
+      </div>
+    {% endfor %}
 
-	<h3 class="h3-avis">{{ 'Reviews'|trans }}</h3>
-	<div class="container block-avis">
-		{% for avis in avisList %}
-			<div>
-				<hr class="delimiter-avis">
-				<span class="utilisateur-avis">{{ avis.utilisateur.username|capitalize }}</span>
-				<i class="avis-petit">{{ avis.createdAt|format_date('medium', locale = app.request.getLocale()) }}</i>
-				{{ ' - ' }}
-				<span class="avis-petit">{{ avis.note }}
-					<i class="fa fa-star"></i>
-				</span>
-			</div>
-			<div class="commentaire-avis">{{ avis.commentaire|raw }}</div>
-		{% endfor %}
-
-		{% if serie.avis|length > 5 %}
-			<div class="all-avis">
-				<a href="{{ path( 'serie_avis_show', { id: serie.id } ) }}">
-					{{ "See all"|trans|upper }}
-				</a>
-			</div>
-		{% endif %}
-	</div>
-
+    {% if (serie.avis|length) > 5 %}
+      <div class="all-avis">
+        <a href="{{
+          path(
+            'serie_avis_show',
+            {
+              id: serie.id
+            }
+          )
+          }}">
+          {{ 'See all'|trans|upper }}
+        </a>
+      </div>
+    {% endif %}
+  </div>
 {% endblock %}

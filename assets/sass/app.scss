@@ -1,0 +1,16 @@
+@import "../sass/variables";
+@import "../sass/mixins";
+
+@import "../sass/fade_in";
+
+@import "../sass/main_sass/avis";
+@import "../sass/main_sass/grid";
+@import "../sass/main_sass/league";
+@import "../sass/main_sass/main";
+@import "../sass/main_sass/manga";
+@import "../sass/main_sass/serie";
+
+
+// Bootstrap and its default variables
+@import "../../node_modules/bootstrap/scss/bootstrap";
+

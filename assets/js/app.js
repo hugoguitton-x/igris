@@ -6,7 +6,7 @@
  */
 
 // any CSS you import will output into a single css file (app.css in this case)
-import "../css/app.scss";
+import "../sass/app.scss";
 import "bootstrap";
 
 import '@fortawesome/fontawesome-free/js/fontawesome'
