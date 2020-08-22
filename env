@@ -4,6 +4,11 @@ DATABASE_URL=postgresql://<user>:<pwd>@<hostname>:<port>/<db_name>
 RIOT_API_KEY=<api_key>
 MANGADEX_URL=<url>
 
+# DOCKER COMPOSER POSTGRES
+PG_USER=<user>
+PG_PASSWORD=<pwd>
+PG_DATABASE=<db_name>
+
 # TWITTER
 TWITTER_CONSUMER_KEY=<api_consumer_key>
 TWITTER_CONSUMER_SECRET=<api_comsumer_secret>

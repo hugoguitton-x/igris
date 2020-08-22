@@ -13,9 +13,9 @@ services:
     ports:
       - 5432:5432
     environment:
-      POSTGRES_USER: hugo
-      POSTGRES_PASSWORD: i9t5fp255
-      POSTGRES_DB: projectDOC
+      POSTGRES_USER: ${PG_USER}
+      POSTGRES_PASSWORD: ${PG_PASSWORD}
+      POSTGRES_DB: ${PG_DATABASE}
       PGDATA: /var/lib/postgresql/data/pgdata
     volumes:
       - volume-db:/var/lib/postgresql/data/pgdata
