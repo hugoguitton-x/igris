@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="{{ app.request.locale }}">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+  </head>
+
+  <body>
+    {% apply inky_to_html|inline_css(encore_entry_css_source('emails')) %}
+
+    {# Header #}
+    <table class="header" border="0" cellpadding="0" cellspacing="0">
+      <tbody>
+        <tr>
+          <td>
+            <div>
+              <table align="center"
+                class="table_child"
+                border="0"
+                cellpadding="0"
+                cellspacing="0">
+                <tbody>
+                  <tr>
+                    <td class="space_line" height="30">
+                      &nbsp;
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="logo_line" align="center">
+                      <a href="{{ absolute_url(path('home_page')) }}">
+                        <img src="{{ email.image('@emails/logo.svg') }}"
+                          alt="logo" />
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="space_line" height="30">
+                      &nbsp;
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="line brand_name" align="center">
+                      Igris
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="space_line" height="30">
+                      &nbsp;
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="line" align="center">
+                      {{
+                        'Your account has been created successfully, you must activate it now!'|trans
+                      }}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="space_line" height="30">
+                      &nbsp;
+                    </td>
+                  </tr>
+                  <tr>
+                    <td align="center">
+                      <a class="activation_link"
+                        href="{{
+                        absolute_url(
+                          path(
+                            'security_activation',
+                            {
+                              token: token
+                            }
+                          )
+                        )
+                        }}">
+                        {{ 'Activate my account'|trans|upper }}
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="space_line" height="30">
+                      &nbsp;
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    {# Footer #}
+    <table class="footer" border="0" cellpadding="0" cellspacing="0">
+      <tbody>
+        <tr>
+          <td class="space_footer" height="15">
+            &nbsp;
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <table class="footer table_child"
+              align="center"
+              border="0"
+              cellpadding="0"
+              cellspacing="0">
+              <tbody>
+                <tr>
+                  <td class="line_footer" align="center">
+                    IGRIS © 2019-2020
+                  </td>
+                </tr>
+                <tr>
+                  <td class="space_footer" height="15">
+                    &nbsp;
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    {% endapply %}
+  </body>
+</html>

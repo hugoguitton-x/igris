@@ -5,7 +5,7 @@
         "/build/runtime.d94b3b43.js",
         "/build/0.cf60d32b.js",
         "/build/1.ada2274d.js",
-        "/build/app.e39d96e4.js"
+        "/build/app.75f4421e.js"
       ],
       "css": [
         "/build/app.57a3232e.css"
@@ -44,6 +44,17 @@
       ],
       "css": [
         "/build/signup.4acbc92d.css"
+      ]
+    },
+    "emails": {
+      "js": [
+        "/build/runtime.d94b3b43.js",
+        "/build/0.cf60d32b.js",
+        "/build/1.ada2274d.js",
+        "/build/emails.791fdbde.js"
+      ],
+      "css": [
+        "/build/emails.45a3b2c8.css"
       ]
     }
   }

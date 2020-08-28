@@ -81,6 +81,11 @@ class Utilisateur implements UserInterface
      */
     private $avatar;
 
+    /**
+     * @ORM\Column(type="string", length=50, nullable=true, unique=true)
+     */
+    private $activationToken;
+
     public function __construct()
     {
         $this->documents = new ArrayCollection();
@@ -240,6 +245,18 @@ class Utilisateur implements UserInterface
     public function setAvatar(?string $avatar): self
     {
         $this->avatar = $avatar;
+
+        return $this;
+    }
+
+    public function getActivationToken(): ?string
+    {
+        return $this->activationToken;
+    }
+
+    public function setActivationToken(?string $activationToken): self
+    {
+        $this->activationToken = $activationToken;
 
         return $this;
     }

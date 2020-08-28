@@ -1,13 +1,15 @@
 APP_ENV=<mode>
 APP_SECRET=<secret>
 DATABASE_URL=postgresql://<user>:<pwd>@<hostname>:<port>/<db_name>
-RIOT_API_KEY=<api_key>
-MANGADEX_URL=<url>
 
 # DOCKER COMPOSER POSTGRES
 PG_USER=<user>
 PG_PASSWORD=<pwd>
 PG_DATABASE=<db_name>
+
+# OTHERS
+RIOT_API_KEY=<api_key>
+MANGADEX_URL=<url>
 
 # TWITTER
 TWITTER_CONSUMER_KEY=<api_consumer_key>

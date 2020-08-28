@@ -1,5 +1,6 @@
 # A
 Actions: Actions
+Activate my account: Activer mon compte
 Add: Ajouter
 Administration: Administration
 Administrator: Administrateur
@@ -76,6 +77,7 @@ Write a review: Ajouter une critique
 
 # Y
 You have already posted a review with your account for this series.: Vous avez déjà posté un avis avec votre compte pour cette série.
+Your account has been created successfully, you must activate it now!: Votre compte a été créé avec succès, vous devez l'activer maintenant !
 
 # CODE
 menu.choose_language: Choisir la langue

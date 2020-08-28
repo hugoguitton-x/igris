@@ -6,3 +6,5 @@ twig:
     globals:
         mangadex_url: '%mangadex_url%'
         locales: "%app_locales_array%"
+    paths:
+        '%kernel.project_dir%/public/images/emails': emails

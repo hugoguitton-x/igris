@@ -11,9 +11,12 @@
 
 namespace App\Twig;
 
+use Twig\TwigFunction;
 use Symfony\Component\Intl\Locales;
 use Twig\Extension\AbstractExtension;
-use Twig\TwigFunction;
+use Symfony\Contracts\Service\ServiceSubscriberInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\WebpackEncoreBundle\Asset\EntrypointLookupInterface;
 
 /**
  * See https://symfony.com/doc/current/templating/twig_extension.html.
@@ -27,11 +30,16 @@ class AppExtension extends AbstractExtension
     private $localeCodes;
     private $locales;
 
-    public function __construct(string $locales)
+    public function __construct(string $locales, ContainerInterface $container, string $publicDir,  EntrypointLookupInterface $encoreEntrypointLookup)
     {
         $localeCodes = explode('|', $locales);
         sort($localeCodes);
         $this->localeCodes = $localeCodes;
+
+
+        $this->encoreEntrypointLookup = $encoreEntrypointLookup;
+        $this->container = $container;
+        $this->publicDir = $publicDir;
     }
 
     /**
@@ -41,6 +49,7 @@ class AppExtension extends AbstractExtension
     {
         return [
             new TwigFunction('locales', [$this, 'getLocales']),
+            new TwigFunction('encore_entry_css_source', [$this, 'getEncoreEntryCssSource']),
         ];
     }
 
@@ -61,5 +70,16 @@ class AppExtension extends AbstractExtension
         }
 
         return $this->locales;
+    }
+
+    public function getEncoreEntryCssSource(string $entryName): string
+    {
+        $files = $this->encoreEntrypointLookup
+            ->getCssFiles($entryName);
+        $source = '';
+        foreach ($files as $file) {
+            $source .= file_get_contents($this->publicDir . '/' . $file);
+        }
+        return $source;
     }
 }

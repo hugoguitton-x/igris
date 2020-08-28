@@ -1,0 +1,75 @@
+@import "../sass/variables";
+@import "../sass/mixins";
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+table {
+  background-color: $brand-dark;
+
+  &.header,
+  &.footer {
+    width: 100%;
+  }
+
+  &.footer {
+    background-color: #2e3035;
+  }
+
+  .table_child {
+    width: 590px;
+  }
+
+  td {
+    font-family: Helvetica, sans-serif;
+    text-align: center;
+
+    &.line {
+      color: #878b99;
+      mso-line-height-rule: exactly;
+      line-height: 26px;
+
+      &.brand_name {
+        font-size: 35px;
+        color: #ffffff;
+        mso-line-height-rule: exactly;
+        line-height: 28px;
+      }
+    }
+
+    &.line_footer {
+      color: #ffffff;
+      mso-line-height-rule: exactly;
+      line-height: 15px;
+    }
+
+    &.space_line {
+      font-size: 30px;
+      line-height: 30px;
+    }
+
+    &.space_footer {
+      font-size: 15px;
+      line-height: 15px;
+    }
+
+    &.logo_line {
+      text-align: center;
+      img {
+        width: 100px;
+        border: 0;
+      }
+    }
+
+    a {
+      &.activation_link {
+        color: white;
+        background-color: #4565a5;
+        padding: 10px 20px 10px 20px;
+        text-decoration: none;
+      }
+    }
+  }
+}

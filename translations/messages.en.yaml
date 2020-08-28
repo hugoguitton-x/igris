@@ -1,5 +1,6 @@
 # A
 Actions: Actions
+Activate my account: Activate my account
 Add: Add
 Administration: Administration
 Administrator: Administrator
@@ -76,6 +77,7 @@ Write a review: Write a review
 
 # Y
 You have already posted a review with your account for this series.: You have already posted a review with your account for this series.
+Your account has been created successfully, you must activate it now!: Your account has been created successfully, you must activate it now!
 
 # CODE
 menu.choose_language: Choose language
