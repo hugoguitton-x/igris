@@ -15,7 +15,8 @@ security:
             security: false
         main:
             pattern:   ^/
-            anonymous: lazy
+            anonymous: true
+            lazy: true
 
             provider: in_database
 
