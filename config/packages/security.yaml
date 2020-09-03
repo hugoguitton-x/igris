@@ -14,9 +14,9 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
-            pattern:   ^/
-            anonymous: lazy
-
+            anonymous: true
+            lazy: true
+ 
             provider: in_database
 
             form_login:
@@ -37,14 +37,16 @@ security:
                 secret:   '%kernel.secret%'
                 lifetime: 2592000 # 30j
                 path:     /
+
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
+
             # https://symfony.com/doc/current/security/impersonating_user.html
             # switch_user: true
 
     role_hierarchy:
-        ROLE_ADMIN: ROLE_USER     
-        
+        ROLE_ADMIN: ROLE_USER
+
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
@@ -54,4 +56,3 @@ security:
         - { path: ^/(%app_locales%)/serie, role: ROLE_USER }
         - { path: ^/(%app_locales%)/admin, role: ROLE_ADMIN }
         - { path: ^/(%app_locales%), role: ROLE_USER }
-        
