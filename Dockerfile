@@ -28,10 +28,10 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 WORKDIR /usr/src/app
 
 # UID dépendant de la machine (echo $UID)
-COPY --chown=1001:1001 . /usr/src/app
+COPY --chown=0:0 . /usr/src/app
 
-RUN usermod -u 1001 www-data
-RUN usermod -G staff www-data
+#RUN usermod -u 1001 www-data
+#RUN usermod -G staff www-data
 
 RUN PATH=$PATH:/usr/src/apps/vendor/bin:bin
 
