@@ -46,6 +46,7 @@ class SecurityController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            die;
             $imageFile = $form->get('avatar')->getData();
             if ($imageFile) {
                 $imageFile = $fileUploader->uploadImage($imageFile, 'avatar');

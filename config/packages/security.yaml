@@ -17,6 +17,8 @@ security:
             anonymous: true
             lazy: true
  
+            user_checker: App\Security\UtilisateurChecker
+
             provider: in_database
 
             form_login:

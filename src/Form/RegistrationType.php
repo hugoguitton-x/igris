@@ -59,7 +59,7 @@ class RegistrationType extends AbstractType
                             'image/jpeg',
                             'image/png',
                         ],
-                        'mimeTypesMessage' => 'Please upload a valid image (max 1mb)',
+                        'mimeTypesMessage' => 'Please upload a valid image (jpep/png)',
                         'allowLandscape' => false,
                         'allowPortrait' => false
                     ])
