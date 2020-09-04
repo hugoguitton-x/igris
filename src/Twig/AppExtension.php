@@ -14,8 +14,6 @@ namespace App\Twig;
 use Twig\TwigFunction;
 use Symfony\Component\Intl\Locales;
 use Twig\Extension\AbstractExtension;
-use Symfony\Contracts\Service\ServiceSubscriberInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\WebpackEncoreBundle\Asset\EntrypointLookupInterface;
 
 /**
@@ -30,15 +28,13 @@ class AppExtension extends AbstractExtension
     private $localeCodes;
     private $locales;
 
-    public function __construct(string $locales, ContainerInterface $container, string $publicDir,  EntrypointLookupInterface $encoreEntrypointLookup)
+    public function __construct(string $locales, string $publicDir,  EntrypointLookupInterface $encoreEntrypointLookup)
     {
         $localeCodes = explode('|', $locales);
         sort($localeCodes);
         $this->localeCodes = $localeCodes;
 
-
         $this->encoreEntrypointLookup = $encoreEntrypointLookup;
-        $this->container = $container;
         $this->publicDir = $publicDir;
     }
 
