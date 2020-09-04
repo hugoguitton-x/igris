@@ -9,6 +9,8 @@ RUN apt-get update && \
 apt-get install -y \
 libzip-dev libpq-dev libicu-dev cron libxslt-dev
 
+RUN echo "upload_max_filesize = 50M" > /usr/local/etc/php/conf.d/uploads.ini
+
 RUN docker-php-ext-install zip
 RUN docker-php-ext-enable apcu
 RUN docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql
@@ -28,7 +30,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 WORKDIR /usr/src/app
 
 # UID dépendant de la machine (echo $UID)
-COPY --chown=0:0 . /usr/src/app
+COPY . /usr/src/app
 
 #RUN usermod -u 1001 www-data
 #RUN usermod -G staff www-data
