@@ -14,7 +14,9 @@ import '@fortawesome/fontawesome-free/js/solid'
 import '@fortawesome/fontawesome-free/js/regular'
 import '@fortawesome/fontawesome-free/js/brands'
 
+import AOS from "aos";
+
+AOS.init();
+
 // Need jQuery? Install it with "yarn add jquery", then uncomment to import it.
 import $ from "jquery";
-
-console.log("Hello Webpack Encore! Edit me in assets/js/app.js");

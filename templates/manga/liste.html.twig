@@ -5,7 +5,7 @@
 
 	<div class="row">
 		{% for manga in mangas %}
-			<div class="col-12 col-lg-6 col-xl-3 pb-2 parent">
+			<div class="col-12 col-lg-6 col-xl-3 pb-2 parent" data-aos="fade-up">
 				<a class="link-chapter wrapper" href="{{ mangadex_url ~ '/manga/' ~ manga.mangaId }}" target="_blank">
 					<div class="titre-manga">
 						{{ manga.name }}
