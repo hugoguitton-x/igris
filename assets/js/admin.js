@@ -9,7 +9,7 @@ import '@fortawesome/fontawesome-free/js/brands'
 
 import $ from "jquery";
 
-$("#menu-toggle").click(function (e) {
+$("#menu-toggle").on('click', function (e) {
   e.preventDefault();
   $("#wrapper").toggleClass("toggled");
 });

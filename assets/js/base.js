@@ -1,6 +1,6 @@
 import $ from "jquery";
 
-$(document).ready(function () {
+$(function () {
   if (!window.matchMedia) return;
 
   var current = $('head > link[rel="icon"][media]');
