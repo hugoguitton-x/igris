@@ -11,6 +11,7 @@ use App\Form\EditUserType;
 use App\Entity\Utilisateur;
 use App\Entity\LanguageCode;
 use App\Service\FileRemover;
+use Psr\Log\LoggerInterface;
 use App\Service\FileUploader;
 use Abraham\TwitterOAuth\TwitterOAuth;
 use Doctrine\ORM\EntityManagerInterface;
@@ -172,7 +173,8 @@ class AdministrationController extends AbstractController
         Request $request,
         EntityManagerInterface $manager,
         Manga $manga = null,
-        TranslatorInterface $translator
+        TranslatorInterface $translator,
+        LoggerInterface $appLogger
     ) {
         if (!$manga) {
             $manga = new Manga();
@@ -189,7 +191,7 @@ class AdministrationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $manga =  $this->loadMangaFromMangadexApi($form->get('manga_id')->getData(), $manager, $translator);
+            $manga =  $this->loadMangaFromMangadexApi($form->get('manga_id')->getData(), $manager, $translator, $appLogger);
 
             return $this->redirectToRoute('manga_index');
         }
@@ -201,7 +203,7 @@ class AdministrationController extends AbstractController
     }
 
 
-    private function loadMangaFromMangadexApi(int $mangaId, EntityManagerInterface $manager, TranslatorInterface $translator){
+    private function loadMangaFromMangadexApi(int $mangaId, EntityManagerInterface $manager, TranslatorInterface $translator, LoggerInterface $appLogger){
         $mangaRepo = $manager->getRepository(Manga::class);
         $langCodeRepo = $manager->getRepository(LanguageCode::class);
         $chapterRepo = $manager->getRepository(Chapter::class);
@@ -212,7 +214,7 @@ class AdministrationController extends AbstractController
         $response = $client->request('GET', $mangadexURL.'/api/manga/'.$mangaId);
 
         if($response->getStatusCode() != 200){
-            throw new \Exception('Pas de chance');
+            $appLogger->error($response->getStatusCode() . ' - ' . $response->getContent());
         }
 
         $data = json_decode($response->getContent());
