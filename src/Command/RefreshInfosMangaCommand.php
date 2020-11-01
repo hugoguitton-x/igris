@@ -40,22 +40,22 @@ class RefreshInfosMangaCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
-        $output->writeln('<comment>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</comment>');
-        $output->writeln('<info>' . (new \DateTime())->format('Y-m-d H:i:s') . '</info>');
-        $output->writeln('<comment>=======================================</comment>');
-        $output->writeln('<comment>Récupération de l\'ensemble des mangas.</comment>');
-        $mangas = $this->mangaRepo->findAll();
-        $output->writeln('<comment>=======================================</comment>');
+        $output->writeln('<comment>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</comment>')
+            ->writeln('<info>' . (new \DateTime())->format('Y-m-d H:i:s') . '</info>')
+            ->writeln('<comment>=======================================</comment>')
+            ->writeln('<comment>Récupération de l\'ensemble des mangas.</comment>');
 
-        $output->writeln('<comment>Mise à jour de l\'ensemble des informations des mangas.</comment>');
-        $output->writeln('<comment>=======================================</comment>');
+        $mangas = $this->mangaRepo->findAll();
+
+        $output->writeln('<comment>=======================================</comment>')
+            ->writeln('<comment>Mise à jour de l\'ensemble des informations des mangas.</comment>')
+            ->writeln('<comment>=======================================</comment>');
 
         foreach ($mangas as $manga) {
             $output->writeln('<comment> -- ' . $manga->getName() . ' -- </comment>');
             $this->refreshInfos($manga->getMangaId(), $this->manager, $output);
             $output->writeln('<info> OK </info>');
         }
-
 
         $io->success('La liste des mangas a bien été mise à jour !');
 
@@ -98,8 +98,9 @@ class RefreshInfosMangaCommand extends Command
             $file = $this->params->get('kernel.project_dir') . "/public/uploads/mangas/" . $info['basename'];
             file_put_contents($file, $imageFile);
 
-            $mangaDB->setImage($image);
-            $mangaDB->setMangaId($mangaId);
+            $mangaDB->setImage($image)
+                ->setMangaId($mangaId);
+
             $manager->persist($mangaDB);
             $manager->flush();
         } else {
@@ -131,18 +132,20 @@ class RefreshInfosMangaCommand extends Command
 
                     if ($chapterDB) {
                         if ($chapterDB->getDate()->getTimestamp() < $timestamp) {
-                            $chapterDB->setChapterId($chapter_id);
-                            $chapterDB->setDate(new \DateTime(date('Y-m-d H:i:s', $timestamp)));
+                            $chapterDB->setChapterId($chapter_id)
+                                ->setDate(new \DateTime(date('Y-m-d H:i:s', $timestamp)));
+
                             $manager->persist($chapterDB);
                             $manager->flush();
                         }
                     } else {
                         $chapter = new Chapter();
-                        $chapter->setLangCode($langCodeDB);
-                        $chapter->setManga($mangaDB);
-                        $chapter->setChapterId($chapter_id);
-                        $chapter->setNumber($number);
-                        $chapter->setDate(new \DateTime(date('Y-m-d H:i:s', $timestamp)));
+                        $chapter->setLangCode($langCodeDB)
+                            ->setManga($mangaDB)
+                            ->setChapterId($chapter_id)
+                            ->setNumber($number)
+                            ->setDate(new \DateTime(date('Y-m-d H:i:s', $timestamp)));
+
                         $manager->persist($chapter);
                         $manager->flush();
 
@@ -165,29 +168,33 @@ class RefreshInfosMangaCommand extends Command
         $oauthToken = $this->params->get('oauth_token');
         $oauthTokenSecret = $this->params->get('oauth_token_secret');
 
-        if(!empty($consumerKey) && !empty($consumerSecret) && !empty($consumerKey) && !empty($oauthTokenSecret)) {
+        if (!empty($consumerKey) && !empty($consumerSecret) && !empty($consumerKey) && !empty($oauthTokenSecret)) {
             $connection =  new TwitterOAuth($consumerKey, $consumerSecret, $oauthToken, $oauthTokenSecret);
 
             if (is_array($mediaArray)) {
-    
+
                 $mediaIDS = array();
-    
+
                 foreach ($mediaArray as $key => $media_path) {
-                    $mediaOBJ = $connection->upload('media/upload', ['media' => $media_path]);
-                    array_push($mediaIDS, $mediaOBJ->media_id_string);
+                    if (!is_readable($media_path) || file_get_contents($media_path) === false) {
+                        // TODO logger
+                    } else {
+                        $mediaOBJ = $connection->upload('media/upload', ['media' => $media_path]);
+                        array_push($mediaIDS, $mediaOBJ->media_id_string);
+                    }
                 }
-    
+
                 $mediaIDstr = implode(',', $mediaIDS);
             }
-    
+
             $arrayCfg['status'] = $str;
             $arrayCfg['media_ids'] = $mediaIDstr;
-    
+
             $statuses = $connection->post("statuses/update", $arrayCfg);
-    
+
             return $statuses;
         }
 
-        return 0;       
+        return 0;
     }
 }
