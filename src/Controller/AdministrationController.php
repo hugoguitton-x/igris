@@ -29,6 +29,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
  */
 class AdministrationController extends AbstractController
 {
+
+    private $logger;
+
+    public function __construct(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
+    }
+
     /**
      * @Route("", name="index")
      */
@@ -70,7 +78,7 @@ class AdministrationController extends AbstractController
     {
         $form = $this->createForm(EditUserType::class, $user);
         $form->handleRequest($request);
-        
+
         if ($form->isSubmitted() && $form->isValid()) {
             $imageFile = $form->get('avatar')->getData();
             if ($imageFile) {
@@ -86,7 +94,7 @@ class AdministrationController extends AbstractController
             $this->addFlash('success', $translator->trans('successfully.modified', ['%slug%' => ucfirst($user->getUsername())]));
             return $this->redirectToRoute('admin_user');
         }
-        
+
         return $this->render('administration/edituser.html.twig', [
             'formUser' => $form->createView(),
         ]);
@@ -99,7 +107,7 @@ class AdministrationController extends AbstractController
     {
         $avatar = $user->getAvatar();
 
-        if($avatar !== 'default.png'){
+        if ($avatar !== 'default.png') {
             $fileRemover->removeImage(new Filesystem(), 'avatar', $avatar);
         }
 
@@ -129,7 +137,7 @@ class AdministrationController extends AbstractController
         $form = $this->createForm(SerieType::class, $serie);
         $form->handleRequest($request);
 
-        if($serie->getId() !== null){
+        if ($serie->getId() !== null) {
             $edit = true;
         } else {
             $edit = false;
@@ -150,7 +158,7 @@ class AdministrationController extends AbstractController
             $manager->persist($serie);
             $manager->flush();
 
-            if($edit){
+            if ($edit) {
                 $this->addFlash('success', $translator->trans('successfully.modified', ['%slug%' => ucfirst($serie->getNom())]));
             } else {
                 $this->addFlash('success', $translator->trans('successfully.added', ['%slug%' => ucfirst($serie->getNom())]));
@@ -183,7 +191,7 @@ class AdministrationController extends AbstractController
         $form = $this->createForm(MangaType::class, $manga);
         $form->handleRequest($request);
 
-        if($manga->getId() !== null){
+        if ($manga->getId() !== null) {
             $edit = true;
         } else {
             $edit = false;
@@ -203,7 +211,8 @@ class AdministrationController extends AbstractController
     }
 
 
-    private function loadMangaFromMangadexApi(int $mangaId, EntityManagerInterface $manager, TranslatorInterface $translator, LoggerInterface $appLogger){
+    private function loadMangaFromMangadexApi(int $mangaId, EntityManagerInterface $manager, TranslatorInterface $translator)
+    {
         $mangaRepo = $manager->getRepository(Manga::class);
         $langCodeRepo = $manager->getRepository(LanguageCode::class);
         $chapterRepo = $manager->getRepository(Chapter::class);
@@ -211,10 +220,11 @@ class AdministrationController extends AbstractController
         $mangadexURL = $this->getParameter('mangadex_url');
 
         $client = HttpClient::create(['http_version' => '2.0']);
-        $response = $client->request('GET', $mangadexURL.'/api/manga/'.$mangaId);
 
-        if($response->getStatusCode() != 200){
-            $appLogger->error($response->getStatusCode() . ' - ' . $response->getContent());
+        $response = $client->request('GET', $mangadexURL . '/api/manga/' . $mangaId);
+
+        if ($response->getStatusCode() != 200) {
+            $this->logger->error($response->getStatusCode() . ' - ' . $response->getContent(), ['manga_id' => $mangaId]);
         }
 
         $data = json_decode($response->getContent());
@@ -226,16 +236,16 @@ class AdministrationController extends AbstractController
             'mangaId' => $mangaId,
         ));
 
-        $urlImage = $mangadexURL.strtok($manga->cover_url, "?");
+        $urlImage = $mangadexURL . strtok($manga->cover_url, "?");
         $info = pathinfo($urlImage);
         $image = $info['basename'];
 
-        if(!$mangaDB){
+        if (!$mangaDB) {
             $mangaDB = new Manga();
             $mangaDB->setName(html_entity_decode($manga->title, ENT_QUOTES, 'UTF-8'));
 
             $imageFile = file_get_contents($urlImage);
-            $file = $this->getParameter('kernel.project_dir') . "/public/uploads/mangas/".$info['basename'];
+            $file = $this->getParameter('kernel.project_dir') . "/public/uploads/mangas/" . $info['basename'];
             file_put_contents($file, $imageFile);
 
             $mangaDB->setImage($image);
@@ -243,32 +253,31 @@ class AdministrationController extends AbstractController
             $manager->persist($mangaDB);
             $manager->flush();
 
-            $string = '"'.$mangaDB->getName().'"' .' a été ajouté !' . PHP_EOL;
+            $string = '"' . $mangaDB->getName() . '"' . ' a été ajouté !' . PHP_EOL;
             $string .= 'Disponible ici : ' . $mangadexURL . '/manga/' . $mangaId;
             $this->postTweetMangaAdd($string, array($file));
             $this->addFlash('success', $translator->trans('successfully.added', ['%slug%' => ucfirst($mangaDB->getName())]));
-
         } else {
-            if(!file_exists($this->getParameter('kernel.project_dir') . "/public/uploads/mangas/".$info['basename'])){
+            if (!file_exists($this->getParameter('kernel.project_dir') . "/public/uploads/mangas/" . $info['basename'])) {
 
                 $imageFile = file_get_contents($urlImage);
-                $file = $this->getParameter('kernel.project_dir') . "/public/uploads/mangas/".$info['basename'];
+                $file = $this->getParameter('kernel.project_dir') . "/public/uploads/mangas/" . $info['basename'];
                 file_put_contents($file, $imageFile);
 
                 $mangaDB->setImage($image);
-            } else if($mangaDB->getImage() != $image){
+            } else if ($mangaDB->getImage() != $image) {
                 $imageFile = file_get_contents($urlImage);
-                $file = $this->getParameter('kernel.project_dir') . "/public/uploads/mangas/".$info['basename'];
+                $file = $this->getParameter('kernel.project_dir') . "/public/uploads/mangas/" . $info['basename'];
                 file_put_contents($file, $imageFile);
 
                 $mangaDB->setImage($image);
-            } else if(md5(file_get_contents($urlImage)) != md5(file_get_contents($this->getParameter('kernel.project_dir') . "/public/uploads/mangas/".$info['basename']))) {
+            } else if (md5(file_get_contents($urlImage)) != md5(file_get_contents($this->getParameter('kernel.project_dir') . "/public/uploads/mangas/" . $info['basename']))) {
                 $imageFile = file_get_contents($urlImage);
-                $file = $this->getParameter('kernel.project_dir') . "/public/uploads/mangas/".$info['basename'];
+                $file = $this->getParameter('kernel.project_dir') . "/public/uploads/mangas/" . $info['basename'];
                 file_put_contents($file, $imageFile);
-            } 
+            }
 
-            if($mangaDB->getMangaId() != $mangaId){
+            if ($mangaDB->getMangaId() != $mangaId) {
                 $mangaDB->setMangaId($mangaId);
             }
 
@@ -277,15 +286,15 @@ class AdministrationController extends AbstractController
             $this->addFlash('warning', $translator->trans('successfully.modified', ['%slug%' => ucfirst($mangaDB->getName())]));
         }
 
-        foreach($chapters as $chapter_id => $values){
-            if($values->chapter) {
+        foreach ($chapters as $chapter_id => $values) {
+            if ($values->chapter) {
                 $langCode = $values->lang_code;
 
                 $langCodeDB = $langCodeRepo->findOneBy(array(
                     'langCode' => $langCode
                 ));
 
-                if($langCodeDB){
+                if ($langCodeDB) {
                     $number = $values->chapter;
                     $timestamp = $values->timestamp;
 
@@ -295,10 +304,10 @@ class AdministrationController extends AbstractController
                         'number' => $number
                     ));
 
-                    if($chapterDB){
-                        if($chapterDB->getDate()->getTimestamp() < $timestamp){
+                    if ($chapterDB) {
+                        if ($chapterDB->getDate()->getTimestamp() < $timestamp) {
                             $chapterDB->setChapterId($chapter_id);
-                            $chapterDB->setDate(new \DateTime(date('Y-m-d H:i:s',$timestamp)));
+                            $chapterDB->setDate(new \DateTime(date('Y-m-d H:i:s', $timestamp)));
                             $manager->persist($chapterDB);
                             $manager->flush();
                         }
@@ -307,8 +316,9 @@ class AdministrationController extends AbstractController
                         $chapter->setLangCode($langCodeDB);
                         $chapter->setManga($mangaDB);
                         $chapter->setChapterId($chapter_id);
+                        dump($number);
                         $chapter->setNumber($number);
-                        $chapter->setDate(new \DateTime(date('Y-m-d H:i:s',$timestamp)));
+                        $chapter->setDate(new \DateTime(date('Y-m-d H:i:s', $timestamp)));
                         $manager->persist($chapter);
                         $manager->flush();
                     }
@@ -327,30 +337,29 @@ class AdministrationController extends AbstractController
         $oauthToken = $this->getParameter('oauth_token');
         $oauthTokenSecret = $this->getParameter('oauth_token_secret');
 
-
-        if(!empty($consumerKey) && !empty($consumerSecret) && !empty($consumerKey) && !empty($oauthTokenSecret)) {
+        if (!empty($consumerKey) && !empty($consumerSecret) && !empty($consumerKey) && !empty($oauthTokenSecret)) {
             $connection =  new TwitterOAuth($consumerKey, $consumerSecret, $oauthToken, $oauthTokenSecret);
 
             if (is_array($mediaArray)) {
-    
+
                 $mediaIDS = array();
-    
+
                 foreach ($mediaArray as $key => $media_path) {
                     $mediaOBJ = $connection->upload('media/upload', ['media' => $media_path]);
                     array_push($mediaIDS, $mediaOBJ->media_id_string);
                 }
-    
+
                 $mediaIDstr = implode(',', $mediaIDS);
             }
-    
+
             $arrayCfg['status'] = $str;
             $arrayCfg['media_ids'] = $mediaIDstr;
-    
+
             $statuses = $connection->post("statuses/update", $arrayCfg);
-    
+
             return $statuses;
         }
-        
+
         return 0;
     }
 }

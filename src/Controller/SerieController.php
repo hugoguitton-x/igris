@@ -6,6 +6,7 @@ use App\Entity\Avis;
 use App\Entity\Serie;
 use App\Form\AvisType;
 use App\Form\SerieType;
+use Psr\Log\LoggerInterface;
 use App\Service\FileUploader;
 use App\Repository\AvisRepository;
 use App\Repository\SerieRepository;
@@ -21,6 +22,14 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  */
 class SerieController extends AbstractController
 {
+
+    private $logger;
+
+    public function __construct(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
+    }
+
     /**
      * @Route("", name="index")
      */

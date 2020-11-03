@@ -34,7 +34,7 @@ class RedirectToPreferredLocaleSubscriber implements EventSubscriberInterface
 
     public function __construct(UrlGeneratorInterface $urlGenerator, string $locales, string $defaultLocale = null)
     {
-       
+
         $this->urlGenerator = $urlGenerator;
 
         $this->locales = explode('|', trim($locales));

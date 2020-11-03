@@ -47,8 +47,7 @@ class SerieType extends AbstractType
             ])
             ->add('dureeEpisode',  NumberType::class, [
                 'label' => 'Duration of episodes'
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

@@ -34,8 +34,7 @@ class AvisType extends AbstractType
             ])
             ->add('commentaire', TextareaType::class, [
                 'label' => "Review"
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

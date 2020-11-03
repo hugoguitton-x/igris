@@ -19,6 +19,18 @@ class LanguageCodeRepository extends ServiceEntityRepository
         parent::__construct($registry, LanguageCode::class);
     }
 
+
+    /**
+     * 
+     * @return LanguageCode[] Returns an array of LanguageCode objects
+     */
+    public function findAllLangCodeArray()
+    {
+        return $this->createQueryBuilder('l', 'l.langCode')
+            ->getQuery()
+            ->execute();
+    }
+
     // /**
     //  * @return LanguageCode[] Returns an array of LanguageCode objects
     //  */

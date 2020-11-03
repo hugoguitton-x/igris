@@ -16,7 +16,6 @@ class MangaType extends AbstractType
             ->add('manga_id', TextType::class, [
                 'label' => 'Title ID'
             ]);
-
     }
 
     public function configureOptions(OptionsResolver $resolver)

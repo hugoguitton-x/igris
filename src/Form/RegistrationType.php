@@ -21,32 +21,32 @@ class RegistrationType extends AbstractType
                 'attr' => [
                     'placeholder' => 'Username',
                     'autofocus' => true
-                ] 
+                ]
             ])
             ->add('email', EmailType::class, [
                 'attr' => [
                     'placeholder' => 'Email'
-                ] 
+                ]
             ])
             ->add('firstname', TextType::class, [
                 'attr' => [
                     'placeholder' => 'First Name'
-                ] 
+                ]
             ])
             ->add('lastname', TextType::class, [
                 'attr' => [
                     'placeholder' => 'Last Name'
-                ] 
+                ]
             ])
             ->add('password', PasswordType::class, [
                 'attr' => [
                     'placeholder' => 'Password'
-                ] 
+                ]
             ])
             ->add('password_confirm', PasswordType::class, [
                 'attr' => [
                     'placeholder' => 'Confirm password'
-                ] 
+                ]
             ])
             ->add('avatar', FileType::class, [
                 'label' => 'Picture',
@@ -64,8 +64,7 @@ class RegistrationType extends AbstractType
                         'allowPortrait' => false
                     ])
                 ],
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

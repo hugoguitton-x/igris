@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Utilisateur;
+use Psr\Log\LoggerInterface;
 use App\Service\FileUploader;
 use App\Form\RegistrationType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -17,7 +18,12 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class SecurityController extends AbstractController
 {
 
+    private $logger;
 
+    public function __construct(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
+    }
 
     /**
      * @Route("/register", name="security_registration")

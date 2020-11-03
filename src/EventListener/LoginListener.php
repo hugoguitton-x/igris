@@ -1,4 +1,5 @@
 <?php
+
 namespace App\EventListener;
 
 use Doctrine\ORM\EntityManagerInterface;
@@ -16,6 +17,9 @@ class LoginListener
     public function onSecurityInteractiveLogin(InteractiveLoginEvent $event)
     {
         // Get the User entity.
+        /**
+         * @var Utilisateur $user
+         */
         $user = $event->getAuthenticationToken()->getUser();
 
         // Update your field here.

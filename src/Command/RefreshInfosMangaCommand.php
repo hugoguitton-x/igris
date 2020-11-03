@@ -6,8 +6,10 @@ use App\Entity\Manga;
 use App\Entity\Chapter;
 use App\Entity\LanguageCode;
 use App\Repository\MangaRepository;
+use App\Repository\ChapterRepository;
 use Abraham\TwitterOAuth\TwitterOAuth;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\LanguageCodeRepository;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Style\SymfonyStyle;
@@ -40,16 +42,16 @@ class RefreshInfosMangaCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
-        $output->writeln('<comment>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</comment>')
-            ->writeln('<info>' . (new \DateTime())->format('Y-m-d H:i:s') . '</info>')
-            ->writeln('<comment>=======================================</comment>')
-            ->writeln('<comment>Récupération de l\'ensemble des mangas.</comment>');
+        $output->writeln('<comment>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</comment>');
+        $output->writeln('<info>' . (new \DateTime())->format('Y-m-d H:i:s') . '</info>');
+        $output->writeln('<comment>=======================================</comment>');
+        $output->writeln('<comment>Récupération de l\'ensemble des mangas.</comment>');
 
         $mangas = $this->mangaRepo->findAll();
 
-        $output->writeln('<comment>=======================================</comment>')
-            ->writeln('<comment>Mise à jour de l\'ensemble des informations des mangas.</comment>')
-            ->writeln('<comment>=======================================</comment>');
+        $output->writeln('<comment>=======================================</comment>');
+        $output->writeln('<comment>Mise à jour de l\'ensemble des informations des mangas.</comment>');
+        $output->writeln('<comment>=======================================</comment>');
 
         foreach ($mangas as $manga) {
             $output->writeln('<comment> -- ' . $manga->getName() . ' -- </comment>');
@@ -64,17 +66,29 @@ class RefreshInfosMangaCommand extends Command
 
     private function refreshInfos(string $mangaId, EntityManagerInterface $manager, OutputInterface $output)
     {
+        /**
+         * @var MangaRepository $mangaRepo
+         */
         $mangaRepo = $manager->getRepository(Manga::class);
+
+        /**
+         * @var LanguageCodeRepository $langCodeRepo
+         */
         $langCodeRepo = $manager->getRepository(LanguageCode::class);
+
+        /**
+         * @var ChapterRepository $chapterRepo
+         */
         $chapterRepo = $manager->getRepository(Chapter::class);
 
         $mangadexURL =  $this->params->get('mangadex_url');
+        $langCodeAllow = $langCodeRepo->findAllLangCodeArray();
 
         $client = HttpClient::create(['http_version' => '2.0']);
         $response = $client->request('GET', $mangadexURL . '/api/manga/' . $mangaId);
 
         if ($response->getStatusCode() != 200) {
-            $output->writeln("<error>API for can't be reach for this manga</error>");
+            $output->writeln("<error>API can't be reach for this manga</error>");
         }
 
         $data = json_decode($response->getContent());
@@ -86,20 +100,21 @@ class RefreshInfosMangaCommand extends Command
             'mangaId' => $mangaId,
         ));
 
-        $urlImage = $mangadexURL . strtok($manga->cover_url, "?");
-        $info = pathinfo($urlImage);
-        $image = $info['basename'];
+        //$urlImage = $mangadexURL . strtok($manga->cover_url, "?");
+        //$info = pathinfo($urlImage);
+        //$image = $info['basename'];
 
-        if (!$mangaDB) {
+        if (!isset($mangaDB)) {
             $mangaDB = new Manga();
             $mangaDB->setName(html_entity_decode($manga->title, ENT_QUOTES, 'UTF-8'));
 
+            /* 
             $imageFile = file_get_contents($urlImage);
             $file = $this->params->get('kernel.project_dir') . "/public/uploads/mangas/" . $info['basename'];
             file_put_contents($file, $imageFile);
+            */
 
-            $mangaDB->setImage($image)
-                ->setMangaId($mangaId);
+            $mangaDB->setMangaId($mangaId);
 
             $manager->persist($mangaDB);
             $manager->flush();
@@ -113,48 +128,47 @@ class RefreshInfosMangaCommand extends Command
         }
 
         foreach ($chapters as $chapter_id => $values) {
-            if ($values->chapter) {
-                $langCode = $values->lang_code;
 
-                $langCodeDB = $langCodeRepo->findOneBy(array(
-                    'langCode' => $langCode
+            if (isset($values->chapter) && $values->chapter !== '' && array_key_exists($values->lang_code, $langCodeAllow)) {
+                $langCode = $values->lang_code;
+                $langCodeDB = $langCodeAllow[$langCode];
+
+                $number = $values->chapter;
+                $timestamp = $values->timestamp;
+
+                $chapterDB = $chapterRepo->findOneBy(array(
+                    'langCode' => $langCodeDB,
+                    'manga' => $mangaDB,
+                    'number' => $number
                 ));
 
-                if ($langCodeDB) {
-                    $number = $values->chapter;
-                    $timestamp = $values->timestamp;
-
-                    $chapterDB = $chapterRepo->findOneBy(array(
-                        'langCode' => $langCodeDB,
-                        'manga' => $mangaDB,
-                        'number' => $number
-                    ));
-
-                    if ($chapterDB) {
-                        if ($chapterDB->getDate()->getTimestamp() < $timestamp) {
-                            $chapterDB->setChapterId($chapter_id)
-                                ->setDate(new \DateTime(date('Y-m-d H:i:s', $timestamp)));
-
-                            $manager->persist($chapterDB);
-                            $manager->flush();
-                        }
-                    } else {
-                        $chapter = new Chapter();
-                        $chapter->setLangCode($langCodeDB)
-                            ->setManga($mangaDB)
-                            ->setChapterId($chapter_id)
-                            ->setNumber($number)
+                if (isset($chapterDB)) {
+                    if ($chapterDB->getDate()->getTimestamp() < $timestamp) {
+                        $chapterDB->setChapterId($chapter_id)
                             ->setDate(new \DateTime(date('Y-m-d H:i:s', $timestamp)));
 
-                        $manager->persist($chapter);
+                        $manager->persist($chapterDB);
                         $manager->flush();
-
-                        $output->writeln($mangaDB->getName() . ' - Langue : ' . $langCodeDB->getLibelle() . ' - Chapitre n°' . $chapter->getNumber() . ' ajouté !');
-
-                        $string = $mangaDB->getName() . ' (' . $langCodeDB->getLibelle() . ') - Chapitre n°' . $chapter->getNumber() . ' sortie !' . PHP_EOL;
-                        $string .= 'Disponible ici : ' . $mangadexURL . '/chapter/' . $chapter_id;
-                        $this->postTweetMangaUpdate($string, array($this->params->get('kernel.project_dir') . "/public/uploads/mangas/" . $image));
                     }
+                } else {
+                    $chapter = new Chapter();
+
+                    $chapter->setLangCode($langCodeDB)
+                        ->setManga($mangaDB)
+                        ->setChapterId($chapter_id)
+                        ->setNumber($number)
+                        ->setDate(new \DateTime(date('Y-m-d H:i:s', $timestamp)));
+
+                    $manager->persist($chapter);
+                    $manager->flush();
+
+                    $output->writeln($mangaDB->getName() . ' - Langue : ' . $langCodeDB->getLibelle() . ' - Chapitre n°' . $chapter->getNumber() . ' ajouté !');
+
+                    $string = $mangaDB->getName() . ' (' . $langCodeDB->getLibelle() . ') - Chapitre n°' . $chapter->getNumber() . ' sortie !' . PHP_EOL;
+                    $string .= 'Disponible ici : ' . $mangadexURL . '/chapter/' . $chapter_id;
+                    $result = $this->postTweetMangaUpdate($string, /* array($this->params->get('kernel.project_dir') . "/public/uploads/mangas/" . $image) */);
+                    //dump($result);
+                    //$output->writeln($result);
                 }
             }
         }
@@ -171,6 +185,7 @@ class RefreshInfosMangaCommand extends Command
         if (!empty($consumerKey) && !empty($consumerSecret) && !empty($consumerKey) && !empty($oauthTokenSecret)) {
             $connection =  new TwitterOAuth($consumerKey, $consumerSecret, $oauthToken, $oauthTokenSecret);
 
+            /*
             if (is_array($mediaArray)) {
 
                 $mediaIDS = array();
@@ -187,8 +202,10 @@ class RefreshInfosMangaCommand extends Command
                 $mediaIDstr = implode(',', $mediaIDS);
             }
 
-            $arrayCfg['status'] = $str;
             $arrayCfg['media_ids'] = $mediaIDstr;
+            */
+
+            $arrayCfg['status'] = $str;
 
             $statuses = $connection->post("statuses/update", $arrayCfg);
 

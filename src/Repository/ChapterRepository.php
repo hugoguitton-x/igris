@@ -40,16 +40,16 @@ class ChapterRepository extends ServiceEntityRepository
         LEFT JOIN chapter c
         ON c.manga_id = cs.manga_id AND c.lang_code_id = cs.lang_code_id AND c.number = cs.chapter_number ';
 
-        if($language){
+        if ($language) {
             $sql .= 'WHERE lc.libelle = :language ';
         }
 
         $sql .= 'ORDER BY c.date DESC';
 
         $query = $conn->prepare($sql);
-        if($language){
+        if ($language) {
             $query->execute(['language' => $language]);
-        } else{
+        } else {
             $query->execute();
         }
 

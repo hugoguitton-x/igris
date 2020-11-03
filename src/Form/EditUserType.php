@@ -30,7 +30,7 @@ class EditUserType extends AbstractType
                 ],
                 'expanded' => true,
                 'multiple' => true,
-                'label' => 'Rôles' 
+                'label' => 'Rôles'
             ])
             ->add('avatar', FileType::class, [
                 'label' => 'Picture',
@@ -48,8 +48,7 @@ class EditUserType extends AbstractType
                         'allowPortrait' => false
                     ])
                 ],
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
