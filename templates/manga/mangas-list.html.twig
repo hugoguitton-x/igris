@@ -1,0 +1,43 @@
+{% extends 'page.html.twig' %}
+
+{% block container %}
+    <div class="row">
+        {% for manga in mangas %}
+
+          <div class="manga" data-aos="fade-up">
+                <div class="manga__image">
+                    <img src="{{ manga.image ? asset('uploads/mangas/' ~ manga.image) : 'https://via.placeholder.com/1500' }}"/>
+                </div>
+                <div class="manga__actions">
+                  <div class="title">
+                      <a class="link" href="{{ mangadex_url ~ '/manga/' ~ manga.mangaId }}" target="_blank">
+                          {{ manga.name }}
+                      </a>
+                  </div>
+
+                  <div class="follow">
+                          <a href="{{ path( 'manga_follow', { id: manga.id } ) }}" data-toggle="tooltip">
+                              <span class="{{ manga.isFollowedByUser(app.user) ? 'followed' : 'unfollowed' }}">{{ manga.isFollowedByUser(app.user) ? 'Followed'|trans : 'Unfollowed'|trans }}</span>
+                          </a>
+                  </div>
+
+                  {% if is_granted('ROLE_ADMIN') %}
+                      <div class="twitter">
+                          Twitter :
+                          <a href="{{ path( 'manga_twitter', { id: manga.id } ) }}" data-toggle="tooltip">
+                              <span class="twitter-{{ manga.twitter ? 'enabled' : 'disabled' }}">{{ manga.twitter ? 'Enabled'|trans : 'Disabled'|trans }}</span>
+                          </a>
+                      </div>
+                  {% endif %}
+
+                </div>
+
+          </div>
+        {% endfor %}
+    </div>
+
+    <div class="pagination_container">
+        {{ knp_pagination_render(mangas) }}
+    </div>
+
+{% endblock %}

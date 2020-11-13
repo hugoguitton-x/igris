@@ -10,18 +10,18 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class MangaType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
-        $builder
-            ->add('manga_id', TextType::class, [
-                'label' => 'Title ID'
-            ]);
-    }
+  public function buildForm(FormBuilderInterface $builder, array $options)
+  {
+    $builder
+      ->add('manga_id', TextType::class, [
+        'label' => 'Title ID'
+      ]);
+  }
 
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults([
-            'data_class' => Manga::class,
-        ]);
-    }
+  public function configureOptions(OptionsResolver $resolver)
+  {
+    $resolver->setDefaults([
+      'data_class' => Manga::class,
+    ]);
+  }
 }

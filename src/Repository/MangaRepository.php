@@ -14,25 +14,25 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class MangaRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
-    {
-        parent::__construct($registry, Manga::class);
-    }
+  public function __construct(ManagerRegistry $registry)
+  {
+    parent::__construct($registry, Manga::class);
+  }
 
-    /**
-     * @return Manga[] Returns an array of Manga objects (Par Nom)
-     */
-    public function findMangaOrderByNameQuery()
-    {
-        return $this->createQueryBuilder('m')
-            ->orderBy('m.name', 'ASC')
-            ->getQuery();
-    }
+  /**
+   * @return Manga[] Returns an array of Manga objects (Par Nom)
+   */
+  public function findMangaOrderByNameQuery()
+  {
+    return $this->createQueryBuilder('m')
+      ->orderBy('m.name', 'ASC')
+      ->getQuery();
+  }
 
-    // /**
-    //  * @return Manga[] Returns an array of Manga objects
-    //  */
-    /*
+  // /**
+  //  * @return Manga[] Returns an array of Manga objects
+  //  */
+  /*
     public function findByExampleField($value)
     {
         return $this->createQueryBuilder('m')
@@ -46,7 +46,7 @@ class MangaRepository extends ServiceEntityRepository
     }
     */
 
-    /*
+  /*
     public function findOneBySomeField($value): ?Manga
     {
         return $this->createQueryBuilder('m')

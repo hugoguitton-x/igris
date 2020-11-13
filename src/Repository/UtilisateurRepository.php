@@ -14,25 +14,25 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class UtilisateurRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
-    {
-        parent::__construct($registry, Utilisateur::class);
-    }
+  public function __construct(ManagerRegistry $registry)
+  {
+    parent::__construct($registry, Utilisateur::class);
+  }
 
-    /**
-     * @return Utilisateur[] Returns an array of Utilisateur objects (Par Nom)
-     */
-    public function getUtilisateurAdminInfosOrderByUsernameQuery()
-    {
-        return $this->createQueryBuilder('u')
-            ->select('u.id, u.username, u.email, u.lastLogin, u.roles, u.avatar')
-            ->orderBy('u.username', 'ASC')
-            ->getQuery();
-    }
-    // /**
-    //  * @return Utilisateur[] Returns an array of Utilisateur objects
-    //  */
-    /*
+  /**
+   * @return Utilisateur[] Returns an array of Utilisateur objects (Par Nom)
+   */
+  public function getUtilisateurAdminInfosOrderByUsernameQuery()
+  {
+    return $this->createQueryBuilder('u')
+      ->select('u.id, u.username, u.email, u.lastLogin, u.roles, u.avatar')
+      ->orderBy('u.username', 'ASC')
+      ->getQuery();
+  }
+  // /**
+  //  * @return Utilisateur[] Returns an array of Utilisateur objects
+  //  */
+  /*
     public function findByExampleField($value)
     {
         return $this->createQueryBuilder('u')
@@ -46,7 +46,7 @@ class UtilisateurRepository extends ServiceEntityRepository
     }
     */
 
-    /*
+  /*
     public function findOneBySomeField($value): ?Utilisateur
     {
         return $this->createQueryBuilder('u')

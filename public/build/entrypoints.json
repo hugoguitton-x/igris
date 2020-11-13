@@ -5,10 +5,10 @@
         "/build/runtime.d94b3b43.js",
         "/build/0.cf60d32b.js",
         "/build/1.ada2274d.js",
-        "/build/app.5acc8064.js"
+        "/build/app.bff4bd18.js"
       ],
       "css": [
-        "/build/app.00e30e2f.css"
+        "/build/app.782488ae.css"
       ]
     },
     "admin": {
@@ -16,7 +16,7 @@
         "/build/runtime.d94b3b43.js",
         "/build/0.cf60d32b.js",
         "/build/1.ada2274d.js",
-        "/build/admin.4ce09860.js"
+        "/build/admin.985874e3.js"
       ],
       "css": [
         "/build/admin.db2d2bc8.css"
@@ -26,7 +26,7 @@
       "js": [
         "/build/runtime.d94b3b43.js",
         "/build/0.cf60d32b.js",
-        "/build/base.73917758.js"
+        "/build/base.05de049e.js"
       ]
     },
     "form": {

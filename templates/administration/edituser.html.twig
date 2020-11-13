@@ -1,21 +1,22 @@
 {% extends 'administration/index.html.twig' %}
 
 {% block container %}
-	{{ parent() }}
-	<h1>
-		{{ ('Modify'|trans) ~ ' ' ~ (formUser.username.vars.value|capitalize) }}
-	</h1>
+  {{ parent() }}
+  <h1>
+    {{ ('Modify'|trans) ~ ' ' ~ (formUser.username.vars.value|capitalize) }}
+  </h1>
 
-	{{ form_start(formUser) }}
-	{{ form_row(formUser.username) }}
-	{{ form_row(formUser.email) }}
-	{{ form_row(formUser.roles) }}
-	{{ form_row(formUser.avatar) }}
+  {{ form_start(formUser) }}
+  {{ form_row(formUser.username) }}
+  {{ form_row(formUser.email) }}
+  {{ form_row(formUser.nameTwitter) }}
+  {{ form_row(formUser.roles) }}
+  {{ form_row(formUser.avatar) }}
 
-	{{ form_widget(formUser._token) }}
+  {{ form_widget(formUser._token) }}
 
-	<button type="submit" class="btn btn-primary">{{ 'Modify'|trans }}</button>
-	{{
+  <button type="submit" class="btn btn-primary">{{ 'Modify'|trans }}</button>
+  {{
     form_end(
       formUser,
       {
@@ -26,5 +27,5 @@
 {% endblock %}
 
 {% block javascripts %}
-	{{ encore_entry_script_tags('form') }}
+  {{ encore_entry_script_tags('form') }}
 {% endblock %}

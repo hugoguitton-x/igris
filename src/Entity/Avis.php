@@ -17,102 +17,102 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  */
 class Avis
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+  /**
+   * @ORM\Id()
+   * @ORM\GeneratedValue()
+   * @ORM\Column(type="integer")
+   */
+  private $id;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Utilisateur::class, inversedBy="avis")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $utilisateur;
+  /**
+   * @ORM\ManyToOne(targetEntity=Utilisateur::class, inversedBy="avis")
+   * @ORM\JoinColumn(nullable=false)
+   */
+  private $utilisateur;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Serie::class, inversedBy="avis")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $serie;
+  /**
+   * @ORM\ManyToOne(targetEntity=Serie::class, inversedBy="avis")
+   * @ORM\JoinColumn(nullable=false)
+   */
+  private $serie;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $note;
+  /**
+   * @ORM\Column(type="integer")
+   */
+  private $note;
 
-    /**
-     * @ORM\Column(type="text")
-     */
-    private $commentaire;
+  /**
+   * @ORM\Column(type="text")
+   */
+  private $commentaire;
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $createdAt;
+  /**
+   * @ORM\Column(type="datetime")
+   */
+  private $createdAt;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
+  public function getId(): ?int
+  {
+    return $this->id;
+  }
 
-    public function getUtilisateur(): ?Utilisateur
-    {
-        return $this->utilisateur;
-    }
+  public function getUtilisateur(): ?Utilisateur
+  {
+    return $this->utilisateur;
+  }
 
-    public function setUtilisateur(?Utilisateur $utilisateur): self
-    {
-        $this->utilisateur = $utilisateur;
+  public function setUtilisateur(?Utilisateur $utilisateur): self
+  {
+    $this->utilisateur = $utilisateur;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    public function getSerie(): ?Serie
-    {
-        return $this->serie;
-    }
+  public function getSerie(): ?Serie
+  {
+    return $this->serie;
+  }
 
-    public function setSerie(?Serie $serie): self
-    {
-        $this->serie = $serie;
+  public function setSerie(?Serie $serie): self
+  {
+    $this->serie = $serie;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    public function getNote(): ?int
-    {
-        return $this->note;
-    }
+  public function getNote(): ?int
+  {
+    return $this->note;
+  }
 
-    public function setNote(int $note): self
-    {
-        $this->note = $note;
+  public function setNote(int $note): self
+  {
+    $this->note = $note;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    public function getCommentaire(): ?string
-    {
-        return $this->commentaire;
-    }
+  public function getCommentaire(): ?string
+  {
+    return $this->commentaire;
+  }
 
-    public function setCommentaire(string $commentaire): self
-    {
-        $this->commentaire = $commentaire;
+  public function setCommentaire(string $commentaire): self
+  {
+    $this->commentaire = $commentaire;
 
-        return $this;
-    }
+    return $this;
+  }
 
-    public function getCreatedAt(): ?\DateTimeInterface
-    {
-        return $this->createdAt;
-    }
+  public function getCreatedAt(): ?\DateTimeInterface
+  {
+    return $this->createdAt;
+  }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
-    {
-        $this->createdAt = $createdAt;
+  public function setCreatedAt(\DateTimeInterface $createdAt): self
+  {
+    $this->createdAt = $createdAt;
 
-        return $this;
-    }
+    return $this;
+  }
 }

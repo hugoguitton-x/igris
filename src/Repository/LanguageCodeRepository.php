@@ -14,27 +14,27 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class LanguageCodeRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
-    {
-        parent::__construct($registry, LanguageCode::class);
-    }
+  public function __construct(ManagerRegistry $registry)
+  {
+    parent::__construct($registry, LanguageCode::class);
+  }
 
 
-    /**
-     * 
-     * @return LanguageCode[] Returns an array of LanguageCode objects
-     */
-    public function findAllLangCodeArray()
-    {
-        return $this->createQueryBuilder('l', 'l.langCode')
-            ->getQuery()
-            ->execute();
-    }
+  /**
+   *
+   * @return LanguageCode[] Returns an array of LanguageCode objects
+   */
+  public function findAllLangCodeArray()
+  {
+    return $this->createQueryBuilder('l', 'l.langCode')
+      ->getQuery()
+      ->execute();
+  }
 
-    // /**
-    //  * @return LanguageCode[] Returns an array of LanguageCode objects
-    //  */
-    /*
+  // /**
+  //  * @return LanguageCode[] Returns an array of LanguageCode objects
+  //  */
+  /*
     public function findByExampleField($value)
     {
         return $this->createQueryBuilder('l')
@@ -48,7 +48,7 @@ class LanguageCodeRepository extends ServiceEntityRepository
     }
     */
 
-    /*
+  /*
     public function findOneBySomeField($value): ?LanguageCode
     {
         return $this->createQueryBuilder('l')

@@ -1,0 +1,46 @@
+{% extends 'page.html.twig' %}
+
+{% block container %}
+    <div class="row-">
+        {% for chapter in chapters %}
+
+          {% if (chapter.date > ('now'|date('Y-m-d H:i:s'))) %}
+              {% set class = 'manga_futur' %}
+          {% elseif (chapter.date >= ('now'|date_modify('-4 hours')|date('Y-m-d H:i:s'))) %}
+              {% set class = 'manga_new' %}
+          {% else %}
+              {% set class = '' %}
+          {% endif %}
+
+          <div class="manga {{ class }}" data-aos="fade-up">
+                <div class="manga__image">
+                    <img src="{{ chapter.image ? asset('uploads/mangas/' ~ chapter.image) : 'https://via.placeholder.com/1500' }}"/>
+                </div>
+                <div class="manga__infos">
+                  <div class="title">
+                      <a class="link" href="{{ mangadex_url ~ '/manga/' ~ chapter.manga_id }}" target="_blank">
+                          {{ chapter.name }}
+                      </a>
+                  </div>
+
+                  <div class="number">
+                    <a class="link" href="{{ mangadex_url ~ '/chapter/' ~ chapter.chapter_id }}" target="_blank">
+                        {{ 'Chapter'|trans }} n°{{ chapter.number }}
+                    </a>
+
+                    <img class="langue-manga" src="{{ asset('images/flags/' ~ chapter.libelle ~ '.png') }}" />
+                  </div>
+
+                  <div class="date">
+                      {{ chapter.date|ago }}
+                  </div>
+                </div>
+          </div>
+        {% endfor %}
+    </div>
+
+    <div class="pagination_container">
+        {{ knp_pagination_render(chapters) }}
+    </div>
+
+{% endblock %}

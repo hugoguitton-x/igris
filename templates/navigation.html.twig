@@ -1,58 +1,58 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-	<a class="navbar-brand" href="{{ path('home_page') }}">
-		<img src="{{ asset('images/logos/logo_light.svg') }}" width="30" height="30" class="d-inline-block align-top" alt=""/>
-		Igris
-	</a>
-	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-		<span class="navbar-toggler-icon"></span>
-	</button>
+  <a class="navbar-brand" href="{{ path('home_page') }}">
+    <img src="{{ asset('images/logos/logo_light.svg') }}" width="30" height="30" class="d-inline-block align-top" alt=""/>
+    Igris
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
-	<div class="collapse navbar-collapse justify-content-between" id="navbarColor01">
-		<ul class="navbar-nav mr-auto">
-			{% if app.user %}
-				<li class="nav-item">
-					<a class="nav-link" href="{{ path('manga_language', {'language': app.request.locale}) }}">{{ 'Manga'|trans }}</a>
-				</li>
+  <div class="collapse navbar-collapse justify-content-between" id="navbarColor01">
+    <ul class="navbar-nav mr-auto">
+      {% if app.user %}
+        <li class="nav-item">
+          <a class="nav-link" href="{{ path('manga_list') }}">{{ 'Manga'|trans }}</a>
+        </li>
 
-				<li class="nav-item">
-					<a class="nav-link" href="{{ path('serie_index') }}">{{ 'Serie'|trans }}</a>
-				</li>
-			{% endif %}
-		</ul>
-		<ul class="navbar-nav">
-			{% if app.user %}
-				<li class="nav-item dropdown">
+        <li class="nav-item">
+          <a class="nav-link" href="{{ path('serie_index') }}">{{ 'Serie'|trans }}</a>
+        </li>
+      {% endif %}
+    </ul>
+    <ul class="navbar-nav">
+      {% if app.user %}
+        <li class="nav-item dropdown">
 
-					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						<i class="fa fa-globe" aria-hidden="true"></i>
-						<span class="caret"></span>
-						<span class="sr-only">{{ 'menu.choose_language'|trans }}</span>
-					</a>
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-globe" aria-hidden="true"></i>
+            <span class="caret"></span>
+            <span class="sr-only">{{ 'menu.choose_language'|trans }}</span>
+          </a>
 
-					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-						{% for locale in locales() %}
-							<a {% if app.request.locale == locale.code %} aria-checked="true" class="dropdown-item active" {% else %} aria-checked="false" class="dropdown-item" {% endif %} href="{{ path(app.request.get('_route', 'home_page'), app.request.get('_route_params', [])|merge({_locale: locale.code})) }}">
-								{{ locale.name|capitalize }}
-								<small>{{ locale.code[0:2] }}</small>
-							</a>
-						{% endfor %}
-					</div>
-				</li>
-				{% if is_granted('ROLE_ADMIN') %}
-					<li class="nav-item">
-						<a href="{{ path('admin_index') }}" class="nav-link">
-							<i class="fas fa-cog"></i>
-							{{ 'Administration'|trans }}
-						</a>
-					</li>
-				{% endif %}
-				<li class="nav-item">
-					<a href="{{ path('security_logout') }}" class="nav-link">
-						<i class="fas fa-sign-out-alt"></i>
-						{{ 'Logout'|trans }}
-					</a>
-				</li>
-			{% endif %}
-		</ul>
-	</div>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            {% for locale in locales() %}
+              <a {% if app.request.locale == locale.code %} aria-checked="true" class="dropdown-item active" {% else %} aria-checked="false" class="dropdown-item" {% endif %} href="{{ path(app.request.get('_route', 'home_page'), app.request.get('_route_params', [])|merge({_locale: locale.code})) }}">
+                {{ locale.name|capitalize }}
+                <small>{{ locale.code[0:2] }}</small>
+              </a>
+            {% endfor %}
+          </div>
+        </li>
+        {% if is_granted('ROLE_ADMIN') %}
+          <li class="nav-item">
+            <a href="{{ path('admin_index') }}" class="nav-link">
+              <i class="fas fa-cog"></i>
+              {{ 'Administration'|trans }}
+            </a>
+          </li>
+        {% endif %}
+        <li class="nav-item">
+          <a href="{{ path('security_logout') }}" class="nav-link">
+            <i class="fas fa-sign-out-alt"></i>
+            {{ 'Logout'|trans }}
+          </a>
+        </li>
+      {% endif %}
+    </ul>
+  </div>
 </nav>

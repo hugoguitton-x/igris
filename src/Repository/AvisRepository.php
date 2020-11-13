@@ -15,28 +15,28 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
  */
 class AvisRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
-    {
-        parent::__construct($registry, Avis::class);
-    }
+  public function __construct(ManagerRegistry $registry)
+  {
+    parent::__construct($registry, Avis::class);
+  }
 
-    /**
-     * @return Avis[] Returns an array of Avis objects
-     */
-    public function findAvisSerieByDateQuery(Serie $serie)
-    {
-        return $this->createQueryBuilder('a')
-            ->leftJoin('a.serie', 's')
-            ->andWhere('s.id = :id_serie')
-            ->setParameter('id_serie', $serie->getId())
-            ->orderBy('a.createdAt', 'DESC')
-            ->getQuery();
-    }
+  /**
+   * @return Avis[] Returns an array of Avis objects
+   */
+  public function findAvisSerieByDateQuery(Serie $serie)
+  {
+    return $this->createQueryBuilder('a')
+      ->leftJoin('a.serie', 's')
+      ->andWhere('s.id = :id_serie')
+      ->setParameter('id_serie', $serie->getId())
+      ->orderBy('a.createdAt', 'DESC')
+      ->getQuery();
+  }
 
-    // /**
-    //  * @return Avis[] Returns an array of Avis objects
-    //  */
-    /*
+  // /**
+  //  * @return Avis[] Returns an array of Avis objects
+  //  */
+  /*
     public function findByExampleField($value)
     {
         return $this->createQueryBuilder('a')
@@ -50,7 +50,7 @@ class AvisRepository extends ServiceEntityRepository
     }
     */
 
-    /*
+  /*
     public function findOneBySomeField($value): ?Avis
     {
         return $this->createQueryBuilder('a')

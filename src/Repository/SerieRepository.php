@@ -14,25 +14,25 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class SerieRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
-    {
-        parent::__construct($registry, Serie::class);
-    }
+  public function __construct(ManagerRegistry $registry)
+  {
+    parent::__construct($registry, Serie::class);
+  }
 
-    /**
-     * @return Serie[] Returns an array of Serie objects (Par Nom)
-     */
-    public function findSeriesOrderByNameQuery()
-    {
-        return $this->createQueryBuilder('s')
-            ->orderBy('s.nom', 'ASC')
-            ->getQuery();
-    }
+  /**
+   * @return Serie[] Returns an array of Serie objects (Par Nom)
+   */
+  public function findSeriesOrderByNameQuery()
+  {
+    return $this->createQueryBuilder('s')
+      ->orderBy('s.nom', 'ASC')
+      ->getQuery();
+  }
 
-    // /**
-    //  * @return Serie[] Returns an array of Serie objects
-    //  */
-    /*
+  // /**
+  //  * @return Serie[] Returns an array of Serie objects
+  //  */
+  /*
     public function findByExampleField($value)
     {
         return $this->createQueryBuilder('s')
@@ -46,7 +46,7 @@ class SerieRepository extends ServiceEntityRepository
     }
     */
 
-    /*
+  /*
     public function findOneBySomeField($value): ?Serie
     {
         return $this->createQueryBuilder('s')

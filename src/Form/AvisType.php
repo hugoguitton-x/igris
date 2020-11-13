@@ -11,36 +11,36 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class AvisType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
-        $builder
-            ->add('note', ChoiceType::class, [
-                'label' => "Rating",
-                'choices'  => [
-                    0 => 0,
-                    1 => 1,
-                    0 => 0,
-                    1 => 1,
-                    2 => 2,
-                    3 => 3,
-                    4 => 4,
-                    5 => 5,
-                    6 => 6,
-                    7 => 7,
-                    8 => 8,
-                    9 => 9,
-                    10 => 10,
-                ]
-            ])
-            ->add('commentaire', TextareaType::class, [
-                'label' => "Review"
-            ]);
-    }
+  public function buildForm(FormBuilderInterface $builder, array $options)
+  {
+    $builder
+      ->add('note', ChoiceType::class, [
+        'label' => "Rating",
+        'choices'  => [
+          0 => 0,
+          1 => 1,
+          0 => 0,
+          1 => 1,
+          2 => 2,
+          3 => 3,
+          4 => 4,
+          5 => 5,
+          6 => 6,
+          7 => 7,
+          8 => 8,
+          9 => 9,
+          10 => 10,
+        ]
+      ])
+      ->add('commentaire', TextareaType::class, [
+        'label' => "Review"
+      ]);
+  }
 
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults([
-            'data_class' => Avis::class,
-        ]);
-    }
+  public function configureOptions(OptionsResolver $resolver)
+  {
+    $resolver->setDefaults([
+      'data_class' => Avis::class,
+    ]);
+  }
 }

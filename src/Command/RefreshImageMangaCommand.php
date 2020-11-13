@@ -16,81 +16,81 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class RefreshImageMangaCommand extends Command
 {
-    protected static $defaultName = 'app:refresh-image-manga';
+  protected static $defaultName = 'app:refresh-image-manga';
 
-    protected $manager;
-    protected $mangaRepo;
+  protected $manager;
+  protected $mangaRepo;
 
-    public function __construct(EntityManagerInterface $manager, MangaRepository $mangaRepo, ParameterBagInterface $params)
-    {
-        $this->manager = $manager;
-        $this->mangaRepo = $mangaRepo;
-        $this->params = $params;
+  public function __construct(EntityManagerInterface $manager, MangaRepository $mangaRepo, ParameterBagInterface $params)
+  {
+    $this->manager = $manager;
+    $this->mangaRepo = $mangaRepo;
+    $this->params = $params;
 
-        parent::__construct();
+    parent::__construct();
+  }
+
+  protected function configure()
+  {
+    $this
+      ->setDescription('Met à jour les images des mangas');
+  }
+  protected function execute(InputInterface $input, OutputInterface $output): int
+  {
+    $io = new SymfonyStyle($input, $output);
+    $output->writeln('<comment>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</comment>');
+    $output->writeln('<info>' . (new \DateTime())->format('Y-m-d H:i:s') . '</info>');
+    $output->writeln('<comment>=======================================</comment>');
+    $output->writeln('<comment>Récupération de l\'ensemble des mangas.</comment>');
+    $mangas = $this->mangaRepo->findAll();
+    $output->writeln('<comment>=======================================</comment>');
+
+    $output->writeln('<comment>Mise à jour de l\'ensemble des informations des mangas.</comment>');
+    $output->writeln('<comment>=======================================</comment>');
+
+    foreach ($mangas as $manga) {
+      $output->writeln('<comment> -- ' . $manga->getName() . ' -- </comment>');
+      $this->refreshImage($manga->getMangaId(), $this->manager, $output);
+      $output->writeln('<info> OK </info>');
     }
 
-    protected function configure()
-    {
-        $this
-            ->setDescription('Met à jour les images des mangas');
-    }
-    protected function execute(InputInterface $input, OutputInterface $output): int
-    {
-        $io = new SymfonyStyle($input, $output);
-        $output->writeln('<comment>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</comment>');
-        $output->writeln('<info>' . (new \DateTime())->format('Y-m-d H:i:s') . '</info>');
-        $output->writeln('<comment>=======================================</comment>');
-        $output->writeln('<comment>Récupération de l\'ensemble des mangas.</comment>');
-        $mangas = $this->mangaRepo->findAll();
-        $output->writeln('<comment>=======================================</comment>');
 
-        $output->writeln('<comment>Mise à jour de l\'ensemble des informations des mangas.</comment>');
-        $output->writeln('<comment>=======================================</comment>');
+    $io->success('Les images des mangas ont bien été mises à jour !');
 
-        foreach ($mangas as $manga) {
-            $output->writeln('<comment> -- ' . $manga->getName() . ' -- </comment>');
-            $this->refreshImage($manga->getMangaId(), $this->manager, $output);
-            $output->writeln('<info> OK </info>');
-        }
+    return 0;
+  }
 
+  private function refreshImage(string $mangaId, EntityManagerInterface $manager, OutputInterface $output)
+  {
+    $mangaRepo = $manager->getRepository(Manga::class);
 
-        $io->success('Les images des mangas ont bien été mises à jour !');
+    $mangadexURL = $this->params->get('mangadex_url');
 
-        return 0;
+    $client = HttpClient::create(['http_version' => '2.0']);
+    $response = $client->request('GET', $mangadexURL . '/api/manga/' . $mangaId);
+
+    if ($response->getStatusCode() != 200) {
+      $output->writeln("<error>API for can't be reach for this manga</error>");
     }
 
-    private function refreshImage(string $mangaId, EntityManagerInterface $manager, OutputInterface $output)
-    {
-        $mangaRepo = $manager->getRepository(Manga::class);
+    $data = json_decode($response->getContent());
+    $manga = $data->manga;
 
-        $mangadexURL = $this->params->get('mangadex_url');
+    $urlImage = $mangadexURL . strtok($manga->cover_url, "?");
+    $info = pathinfo($urlImage);
+    $image = $info['basename'];
 
-        $client = HttpClient::create(['http_version' => '2.0']);
-        $response = $client->request('GET', $mangadexURL . '/api/manga/' . $mangaId);
+    $mangaDB = $mangaRepo->findOneBy(array(
+      'mangaId' => $mangaId,
+    ));
 
-        if ($response->getStatusCode() != 200) {
-            $output->writeln("<error>API for can't be reach for this manga</error>");
-        }
+    $imageFile = file_get_contents($urlImage);
+    $file = $this->params->get('kernel.project_dir') . "/public/uploads/mangas/" . $info['basename'];
+    file_put_contents($file, $imageFile);
 
-        $data = json_decode($response->getContent());
-        $manga = $data->manga;
+    $mangaDB->setImage($image);
 
-        $urlImage = $mangadexURL . strtok($manga->cover_url, "?");
-        $info = pathinfo($urlImage);
-        $image = $info['basename'];
-
-        $mangaDB = $mangaRepo->findOneBy(array(
-            'mangaId' => $mangaId,
-        ));
-
-        $imageFile = file_get_contents($urlImage);
-        $file = $this->params->get('kernel.project_dir') . "/public/uploads/mangas/" . $info['basename'];
-        file_put_contents($file, $imageFile);
-
-        $mangaDB->setImage($image);
-
-        $manager->persist($mangaDB);
-        $manager->flush();
-    }
+    $manager->persist($mangaDB);
+    $manager->flush();
+  }
 }
