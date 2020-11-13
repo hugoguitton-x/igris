@@ -205,7 +205,7 @@ class AdministrationController extends AbstractController
 
       $manga =  $this->loadMangaFromMangadexApi($form->get('manga_id')->getData(), $manager, $translator, $appLogger);
 
-      return $this->redirectToRoute('manga_index');
+      return $this->redirectToRoute('manga_list');
     }
 
     return $this->render('manga/form.html.twig', [
@@ -325,7 +325,6 @@ class AdministrationController extends AbstractController
             $chapter->setLangCode($langCodeDB);
             $chapter->setManga($mangaDB);
             $chapter->setChapterId($chapter_id);
-            dump($number);
             $chapter->setNumber($number);
             $chapter->setDate(new \DateTime(date('Y-m-d H:i:s', $timestamp)));
             $manager->persist($chapter);
