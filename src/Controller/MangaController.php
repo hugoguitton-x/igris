@@ -88,7 +88,8 @@ class MangaController extends AbstractController
   public function twitterManga(
     Manga $manga = null,
     EntityManagerInterface $manager,
-    TranslatorInterface $translator
+    TranslatorInterface $translator,
+    Request $request
   ) {
     if ($manga->getTwitter() !== null) {
       $manga->setTwitter(!$manga->getTwitter());
@@ -106,7 +107,9 @@ class MangaController extends AbstractController
     }
 
     $this->addFlash('success', $translator->trans('twitter.' . $twitter, ['%slug%' => ucfirst($manga->getName())]));
-    return $this->redirectToRoute('manga_list');
+
+    $referer = $request->headers->get('referer');
+    return $this->redirect($referer);
   }
 
   /**
@@ -116,7 +119,8 @@ class MangaController extends AbstractController
     Manga $manga = null,
     EntityManagerInterface $manager,
     TranslatorInterface $translator,
-    FollowMangaRepository $repo
+    FollowMangaRepository $repo,
+    Request $request
   ) {
 
     $mangaFollow = $repo->findBy(
@@ -142,6 +146,8 @@ class MangaController extends AbstractController
 
 
     $this->addFlash('success', $translator->trans('manga.' . $follow_status, ['%slug%' => ucfirst($manga->getName())]));
-    return $this->redirectToRoute('manga_list');
+
+    $referer = $request->headers->get('referer');
+    return $this->redirect($referer);
   }
 }

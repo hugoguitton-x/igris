@@ -87,7 +87,7 @@ class Utilisateur implements UserInterface
   private $NameTwitter;
 
   /**
-   * @ORM\OneToMany(targetEntity=FollowManga::class, mappedBy="Utilisateur", orphanRemoval=true)
+   * @ORM\OneToMany(targetEntity=FollowManga::class, mappedBy="utilisateur", orphanRemoval=true)
    */
   private $followMangas;
 
