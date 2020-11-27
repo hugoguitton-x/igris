@@ -1,6 +1,7 @@
 {% extends 'page.html.twig' %}
 
-{% block container %}
+{% block body %}
+  <div class="container fade-in body">
     <div class="row">
         {% for chapter in chapters %}
 
@@ -43,4 +44,5 @@
         {{ knp_pagination_render(chapters) }}
     </div>
 
+  </div>
 {% endblock %}

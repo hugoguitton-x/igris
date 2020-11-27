@@ -2,40 +2,41 @@
 
 {% form_theme formAvis 'bootstrap_4_layout.html.twig' %}
 
-{% block container %}
-  {{ parent() }}
-  <h1 class="mt-4">
-    {{ 'My review'|trans }}
-  </h1>
+{% block body %}
+  <div class="container fade-in body">
+    {{ parent() }}
+    <h1 class="mt-4">
+      {{ 'My review'|trans }}
+    </h1>
 
-  {{ form_start(formAvis) }}
-  <div class="container">
-    <div class="row">
+    {{ form_start(formAvis) }}
+    <div class="container">
+      <div class="row">
 
-      <div class="col-sm-10">
-        {{ form_label(formAvis.commentaire) }}
-        {{ form_widget(formAvis.commentaire) }}
+        <div class="col-sm-10">
+          {{ form_label(formAvis.commentaire) }}
+          {{ form_widget(formAvis.commentaire) }}
+        </div>
+
+        <div class="col-sm-2">
+          {{ form_label(formAvis.note) }}
+          {{ form_widget(formAvis.note) }}
+          {{ form_widget(formAvis._token) }}
+        </div>
+
       </div>
 
-      <div class="col-sm-2">
-        {{ form_label(formAvis.note) }}
-        {{ form_widget(formAvis.note) }}
-        {{ form_widget(formAvis._token) }}
+      <div class="row">
+        <div class="col-sm">
+          <button type="submit" class="btn btn-success avis-bouton">
+            {{ 'Submit'|trans }}
+          </button>
+        </div>
       </div>
 
     </div>
 
-    <div class="row">
-      <div class="col-sm">
-        <button type="submit" class="btn btn-success avis-bouton">
-          {{ 'Submit'|trans }}
-        </button>
-      </div>
-    </div>
-
-  </div>
-
-  {{
+    {{
       form_end(
         formAvis,
         {
@@ -43,5 +44,5 @@
         }
       )
     }}
-
+  </div>
 {% endblock %}

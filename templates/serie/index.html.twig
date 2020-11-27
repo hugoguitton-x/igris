@@ -1,32 +1,34 @@
 {% extends 'page.html.twig' %}
 
-{% block container %}
-  <div class="row">
-    {% for serie in series %}
-      <div class="col-6 col-lg-6 col-xl-3 pb-2 parent">
-        <a href="{{ serie.lien }}" target="_blank" title="Page pour visionner la série">
-          <i class="fas fa-globe serie-site"></i>
-        </a>
-        <a class="link-serie wrapper" href="{{ path( 'serie_show', { id: serie.id } ) }}" target="_blank">
-          <div class="corps-serie">
-            <img class="image-serie" src="{{ asset('uploads/series/' ~ serie.image) }}"/>
-            <div class="caption-serie">
-              <b>{{ serie.nom }}</b>
-              <br/>
-              {{ serie.noteMoyenne }}
-              <span class="avis-petit">
-                <i class="fa fa-star"></i>
-                <i>-
-                  {{ serie.avis|length }}
-                  {{ 'Ratings'|trans }}</i>
-              </span>
+{% block body %}
+  <div class="container fade-in body">
+    <div class="row">
+      {% for serie in series %}
+        <div class="col-6 col-lg-6 col-xl-3 pb-2 parent">
+          <a href="{{ serie.lien }}" target="_blank" title="Page pour visionner la série">
+            <i class="fas fa-globe serie-site"></i>
+          </a>
+          <a class="link-serie wrapper" href="{{ path( 'serie_show', { id: serie.id } ) }}" target="_blank">
+            <div class="corps-serie">
+              <img class="image-serie" src="{{ asset('uploads/series/' ~ serie.image) }}"/>
+              <div class="caption-serie">
+                <b>{{ serie.nom }}</b>
+                <br/>
+                {{ serie.noteMoyenne }}
+                <span class="avis-petit">
+                  <i class="fa fa-star"></i>
+                  <i>-
+                    {{ serie.avis|length }}
+                    {{ 'Ratings'|trans }}</i>
+                </span>
+              </div>
             </div>
-          </div>
-        </a>
-      </div>
-    {% endfor %}
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+
+    {{ knp_pagination_render(series) }}
+
   </div>
-
-  {{ knp_pagination_render(series) }}
-
 {% endblock %}

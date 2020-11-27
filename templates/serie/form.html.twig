@@ -2,30 +2,32 @@
 
 {% form_theme formSerie 'bootstrap_4_layout.html.twig' %}
 
-{% block container %}
-  {{ parent() }}
-  <h1 class="mt-4">
-    {% if editMode %}
-      {{ 'Modify'|trans }}
-    {% else %}
-      {{ 'Add'|trans }}
-    {% endif %}
-  </h1>
+{% block body %}
+  <div class="container fade-in body">
+    {{ parent() }}
+    <h1 class="mt-4">
+      {% if editMode %}
+        {{ 'Modify'|trans }}
+      {% else %}
+        {{ 'Add'|trans }}
+      {% endif %}
+    </h1>
 
-  {{ form_start(formSerie) }}
-  {{ form_row(formSerie.nom) }}
-  {{ form_row(formSerie.image) }}
-  {{ form_row(formSerie.synopsis) }}
-  {{ form_row(formSerie.lien) }}
-  {{ form_row(formSerie.nombreEpisodes) }}
-  {{ form_row(formSerie.dureeEpisode) }}
-  {{ form_widget(formSerie._token) }}
+    {{ form_start(formSerie) }}
+    {{ form_row(formSerie.nom) }}
+    {{ form_row(formSerie.image) }}
+    {{ form_row(formSerie.synopsis) }}
+    {{ form_row(formSerie.lien) }}
+    {{ form_row(formSerie.nombreEpisodes) }}
+    {{ form_row(formSerie.dureeEpisode) }}
+    {{ form_widget(formSerie._token) }}
 
-  <button type="submit" class="btn btn-primary">
-    {{ 'Submit'|trans }}
-  </button>
+    <button type="submit" class="btn btn-primary">
+      {{ 'Submit'|trans }}
+    </button>
 
-  {{ form_end(formSerie) }}
+    {{ form_end(formSerie) }}
+  </div>
 {% endblock %}
 
 {% block javascripts %}

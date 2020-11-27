@@ -1,7 +1,7 @@
 {% extends 'page.html.twig' %}
 
-{% block container %}
-  <div class="container block-avis">
+{% block body %}
+  <div class="container fade-in body block-avis">
     <h1 class="titre-serie-avis">
       <a href="{{
         path(
@@ -35,7 +35,7 @@
         {{ avis.commentaire|raw }}
       </div>
     {% endfor %}
-  </div>
 
-  {{ knp_pagination_render(avisList) }}
+    {{ knp_pagination_render(avisList) }}
+  </div>
 {% endblock %}

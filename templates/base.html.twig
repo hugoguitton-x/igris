@@ -26,21 +26,16 @@
     {% block stylesheets %}
     {% endblock %}
   </head>
+  <body>
+    {% block nav %}
+    {% endblock %}
 
-  {% block body %}
-    <body>
-      {% block nav %}
-      {% endblock %}
-      <div class="container fade-in body">
-        {% block container %}
-        {% endblock %}
-      </div>
+    {% block body %}
+    {% endblock %}
+  </body>
 
-      {{ encore_entry_script_tags('app') }}
-      {{ encore_entry_script_tags('base') }}
-
-      {% block javascripts %}
-      {% endblock %}
-    </body>
+  {{ encore_entry_script_tags('app') }}
+  {{ encore_entry_script_tags('base') }}
+  {% block javascripts %}
   {% endblock %}
 </html>

@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * @Route("/manga", name="manga_")
@@ -82,54 +82,61 @@ class MangaController extends AbstractController
     ]);
   }
 
+
   /**
-   * @Route("/twitter/{id}", name="twitter")
+   * @Route("/twitter/{id}", name="twitter", methods={"POST"})
    */
   public function twitterManga(
     Manga $manga = null,
     EntityManagerInterface $manager,
-    TranslatorInterface $translator,
-    Request $request
-  ) {
-    if ($manga->getTwitter() !== null) {
-      $manga->setTwitter(!$manga->getTwitter());
-    } else {
+    TranslatorInterface $translator
+  ): Response {
+
+    if (!$this->getUser()) {
+      return $this->json(['code' => 403, 'message' => 'Unauthorized'], 403);
+    }
+
+
+    if ($manga->getTwitter() === null || $manga->getTwitter() === false) {
       $manga->setTwitter(true);
+
+      $twitter = 'enabled';
+    } else {
+      $manga->setTwitter(false);
+
+      $twitter = 'disabled';
     }
 
     $manager->persist($manga);
     $manager->flush();
 
-    if ($manga->getTwitter()) {
-      $twitter = 'enabled';
-    } else {
-      $twitter = 'disabled';
-    }
+    $message = $translator->trans('twitter.' . $twitter, ['%slug%' => ucfirst($manga->getName())]);
 
-    $this->addFlash('success', $translator->trans('twitter.' . $twitter, ['%slug%' => ucfirst($manga->getName())]));
 
-    $referer = $request->headers->get('referer');
-    return $this->redirect($referer);
+    return $this->json(['code' => 200, 'message' => $message, 'value' => $translator->trans(ucfirst($twitter))], 200);
   }
 
   /**
-   * @Route("/follow/{id}", name="follow")
+   * @Route("/follow/{id}", name="follow", methods={"POST"})
    */
   public function followManga(
     Manga $manga = null,
     EntityManagerInterface $manager,
     TranslatorInterface $translator,
-    FollowMangaRepository $repo,
-    Request $request
+    FollowMangaRepository $repo
   ) {
+    $user = $this->getUser();
+    if (!$user) {
+      return $this->json(['code' => 403, 'message' => 'Unauthorized'], 403);
+    }
 
-    $mangaFollow = $repo->findBy(
-      ['utilisateur' => $this->getUser(), 'manga' => $manga],
-      [],
-      1
-    );
-    if (!empty($mangaFollow)) {
-      $manager->remove($mangaFollow[0]);
+    if ($manga->isFollowedByUser($user)) {
+      $mangaFollow = $repo->findOneBy([
+        'utilisateur' => $this->getUser(),
+        'manga' => $manga
+      ]);
+
+      $manager->remove($mangaFollow);
 
       $follow_status = 'unfollowed';
     } else {
@@ -144,10 +151,8 @@ class MangaController extends AbstractController
 
     $manager->flush();
 
+    $message = $translator->trans($translator->trans('manga.' . $follow_status, ['%slug%' => ucfirst($manga->getName())]));
 
-    $this->addFlash('success', $translator->trans('manga.' . $follow_status, ['%slug%' => ucfirst($manga->getName())]));
-
-    $referer = $request->headers->get('referer');
-    return $this->redirect($referer);
+    return $this->json(['code' => 200, 'message' => $message, 'value' => $translator->trans(ucfirst($follow_status))], 200);
   }
 }

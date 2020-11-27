@@ -1,1 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([["form"],{oYZW:function(n,e,o){"use strict";o.r(e);o("fbCW"),o("sMBO");var t=o("EVdn"),i=o.n(t);i()(".custom-file-input").on("change",(function(n){var e=n.currentTarget;i()(e).parent().find(".custom-file-label").html(e.files[0].name)}))}},[["oYZW","runtime",0,2]]]);

@@ -103,16 +103,14 @@
       }
       &-enabled {
         color: $color-enabled;
-        &:hover,
-        &:focus {
+        &:hover {
           opacity: .7;
         }
       }
 
       &-disabled {
         color: $color-disabled;
-        &:hover,
-        &:focus {
+        &:hover {
           opacity: .7;
         }
       }
@@ -126,16 +124,14 @@
       }
       .followed {
         color: $color-enabled;
-        &:hover,
-        &:focus {
+        &:hover {
           opacity: .7;
         }
       }
 
       .unfollowed {
         color: $color-disabled;
-        &:hover,
-        &:focus {
+        &:hover {
           opacity: .7;
         }
       }

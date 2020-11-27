@@ -1,0 +1,1 @@
+import "./manga/ajax.js";

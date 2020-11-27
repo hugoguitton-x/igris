@@ -1,6 +1,7 @@
 {% extends 'page.html.twig' %}
 
-{% block container %}
+{% block body %}
+  <div class="container fade-in body">
     <div class="row">
         {% for manga in mangas %}
 
@@ -16,16 +17,16 @@
                   </div>
 
                   <div class="follow">
-                          <a href="{{ path( 'manga_follow', { id: manga.id } ) }}" data-toggle="tooltip">
-                              <span class="{{ manga.isFollowedByUser(app.user) ? 'followed' : 'unfollowed' }}">{{ manga.isFollowedByUser(app.user) ? 'Followed'|trans : 'Unfollowed'|trans }}</span>
+                          <a class="follow-action {{ manga.isFollowedByUser(app.user) ? 'followed' : 'unfollowed' }}" href="{{ path( 'manga_follow', { id: manga.id } ) }}" data-toggle="tooltip">
+                              {{ manga.isFollowedByUser(app.user) ? 'Followed'|trans : 'Unfollowed'|trans }}</span>
                           </a>
                   </div>
 
                   {% if is_granted('ROLE_ADMIN') %}
                       <div class="twitter">
                           Twitter :
-                          <a href="{{ path( 'manga_twitter', { id: manga.id } ) }}" data-toggle="tooltip">
-                              <span class="twitter-{{ manga.twitter ? 'enabled' : 'disabled' }}">{{ manga.twitter ? 'Enabled'|trans : 'Disabled'|trans }}</span>
+                          <a class="twitter-action twitter-{{ manga.twitter ? 'enabled' : 'disabled' }}" href="{{ path( 'manga_twitter', { id: manga.id } ) }}" data-toggle="tooltip">
+                              {{ manga.twitter ? 'Enabled'|trans : 'Disabled'|trans }}
                           </a>
                       </div>
                   {% endif %}
@@ -40,4 +41,10 @@
         {{ knp_pagination_render(mangas) }}
     </div>
 
+  </div>
+{% endblock %}
+
+
+{% block javascripts %}
+  {{ encore_entry_script_tags('manga') }}
 {% endblock %}
