@@ -67,16 +67,16 @@ class RefreshImageMangaCommand extends Command
     $mangadexURL = $this->params->get('mangadex_url');
 
     $client = HttpClient::create(['http_version' => '2.0']);
-    $response = $client->request('GET', $mangadexURL . '/api/manga/' . $mangaId);
+    $response = $client->request('GET', $mangadexURL . '/api/v2/manga/' . $mangaId);
 
     if ($response->getStatusCode() != 200) {
       $output->writeln("<error>API for can't be reach for this manga</error>");
     }
 
-    $data = json_decode($response->getContent());
-    $manga = $data->manga;
+    $response_json = json_decode($response->getContent());
+    $manga = $response_json->data;
 
-    $urlImage = $mangadexURL . strtok($manga->cover_url, "?");
+    $urlImage = strtok($manga->mainCover, "?");
     $info = pathinfo($urlImage);
     $image = $info['basename'];
 

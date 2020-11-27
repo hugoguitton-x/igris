@@ -87,7 +87,7 @@ class RefreshInfosMangaCommand extends Command
     $langCodeAllow = $langCodeRepo->findAllLangCodeArray();
 
     $client = HttpClient::create(['http_version' => '2.0']);
-    $response = $client->request('GET', $mangadexURL . '/api/manga/' . $mangaId);
+    $response = $client->request('GET', $mangadexURL . '/api/v2/manga/' . $mangaId);
 
     if ($response->getStatusCode() != 200) {
       $output->writeln("<error>API can't be reach for this manga</error>");
@@ -95,10 +95,8 @@ class RefreshInfosMangaCommand extends Command
       return;
     }
 
-    $data = json_decode($response->getContent());
-
-    $manga = $data->manga;
-    $chapters = $data->chapter;
+    $response_json = json_decode($response->getContent());
+    $manga = $response_json->data;
 
     $mangaDB = $mangaRepo->findOneBy(array(
       'mangaId' => $mangaId,
@@ -121,14 +119,23 @@ class RefreshInfosMangaCommand extends Command
       $manager->flush();
     }
 
-    foreach ($chapters as $chapter_id => $values) {
 
-      if (isset($values->chapter) && $values->chapter !== '' && array_key_exists($values->lang_code, $langCodeAllow)) {
-        $langCode = $values->lang_code;
+    $response = $client->request('GET', $mangadexURL . '/api/v2/manga/' . $mangaId . '/chapters');
+    if ($response->getStatusCode() != 200) {
+      $this->logger->error($response->getStatusCode() . ' - ' . $response->getContent(), ['manga_id' => $mangaId]);
+    }
+
+    $response_json = json_decode($response->getContent());
+    $chapters = $response_json->data->chapters;
+
+    foreach ($chapters as $key => $chapter_json) {
+
+      if (isset($chapter_json->chapter) && $chapter_json->chapter !== '' && array_key_exists($chapter_json->language, $langCodeAllow)) {
+        $langCode = $chapter_json->language;
         $langCodeDB = $langCodeAllow[$langCode];
 
-        $number = $values->chapter;
-        $timestamp = $values->timestamp;
+        $number = $chapter_json->chapter;
+        $timestamp = $chapter_json->timestamp;
 
         $chapterDB = $chapterRepo->findOneBy(array(
           'langCode' => $langCodeDB,
@@ -138,7 +145,7 @@ class RefreshInfosMangaCommand extends Command
 
         if (isset($chapterDB)) {
           if ($chapterDB->getDate()->getTimestamp() < $timestamp) {
-            $chapterDB->setChapterId($chapter_id)
+            $chapterDB->setChapterId($chapter_json->id)
               ->setDate(new \DateTime(date('Y-m-d H:i:s', $timestamp)));
 
             $manager->persist($chapterDB);
@@ -149,7 +156,7 @@ class RefreshInfosMangaCommand extends Command
 
           $chapter->setLangCode($langCodeDB)
             ->setManga($mangaDB)
-            ->setChapterId($chapter_id)
+            ->setChapterId($chapter_json->id)
             ->setNumber($number)
             ->setDate(new \DateTime(date('Y-m-d H:i:s', $timestamp)));
 
@@ -159,7 +166,7 @@ class RefreshInfosMangaCommand extends Command
           $output->writeln($mangaDB->getName() . ' - Langue : ' . $langCodeDB->getLibelle() . ' - Chapitre n°' . $chapter->getNumber() . ' ajouté !');
 
           $string = $mangaDB->getName() . ' (' . $langCodeDB->getLibelle() . ') - Chapitre n°' . $chapter->getNumber() . ' sortie !' . PHP_EOL;
-          $string .= 'Disponible ici ' . $mangadexURL . '/chapter/' . $chapter_id;
+          $string .= 'Disponible ici ' . $mangadexURL . '/chapter/' . $$chapter_json->id;
 
           if ($mangaDB->getTwitter()) {
             $result = $this->twitter->sendTweet($string);

@@ -225,22 +225,19 @@ class AdministrationController extends AbstractController
 
     $client = HttpClient::create(['http_version' => '2.0']);
 
-    $response = $client->request('GET', $mangadexURL . '/api/manga/' . $mangaId);
-
+    $response = $client->request('GET', $mangadexURL . '/api/v2/manga/' . $mangaId);
     if ($response->getStatusCode() != 200) {
       $this->logger->error($response->getStatusCode() . ' - ' . $response->getContent(), ['manga_id' => $mangaId]);
     }
 
-    $data = json_decode($response->getContent());
-
-    $manga = $data->manga;
-    $chapters = $data->chapter;
+    $response_json = json_decode($response->getContent());
+    $manga = $response_json->data;
 
     $mangaDB = $mangaRepo->findOneBy(array(
       'mangaId' => $mangaId,
     ));
 
-    $urlImage = $mangadexURL . strtok($manga->cover_url, "?");
+    $urlImage = strtok($manga->mainCover, "?");
     $info = pathinfo($urlImage);
     $image = $info['basename'];
 
@@ -286,8 +283,8 @@ class AdministrationController extends AbstractController
         file_put_contents($file, $imageFile);
       }
 
-      if ($mangaDB->getMangaId() != $mangaId) {
-        $mangaDB->setMangaId($mangaId);
+      if ($mangaDB->getMangaId() != $manga->id) {
+        $mangaDB->setMangaId($manga->id);
       }
 
       $manager->persist($mangaDB);
@@ -295,17 +292,25 @@ class AdministrationController extends AbstractController
       $this->addFlash('warning', $translator->trans('successfully.modified', ['%slug%' => ucfirst($mangaDB->getName())]));
     }
 
-    foreach ($chapters as $chapter_id => $values) {
-      if ($values->chapter) {
-        $langCode = $values->lang_code;
+    $response = $client->request('GET', $mangadexURL . '/api/v2/manga/' . $mangaId . '/chapters');
+    if ($response->getStatusCode() != 200) {
+      $this->logger->error($response->getStatusCode() . ' - ' . $response->getContent(), ['manga_id' => $mangaId]);
+    }
+
+    $response_json = json_decode($response->getContent());
+    $chapters = $response_json->data->chapters;
+
+    foreach ($chapters as $key => $chapter_json) {
+      if ($chapter_json->id) {
+        $langCode = $chapter_json->language;
 
         $langCodeDB = $langCodeRepo->findOneBy(array(
           'langCode' => $langCode
         ));
 
         if ($langCodeDB) {
-          $number = $values->chapter;
-          $timestamp = $values->timestamp;
+          $number = $chapter_json->chapter;
+          $timestamp = $chapter_json->timestamp;
 
           $chapterDB = $chapterRepo->findOneBy(array(
             'langCode' => $langCodeDB,
@@ -315,7 +320,7 @@ class AdministrationController extends AbstractController
 
           if ($chapterDB) {
             if ($chapterDB->getDate()->getTimestamp() < $timestamp) {
-              $chapterDB->setChapterId($chapter_id);
+              $chapterDB->setChapterId($chapter_json->id);
               $chapterDB->setDate(new \DateTime(date('Y-m-d H:i:s', $timestamp)));
               $manager->persist($chapterDB);
               $manager->flush();
@@ -324,7 +329,7 @@ class AdministrationController extends AbstractController
             $chapter = new Chapter();
             $chapter->setLangCode($langCodeDB);
             $chapter->setManga($mangaDB);
-            $chapter->setChapterId($chapter_id);
+            $chapter->setChapterId($chapter_json->id);
             $chapter->setNumber($number);
             $chapter->setDate(new \DateTime(date('Y-m-d H:i:s', $timestamp)));
             $manager->persist($chapter);
