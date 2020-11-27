@@ -128,6 +128,7 @@ class RefreshInfosMangaCommand extends Command
     $response_json = json_decode($response->getContent());
     $chapters = $response_json->data->chapters;
 
+
     foreach ($chapters as $key => $chapter_json) {
 
       if (isset($chapter_json->chapter) && $chapter_json->chapter !== '' && array_key_exists($chapter_json->language, $langCodeAllow)) {
@@ -152,6 +153,7 @@ class RefreshInfosMangaCommand extends Command
             $manager->flush();
           }
         } else {
+
           $chapter = new Chapter();
 
           $chapter->setLangCode($langCodeDB)
@@ -166,7 +168,7 @@ class RefreshInfosMangaCommand extends Command
           $output->writeln($mangaDB->getName() . ' - Langue : ' . $langCodeDB->getLibelle() . ' - Chapitre n°' . $chapter->getNumber() . ' ajouté !');
 
           $string = $mangaDB->getName() . ' (' . $langCodeDB->getLibelle() . ') - Chapitre n°' . $chapter->getNumber() . ' sortie !' . PHP_EOL;
-          $string .= 'Disponible ici ' . $mangadexURL . '/chapter/' . $$chapter_json->id;
+          $string .= 'Disponible ici ' . $mangadexURL . '/chapter/' . $chapter_json->id;
 
           if ($mangaDB->getTwitter()) {
             $result = $this->twitter->sendTweet($string);
