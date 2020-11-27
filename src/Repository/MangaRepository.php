@@ -3,8 +3,11 @@
 namespace App\Repository;
 
 use App\Entity\Manga;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Data\MangaSearchData;
 use Doctrine\Persistence\ManagerRegistry;
+use Knp\Component\Pager\PaginatorInterface;
+use Knp\Bundle\PaginatorBundle\Pagination\SlidingPagination;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method Manga|null find($id, $lockMode = null, $lockVersion = null)
@@ -14,19 +17,40 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class MangaRepository extends ServiceEntityRepository
 {
-  public function __construct(ManagerRegistry $registry)
+  public function __construct(ManagerRegistry $registry, PaginatorInterface $paginator)
   {
     parent::__construct($registry, Manga::class);
+    $this->paginator = $paginator;
   }
 
   /**
-   * @return Manga[] Returns an array of Manga objects (Par Nom)
+   * @param MangaSearchData $search
+   * @return SlidingPagination
    */
-  public function findMangaOrderByNameQuery()
+  public function findMangaOrderByNameQuery(MangaSearchData $search): SlidingPagination
   {
-    return $this->createQueryBuilder('m')
-      ->orderBy('m.name', 'ASC')
-      ->getQuery();
+    $query = $this->createQueryBuilder('m')
+      ->orderBy('m.name', 'ASC');
+
+    if (!empty($search->q)) {
+      $query = $query->andWhere('LOWER(m.name) LIKE LOWER(:q)')->setParameter('q', "%{$search->q}%");
+    }
+
+
+    $query = $query->getQuery();
+
+    $pagination = $this->paginator->paginate(
+      $query,
+      $search->page,
+      30
+    );
+
+    $pagination->setCustomParameters([
+      'align' => 'center', # center|right
+      'size' => 'small', # small|large
+    ]);
+
+    return $pagination;
   }
 
   // /**

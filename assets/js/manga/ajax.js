@@ -1,7 +1,5 @@
 import axios from "axios";
 
-
-
 function onClickLinkTwitterAction(event) {
   event.preventDefault();
   const url = this.href;

@@ -2,18 +2,22 @@
 
 namespace App\Controller;
 
+use App\Data\MangaSearchData;
 use App\Entity\FollowManga;
 use App\Entity\Manga;
+use App\Form\MangaSearchType;
 use Psr\Log\LoggerInterface;
 use App\Repository\MangaRepository;
 use App\Repository\ChapterRepository;
 use App\Repository\FollowMangaRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -35,22 +39,28 @@ class MangaController extends AbstractController
    */
   public function listMangas(MangaRepository $repo, PaginatorInterface $paginator, Request $request)
   {
-    $query = $repo->findMangaOrderByNameQuery();
 
-    $mangas = $paginator->paginate(
-      $query,
-      $request->query->getInt('page', 1),
-      30
-    );
+    $data = new MangaSearchData();
+    $data->page = $request->get('page', 1);
+    $form = $this->createForm(MangaSearchType::class, $data);
+    $form->handleRequest($request);
 
-    $mangas->setCustomParameters([
-      'align' => 'center', # center|right
-      'size' => 'small', # small|large
-    ]);
+    $mangas = $repo->findMangaOrderByNameQuery($data);
+
+
+    if($request->get('ajax')) {
+
+      return new JsonResponse([
+        'content' => $this->renderView('manga/_mangas.html.twig', ['mangas' => $mangas]),
+        'pagination' => $this->renderView('manga/_pagination.html.twig', ['mangas' => $mangas])
+      ]);
+    }
+
 
     return $this->render('manga/mangas-list.html.twig', [
       'controller_name' => 'MangaController',
-      'mangas' => $mangas
+      'mangas' => $mangas,
+      'form' => $form->createView()
     ]);
   }
 
