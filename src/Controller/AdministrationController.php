@@ -237,19 +237,11 @@ class AdministrationController extends AbstractController
       'mangaId' => $mangaId,
     ));
 
-    $urlImage = strtok($manga->mainCover, "?");
-    $info = pathinfo($urlImage);
-    $image = $info['basename'];
-
     if (!$mangaDB) {
       $mangaDB = new Manga();
       $mangaDB->setName(html_entity_decode($manga->title, ENT_QUOTES, 'UTF-8'));
 
-      $imageFile = file_get_contents($urlImage);
-      $file = $this->getParameter('kernel.project_dir') . "/public/uploads/mangas/" . $info['basename'];
-      file_put_contents($file, $imageFile);
-
-      $mangaDB->setImage($image);
+      $mangaDB->setImage($manga->mainCover);
       $mangaDB->setMangaId($mangaId);
       $mangaDB->setTwitter(TRUE);
       $manager->persist($mangaDB);
@@ -264,24 +256,6 @@ class AdministrationController extends AbstractController
 
       $this->addFlash('success', $translator->trans('successfully.added', ['%slug%' => ucfirst($mangaDB->getName())]));
     } else {
-      if (!file_exists($this->getParameter('kernel.project_dir') . "/public/uploads/mangas/" . $info['basename'])) {
-
-        $imageFile = file_get_contents($urlImage);
-        $file = $this->getParameter('kernel.project_dir') . "/public/uploads/mangas/" . $info['basename'];
-        file_put_contents($file, $imageFile);
-
-        $mangaDB->setImage($image);
-      } else if ($mangaDB->getImage() != $image) {
-        $imageFile = file_get_contents($urlImage);
-        $file = $this->getParameter('kernel.project_dir') . "/public/uploads/mangas/" . $info['basename'];
-        file_put_contents($file, $imageFile);
-
-        $mangaDB->setImage($image);
-      } else if (md5(file_get_contents($urlImage)) != md5(file_get_contents($this->getParameter('kernel.project_dir') . "/public/uploads/mangas/" . $info['basename']))) {
-        $imageFile = file_get_contents($urlImage);
-        $file = $this->getParameter('kernel.project_dir') . "/public/uploads/mangas/" . $info['basename'];
-        file_put_contents($file, $imageFile);
-      }
 
       if ($mangaDB->getMangaId() != $manga->id) {
         $mangaDB->setMangaId($manga->id);

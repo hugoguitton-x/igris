@@ -15,7 +15,7 @@
 
           <div class="manga {{ class }}" data-aos="fade-up">
                 <div class="manga__image">
-                    <img src="{{ chapter.image ? asset('uploads/mangas/' ~ chapter.image) : 'https://via.placeholder.com/1500' }}"/>
+                    <img src="{{ chapter.image ? chapter.image : 'https://via.placeholder.com/1500' }}"/>
                 </div>
                 <div class="manga__infos">
                   <div class="title">

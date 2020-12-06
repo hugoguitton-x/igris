@@ -1,6 +1,6 @@
 <div class="manga" data-aos="fade-up">
   <div class="manga__image">
-      <img src="{{ manga.image ? asset('uploads/mangas/' ~ manga.image) : 'https://via.placeholder.com/1500' }}"/>
+      <img src="{{ manga.image ? manga.image : 'https://via.placeholder.com/1500' }}"/>
   </div>
   <div class="manga__actions">
     <div class="title">

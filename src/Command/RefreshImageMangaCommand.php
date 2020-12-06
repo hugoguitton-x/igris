@@ -76,19 +76,11 @@ class RefreshImageMangaCommand extends Command
     $response_json = json_decode($response->getContent());
     $manga = $response_json->data;
 
-    $urlImage = strtok($manga->mainCover, "?");
-    $info = pathinfo($urlImage);
-    $image = $info['basename'];
-
     $mangaDB = $mangaRepo->findOneBy(array(
       'mangaId' => $mangaId,
     ));
 
-    $imageFile = file_get_contents($urlImage);
-    $file = $this->params->get('kernel.project_dir') . "/public/uploads/mangas/" . $info['basename'];
-    file_put_contents($file, $imageFile);
-
-    $mangaDB->setImage($image);
+    $mangaDB->setImage($manga->mainCover);
 
     $manager->persist($mangaDB);
     $manager->flush();

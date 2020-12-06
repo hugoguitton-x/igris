@@ -122,7 +122,7 @@ class RefreshInfosMangaCommand extends Command
 
     $response = $client->request('GET', $mangadexURL . '/api/v2/manga/' . $mangaId . '/chapters');
     if ($response->getStatusCode() != 200) {
-      $this->logger->error($response->getStatusCode() . ' - ' . $response->getContent(), ['manga_id' => $mangaId]);
+      $output->writeln("<error>" . $response->getStatusCode() . ' - ' . $response->getContent() . "</error>");
     }
 
     $response_json = json_decode($response->getContent());
@@ -175,9 +175,9 @@ class RefreshInfosMangaCommand extends Command
           }
 
           if (!empty($mangaDB->getFollowMangas())) {
-            foreach($mangaDB->getFollowMangas() as $follow) {
+            foreach ($mangaDB->getFollowMangas() as $follow) {
               $follower = $follow->getUtilisateur();
-              if($follower->getNameTwitter() !== null) {
+              if ($follower->getNameTwitter() !== null) {
                 $this->twitter->sendDirectMessageWithScreenName($follower->getNameTwitter(), $string);
               }
             }
@@ -185,6 +185,5 @@ class RefreshInfosMangaCommand extends Command
         }
       }
     }
-
   }
 }
