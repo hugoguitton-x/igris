@@ -50,15 +50,17 @@ class RefreshInfosMangaCommand extends Command
     $output->writeln('<comment>Récupération de l\'ensemble des mangas.</comment>');
 
     $mangas = $this->mangaRepo->findAll();
-
+    $countMangas = count($mangas);
     $output->writeln('<comment>=======================================</comment>');
     $output->writeln('<comment>Mise à jour de l\'ensemble des informations des mangas.</comment>');
     $output->writeln('<comment>=======================================</comment>');
 
+    $count = 1;
     foreach ($mangas as $manga) {
-      $output->writeln('<comment> -- ' . $manga->getName() . ' -- </comment>');
+      $output->writeln('<comment> -- ' . $manga->getName() . ' --' . ' (' . $count . '/' . $countMangas . ') </comment>');
       $this->refreshInfos($manga->getMangaId(), $this->manager, $output);
       $output->writeln('<info> OK </info>');
+      $count++;
     }
 
     $io->success('La liste des mangas a bien été mise à jour !');
