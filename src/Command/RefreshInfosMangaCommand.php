@@ -117,6 +117,10 @@ class RefreshInfosMangaCommand extends Command
         $mangaDB->setMangaId($mangaId);
       }
 
+      if ($mangaDB->getImage() != $manga->mainCover) {
+        $mangaDB->setImage($manga->mainCover);
+      }
+
       $manager->persist($mangaDB);
       $manager->flush();
     }
