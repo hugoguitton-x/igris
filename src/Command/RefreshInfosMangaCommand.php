@@ -60,6 +60,7 @@ class RefreshInfosMangaCommand extends Command
       $output->writeln('<comment> -- ' . $manga->getName() . ' --' . ' (' . $count . '/' . $countMangas . ') </comment>');
       $this->refreshInfos($manga->getMangaId(), $this->manager, $output);
       $count++;
+      sleep(2);
     }
 
     $io->success('La liste des mangas a bien été mise à jour !');
