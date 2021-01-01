@@ -104,11 +104,16 @@ class RefreshInfosMangaCommand extends Command
       'mangaId' => $mangaId,
     ));
 
+    $newUpload = false;
+
     if (!isset($mangaDB)) {
       $mangaDB = new Manga();
       $mangaDB->setName(html_entity_decode($manga->title, ENT_QUOTES, 'UTF-8'));
 
       $mangaDB->setMangaId($mangaId);
+
+      $mangaDB->setLastUploaded(new \DateTime(date('Y-m-d H:i:s', $manga->lastUploaded)));
+      $newUpload = true;
 
       $manager->persist($mangaDB);
       $manager->flush();
@@ -121,70 +126,76 @@ class RefreshInfosMangaCommand extends Command
         $mangaDB->setImage($manga->mainCover);
       }
 
+      if (($mangaDB->getLastUploaded())->getTimestamp() < $manga->lastUploaded) {
+        $mangaDB->setLastUploaded(new \DateTime(date('Y-m-d H:i:s', $manga->lastUploaded)));
+        $newUpload = true;
+      }
+
       $manager->persist($mangaDB);
       $manager->flush();
     }
 
+    if ($newUpload) {
+      $response = $client->request('GET', $mangadexURL . '/api/v2/manga/' . $mangaId . '/chapters');
+      if ($response->getStatusCode() != 200) {
+        $output->writeln("<error>" . $response->getStatusCode() . ' - ' . $response->getContent() . "</error>");
+      }
 
-    $response = $client->request('GET', $mangadexURL . '/api/v2/manga/' . $mangaId . '/chapters');
-    if ($response->getStatusCode() != 200) {
-      $output->writeln("<error>" . $response->getStatusCode() . ' - ' . $response->getContent() . "</error>");
-    }
-
-    $response_json = json_decode($response->getContent());
-    $chapters = $response_json->data->chapters;
+      $response_json = json_decode($response->getContent());
+      $chapters = $response_json->data->chapters;
 
 
-    foreach ($chapters as $key => $chapter_json) {
+      foreach ($chapters as $key => $chapter_json) {
 
-      if (isset($chapter_json->chapter) && $chapter_json->chapter !== '' && array_key_exists($chapter_json->language, $langCodeAllow)) {
-        $langCode = $chapter_json->language;
-        $langCodeDB = $langCodeAllow[$langCode];
+        if (isset($chapter_json->chapter) && $chapter_json->chapter !== '' && array_key_exists($chapter_json->language, $langCodeAllow)) {
+          $langCode = $chapter_json->language;
+          $langCodeDB = $langCodeAllow[$langCode];
 
-        $number = $chapter_json->chapter;
-        $timestamp = $chapter_json->timestamp;
+          $number = $chapter_json->chapter;
+          $timestamp = $chapter_json->timestamp;
 
-        $chapterDB = $chapterRepo->findOneBy(array(
-          'langCode' => $langCodeDB,
-          'manga' => $mangaDB,
-          'number' => $number
-        ));
+          $chapterDB = $chapterRepo->findOneBy(array(
+            'langCode' => $langCodeDB,
+            'manga' => $mangaDB,
+            'number' => $number
+          ));
 
-        if (isset($chapterDB)) {
-          if ($chapterDB->getDate()->getTimestamp() < $timestamp) {
-            $chapterDB->setChapterId($chapter_json->id)
+          if (isset($chapterDB)) {
+            if ($chapterDB->getDate()->getTimestamp() < $timestamp) {
+              $chapterDB->setChapterId($chapter_json->id)
+                ->setDate(new \DateTime(date('Y-m-d H:i:s', $timestamp)));
+
+              $manager->persist($chapterDB);
+              $manager->flush();
+            }
+          } else {
+
+            $chapter = new Chapter();
+
+            $chapter->setLangCode($langCodeDB)
+              ->setManga($mangaDB)
+              ->setChapterId($chapter_json->id)
+              ->setNumber($number)
               ->setDate(new \DateTime(date('Y-m-d H:i:s', $timestamp)));
 
-            $manager->persist($chapterDB);
+            $manager->persist($chapter);
             $manager->flush();
-          }
-        } else {
 
-          $chapter = new Chapter();
+            $output->writeln($mangaDB->getName() . ' - Langue : ' . $langCodeDB->getLibelle() . ' - Chapitre n°' . $chapter->getNumber() . ' ajouté !');
 
-          $chapter->setLangCode($langCodeDB)
-            ->setManga($mangaDB)
-            ->setChapterId($chapter_json->id)
-            ->setNumber($number)
-            ->setDate(new \DateTime(date('Y-m-d H:i:s', $timestamp)));
+            $string = $mangaDB->getName() . ' (' . $langCodeDB->getLibelle() . ') - Chapitre n°' . $chapter->getNumber() . ' sortie !' . PHP_EOL;
+            $string .= 'Disponible ici ' . $mangadexURL . '/chapter/' . $chapter_json->id;
 
-          $manager->persist($chapter);
-          $manager->flush();
+            if ($mangaDB->getTwitter()) {
+              $result = $this->twitter->sendTweet($string);
+            }
 
-          $output->writeln($mangaDB->getName() . ' - Langue : ' . $langCodeDB->getLibelle() . ' - Chapitre n°' . $chapter->getNumber() . ' ajouté !');
-
-          $string = $mangaDB->getName() . ' (' . $langCodeDB->getLibelle() . ') - Chapitre n°' . $chapter->getNumber() . ' sortie !' . PHP_EOL;
-          $string .= 'Disponible ici ' . $mangadexURL . '/chapter/' . $chapter_json->id;
-
-          if ($mangaDB->getTwitter()) {
-            $result = $this->twitter->sendTweet($string);
-          }
-
-          if (!empty($mangaDB->getFollowMangas())) {
-            foreach ($mangaDB->getFollowMangas() as $follow) {
-              $follower = $follow->getUtilisateur();
-              if ($follower->getNameTwitter() !== null) {
-                $this->twitter->sendDirectMessageWithScreenName($follower->getNameTwitter(), $string);
+            if (!empty($mangaDB->getFollowMangas())) {
+              foreach ($mangaDB->getFollowMangas() as $follow) {
+                $follower = $follow->getUtilisateur();
+                if ($follower->getNameTwitter() !== null) {
+                  $this->twitter->sendDirectMessageWithScreenName($follower->getNameTwitter(), $string);
+                }
               }
             }
           }

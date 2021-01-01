@@ -48,6 +48,11 @@ class Manga
    */
   private $followMangas;
 
+  /**
+   * @ORM\Column(type="datetime")
+   */
+  private $lastUploaded;
+
   public function __construct()
   {
     $this->lastChapter = new ArrayCollection();
@@ -193,5 +198,17 @@ class Manga
     }
 
     return false;
+  }
+
+  public function getLastUploaded(): ?\DateTimeInterface
+  {
+      return $this->lastUploaded;
+  }
+
+  public function setLastUploaded(?\DateTimeInterface $lastUploaded): self
+  {
+      $this->lastUploaded = $lastUploaded;
+
+      return $this;
   }
 }
