@@ -56,15 +56,17 @@ class RefreshInfosMangaCommand extends Command
     $output->writeln('<comment>=======================================</comment>');
 
     $count = 1;
+    $start = microtime(true);
     foreach ($mangas as $manga) {
       $output->writeln('<comment> -- ' . $manga->getName() . ' --' . ' (' . $count . '/' . $countMangas . ') </comment>');
       $this->refreshInfos($manga->getMangaId(), $this->manager, $output);
       $count++;
       sleep(2);
+      break;
     }
 
     $io->success('La liste des mangas a bien été mise à jour !');
-
+    $io->note("Temps d'exécution : " . round((microtime(true) - $start) / 60, 2) . " minutes");
     return 0;
   }
 
