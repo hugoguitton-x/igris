@@ -59,7 +59,6 @@ class RefreshInfosMangaCommand extends Command
     foreach ($mangas as $manga) {
       $output->writeln('<comment> -- ' . $manga->getName() . ' --' . ' (' . $count . '/' . $countMangas . ') </comment>');
       $this->refreshInfos($manga->getMangaId(), $this->manager, $output);
-      $output->writeln('<info> OK </info>');
       $count++;
     }
 
@@ -201,6 +200,9 @@ class RefreshInfosMangaCommand extends Command
           }
         }
       }
+      $output->writeln('<info> OK </info>');
+    } else {
+      $output->writeln('<info> SKIP </info>');
     }
   }
 }
