@@ -244,6 +244,7 @@ class AdministrationController extends AbstractController
       $mangaDB->setImage($manga->mainCover);
       $mangaDB->setMangaId($mangaId);
       $mangaDB->setTwitter(TRUE);
+      $mangaDB->setLastUploaded(new \DateTime(date('Y-m-d H:i:s', $manga->lastUploaded)));
       $manager->persist($mangaDB);
       $manager->flush();
 
