@@ -62,7 +62,6 @@ class RefreshInfosMangaCommand extends Command
       $this->refreshInfos($manga->getMangaId(), $this->manager, $output);
       $count++;
       sleep(2);
-      break;
     }
 
     $io->success('La liste des mangas a bien été mise à jour !');
