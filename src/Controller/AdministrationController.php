@@ -21,8 +21,13 @@ use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpKernel\KernelInterface;
+use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
@@ -315,5 +320,26 @@ class AdministrationController extends AbstractController
     }
 
     return $mangaDB;
+  }
+
+
+  /**
+   * @Route("/manga/refresh", name="manga_refresh")
+   */
+  public function refeshInfosMangasCommand(KernelInterface $kernel)
+  {
+
+    $application = new Application($kernel);
+    $input = new ArrayInput([
+      'command' => 'app:refresh-infos-manga'
+    ]);
+
+    $output = new BufferedOutput();
+
+    $application->run($input, $output);
+
+    $content = $output->fetch();
+
+    return new Response($content);
   }
 }
