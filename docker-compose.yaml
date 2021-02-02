@@ -1,4 +1,4 @@
-version: "3.7"
+version: "3.8"
 services:
   adminer:
     image: adminer
@@ -22,7 +22,7 @@ services:
     networks:
       - db
   nginx:
-    image: nginx:1.15.3-alpine
+    image: nginx:1.19.6-alpine
     restart: on-failure
     volumes:
       - "./public:/usr/src/app"
