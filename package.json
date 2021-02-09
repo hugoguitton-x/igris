@@ -1,6 +1,6 @@
 {
     "devDependencies": {
-        "@symfony/stimulus-bridge": "^1.1.0",
+        "@symfony/stimulus-bridge": "^2.0.0",
         "@symfony/webpack-encore": "^0.32.0",
         "core-js": "^3.8.0",
         "node-sass": "^4.14.1",
