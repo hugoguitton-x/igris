@@ -6,6 +6,8 @@
       {% include 'manga/_filter.html.twig' with {form: form} only %}
     </div>
 
+    <div id="loader">Loading...</div>
+
     <div class="row js-filter-content">
       {% include 'manga/_mangas.html.twig' with {mangas: mangas} only %}
     </div>

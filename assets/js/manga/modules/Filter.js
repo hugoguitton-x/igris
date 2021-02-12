@@ -20,6 +20,8 @@ export default class Filter {
     this.content = element.querySelector('.js-filter-content');
     this.pagination = element.querySelector('.js-filter-pagination');
     this.form = element.querySelector('.js-filter-form');
+    this.loader = element.querySelector('#loader');
+
 
     this.bindEvents()
   }
@@ -62,23 +64,26 @@ export default class Filter {
 
     var _ = this;
 
+    _.loader.style.display = 'block';
     axios.get(`${url}&ajax=1`).then(function (response) {
       if (_.currentContent !== response.data.content) {
         _.currentContent = response.data.content;
 
         _.content.innerHTML = response.data.content;
-        console.log('TEST')
+
         _.content.querySelectorAll('a.twitter-action').forEach(function (link) {
           link.addEventListener('click', _.onClickLinkTwitterAction);
-
-          link.addEventListener('click', _.onClickLinkFollowAction);
         });
+        _.content.querySelectorAll('a.follow-action').forEach(function (link) {
+          link.addEventListener('click', _.onClickLinkFollowAction);
+        })
+
       }
 
       _.pagination.innerHTML = response.data.pagination;
 
       history.replaceState({}, '', url);
-
+      _.loader.style.display = 'none';
 
     }).catch(function (error) {
       console.error(error);

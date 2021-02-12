@@ -20,5 +20,7 @@ import AOS from "aos";
 import $ from "jquery";
 
 $(function () {
-  AOS.init();
+  AOS.init({
+    once: true
+  });
 });
