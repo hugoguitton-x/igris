@@ -42,6 +42,8 @@ export default class Filter {
         this.timeout = setTimeout(this.loadForm.bind(this), 1000);
       });
     })
+
+
   }
 
   loadForm() {
@@ -65,15 +67,62 @@ export default class Filter {
         _.currentContent = response.data.content;
 
         _.content.innerHTML = response.data.content;
+        console.log('TEST')
+        _.content.querySelectorAll('a.twitter-action').forEach(function (link) {
+          link.addEventListener('click', _.onClickLinkTwitterAction);
+
+          link.addEventListener('click', _.onClickLinkFollowAction);
+        });
       }
 
       _.pagination.innerHTML = response.data.pagination;
 
       history.replaceState({}, '', url);
+
+
     }).catch(function (error) {
       console.error(error);
     }).finally(() => {
       // @TODO STOP LOADING
     })
   }
+
+  onClickLinkTwitterAction(event) {
+    event.preventDefault();
+    const url = this.href;
+    const link = this;
+
+    axios.post(url).then(function (response) {
+
+      link.textContent = response.data.value;
+
+      if (link.classList.contains('twitter-enabled')) {
+        link.classList.replace('twitter-enabled', 'twitter-disabled');
+      } else {
+        link.classList.replace('twitter-disabled', 'twitter-enabled');
+      }
+    }).catch(function (error) {
+
+    })
+  }
+
+  onClickLinkFollowAction(event) {
+    event.preventDefault();
+    const url = this.href;
+    const link = this;
+
+    axios.post(url).then(function (response) {
+
+      link.textContent = response.data.value;
+
+      if (link.classList.contains('followed')) {
+        link.classList.replace('followed', 'unfollowed');
+      } else {
+        link.classList.replace('unfollowed', 'followed');
+      }
+    }).catch(function (error) {
+
+    })
+  }
+
 }
