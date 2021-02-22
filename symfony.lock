@@ -105,8 +105,8 @@
     "egulias/email-validator": {
         "version": "2.1.15"
     },
-    "fzaninotto/faker": {
-        "version": "v1.9.1"
+    "fakerphp/faker": {
+        "version": "v1.13.0"
     },
     "guzzlehttp/guzzle": {
         "version": "6.5.2"
@@ -134,6 +134,9 @@
     },
     "laminas/laminas-zendframework-bridge": {
         "version": "1.0.1"
+    },
+    "liip/test-fixtures-bundle": {
+        "version": "1.11.2"
     },
     "lorenzo/pinky": {
         "version": "1.0.5"

@@ -21,6 +21,7 @@ class SerieAvisFixtures extends Fixture implements FixtureGroupInterface
 
   public function load(ObjectManager $manager)
   {
+/*
     $faker = \Faker\Factory::create('fr_FR');
 
     $tempon = 1;
@@ -72,7 +73,7 @@ class SerieAvisFixtures extends Fixture implements FixtureGroupInterface
       $manager->persist($serie);
     }
 
-    $manager->flush();
+    $manager->flush(); */
   }
 
   public static function getGroups(): array
