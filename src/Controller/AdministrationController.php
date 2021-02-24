@@ -15,6 +15,7 @@ use Psr\Log\LoggerInterface;
 use App\Helper\TwitterHelper;
 use App\Service\FileUploader;
 use Abraham\TwitterOAuth\TwitterOAuth;
+use App\Helper\MangaMangadexApiHelper;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\UtilisateurRepository;
 use Knp\Component\Pager\PaginatorInterface;
@@ -26,6 +27,7 @@ use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\Console\Output\BufferedOutput;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -190,8 +192,7 @@ class AdministrationController extends AbstractController
     Request $request,
     EntityManagerInterface $manager,
     Manga $manga = null,
-    TranslatorInterface $translator,
-    LoggerInterface $appLogger
+    TranslatorInterface $translator
   ) {
     if (!$manga) {
       $manga = new Manga();
@@ -208,7 +209,8 @@ class AdministrationController extends AbstractController
 
     if ($form->isSubmitted() && $form->isValid()) {
 
-      $manga =  $this->loadMangaFromMangadexApi($form->get('manga_id')->getData(), $manager, $translator, $appLogger);
+      $mangaMangadexApi = new MangaMangadexApiHelper($this->container->get('parameter_bag'), $manager, null, new Session(), $translator, false);
+      $mangaMangadexApi->refreshMangaById($form->get('manga_id')->getData());
 
       return $this->redirectToRoute('manga_list');
     }
@@ -219,108 +221,6 @@ class AdministrationController extends AbstractController
     ]);
   }
 
-
-  private function loadMangaFromMangadexApi(int $mangaId, EntityManagerInterface $manager, TranslatorInterface $translator)
-  {
-    $mangaRepo = $manager->getRepository(Manga::class);
-    $langCodeRepo = $manager->getRepository(LanguageCode::class);
-    $chapterRepo = $manager->getRepository(Chapter::class);
-
-    $mangadexURL = $this->getParameter('mangadex_url');
-
-    $client = HttpClient::create(['http_version' => '2.0']);
-
-    $response = $client->request('GET', $mangadexURL . '/api/v2/manga/' . $mangaId);
-    if ($response->getStatusCode() != 200) {
-      $this->logger->error($response->getStatusCode() . ' - ' . $response->getContent(), ['manga_id' => $mangaId]);
-    }
-
-    $response_json = json_decode($response->getContent());
-    $manga = $response_json->data;
-
-    $mangaDB = $mangaRepo->findOneBy(array(
-      'mangaId' => $mangaId,
-    ));
-
-    if (!$mangaDB) {
-      $mangaDB = new Manga();
-      $mangaDB->setName(html_entity_decode($manga->title, ENT_QUOTES, 'UTF-8'));
-
-      $mangaDB->setImage($manga->mainCover);
-      $mangaDB->setMangaId($mangaId);
-      $mangaDB->setTwitter(TRUE);
-      $mangaDB->setLastUploaded(new \DateTime(date('Y-m-d H:i:s', $manga->lastUploaded)));
-      $manager->persist($mangaDB);
-      $manager->flush();
-
-      $string = '"' . $mangaDB->getName() . '"' . ' a été ajouté !' . PHP_EOL;
-      $string .= 'Disponible ici ' . $mangadexURL . '/manga/' . $mangaId;
-
-      if ($mangaDB->getTwitter()) {
-        $this->twitter->sendTweet($string);
-      }
-
-      $this->addFlash('success', $translator->trans('successfully.added', ['%slug%' => ucfirst($mangaDB->getName())]));
-    } else {
-
-      if ($mangaDB->getMangaId() != $manga->id) {
-        $mangaDB->setMangaId($manga->id);
-      }
-
-      $manager->persist($mangaDB);
-      $manager->flush();
-      $this->addFlash('warning', $translator->trans('successfully.modified', ['%slug%' => ucfirst($mangaDB->getName())]));
-    }
-
-    $response = $client->request('GET', $mangadexURL . '/api/v2/manga/' . $mangaId . '/chapters');
-    if ($response->getStatusCode() != 200) {
-      $this->logger->error($response->getStatusCode() . ' - ' . $response->getContent(), ['manga_id' => $mangaId]);
-    }
-
-    $response_json = json_decode($response->getContent());
-    $chapters = $response_json->data->chapters;
-
-    foreach ($chapters as $key => $chapter_json) {
-      if ($chapter_json->id) {
-        $langCode = $chapter_json->language;
-
-        $langCodeDB = $langCodeRepo->findOneBy(array(
-          'langCode' => $langCode
-        ));
-
-        if ($langCodeDB) {
-          $number = $chapter_json->chapter;
-          $timestamp = $chapter_json->timestamp;
-
-          $chapterDB = $chapterRepo->findOneBy(array(
-            'langCode' => $langCodeDB,
-            'manga' => $mangaDB,
-            'number' => $number
-          ));
-
-          if ($chapterDB) {
-            if ($chapterDB->getDate()->getTimestamp() < $timestamp) {
-              $chapterDB->setChapterId($chapter_json->id);
-              $chapterDB->setDate(new \DateTime(date('Y-m-d H:i:s', $timestamp)));
-              $manager->persist($chapterDB);
-              $manager->flush();
-            }
-          } else {
-            $chapter = new Chapter();
-            $chapter->setLangCode($langCodeDB);
-            $chapter->setManga($mangaDB);
-            $chapter->setChapterId($chapter_json->id);
-            $chapter->setNumber($number);
-            $chapter->setDate(new \DateTime(date('Y-m-d H:i:s', $timestamp)));
-            $manager->persist($chapter);
-            $manager->flush();
-          }
-        }
-      }
-    }
-
-    return $mangaDB;
-  }
 
 
   /**

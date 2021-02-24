@@ -21,7 +21,6 @@ class LanguageCodeRepository extends ServiceEntityRepository
 
 
   /**
-   *
    * @return LanguageCode[] Returns an array of LanguageCode objects
    */
   public function findAllLangCodeArray()

@@ -8,7 +8,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
-class UtilisateurFixtures extends Fixture implements FixtureGroupInterface
+class UserAdminFixtures extends Fixture implements FixtureGroupInterface
 {
 
   private $encoder;
@@ -23,7 +23,7 @@ class UtilisateurFixtures extends Fixture implements FixtureGroupInterface
   {
     $faker = \Faker\Factory::create('fr_FR');
 
-    for($i = 0; $i < 10; $i++) {
+    for($i = 0; $i < 5; $i++) {
       $utilisateur = new Utilisateur();
         $utilisateur->setUsername($faker->userName());
         $password = $this->encoder->encodePassword(
@@ -35,7 +35,7 @@ class UtilisateurFixtures extends Fixture implements FixtureGroupInterface
         $utilisateur->setFirstName($faker->firstName());
         $utilisateur->setLastName($faker->lastName());
         $utilisateur->setAvatar($faker->imageUrl(640, 480, 'animals', true));
-        $utilisateur->setRoles(array('ROLE_USER'));
+        $utilisateur->setRoles(array('ROLE_ADMIN'));
 
         $manager->persist($utilisateur);
     }

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c645df433cb6b60e28df657bf4c03828",
+    "content-hash": "d0d0dbef275477b492d76fcbc1002c0d",
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -62,6 +62,58 @@
                 "twitter"
             ],
             "time": "2020-09-22T14:27:00+00:00"
+        },
+        {
+            "name": "boldtrn/jsonb-bundle",
+            "version": "v1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/boldtrn/JsonbBundle.git",
+                "reference": "bef906f150d3b6a3439c727eabc0fc10a01b33b2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/boldtrn/JsonbBundle/zipball/bef906f150d3b6a3439c727eabc0fc10a01b33b2",
+                "reference": "bef906f150d3b6a3439c727eabc0fc10a01b33b2",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/dbal": "~2.4",
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "doctrine/orm": ">2.4,<2.6",
+                "phpunit/phpunit": "~4.2"
+            },
+            "suggest": {
+                "doctrine/orm": "To use DQL functions"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Boldtrn\\JsonbBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Robin Boldt",
+                    "email": "boldtrn@gmail.com"
+                }
+            ],
+            "description": "A library adding the support for JSONB columns of PostgreSQL to Doctrine.",
+            "homepage": "https://github.com/boldtrn/JsonbBundle",
+            "keywords": [
+                "bundle",
+                "doctrine",
+                "jsonb",
+                "postgresql",
+                "symfony"
+            ],
+            "time": "2019-10-09T07:05:14+00:00"
         },
         {
             "name": "composer/ca-bundle",

@@ -51,7 +51,7 @@ class Utilisateur implements UserInterface
   private $lastname;
 
   /**
-   * @ORM\Column(type="json")
+   * @ORM\Column(type="jsonb")
    */
   private $roles = [];
 

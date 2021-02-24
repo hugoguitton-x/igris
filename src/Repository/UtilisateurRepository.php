@@ -29,6 +29,22 @@ class UtilisateurRepository extends ServiceEntityRepository
       ->orderBy('u.username', 'ASC')
       ->getQuery();
   }
+
+  /**
+   * @return Utilisateur[] Returns an array of Utilisateur objects (Par Nom)
+   */
+  public function findByRole(string $role)
+  {
+    $role = mb_strtoupper($role);
+
+    return $this->createQueryBuilder('u')
+      ->andWhere("JSONB_HGG(u.roles, '{}') LIKE :role")
+      ->setParameter('role', '%ROLE_' . $role . '%')
+      ->getQuery()
+      ->getResult();
+  }
+
+
   // /**
   //  * @return Utilisateur[] Returns an array of Utilisateur objects
   //  */
