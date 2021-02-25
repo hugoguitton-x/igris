@@ -22,6 +22,12 @@
                 {{ manga.twitter ? 'Enabled'|trans : 'Disabled'|trans }}
             </a>
         </div>
+        <div class="refresh">
+            <a class="refresh-action" href="{{ path( 'manga_refresh', { id: manga.id } ) }}" data-toggle="tooltip">
+                {{ 'Refresh'|trans }}
+            </a>
+            <div class="mini-loader"></div>
+        </div>
     {% endif %}
 
   </div>

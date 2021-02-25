@@ -47,3 +47,27 @@ document.querySelectorAll('a.follow-action').forEach(function (link) {
   link.addEventListener('click', onClickLinkFollowAction);
 })
 
+
+function onClickLinkRefreshAction(event) {
+  event.preventDefault();
+  const url = this.href;
+  const link = this;
+
+  const mini_loaders = link.parentNode.getElementsByClassName('mini-loader');
+  if (mini_loaders.length > 0) {
+    mini_loaders[0].style.display = 'block';
+  }
+
+  axios.post(url).then(function (response) {
+
+    //link.textContent = response.data.value;
+    mini_loaders[0].style.display = 'none';
+  }).catch(function (error) {
+
+  })
+}
+
+document.querySelectorAll('a.refresh-action').forEach(function (link) {
+  link.addEventListener('click', onClickLinkRefreshAction);
+})
+

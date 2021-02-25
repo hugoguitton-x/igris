@@ -220,26 +220,4 @@ class AdministrationController extends AbstractController
       'editMode' => $edit
     ]);
   }
-
-
-
-  /**
-   * @Route("/manga/refresh", name="manga_refresh")
-   */
-  public function refeshInfosMangasCommand(KernelInterface $kernel)
-  {
-
-    $application = new Application($kernel);
-    $input = new ArrayInput([
-      'command' => 'app:refresh-infos-manga'
-    ]);
-
-    $output = new BufferedOutput();
-
-    $application->run($input, $output);
-
-    $content = $output->fetch();
-
-    return new Response($content);
-  }
 }

@@ -139,6 +139,19 @@
       }
     }
 
+    .refresh {
+      display: flex;
+      align-items: center;
+      a {
+        color: rgb(95, 184, 236);
+        text-decoration: none;
+        &:hover {
+          opacity: .7;
+        }
+        margin-right: 5px;
+      }
+    }
+
   }
 }
 

@@ -77,6 +77,9 @@ export default class Filter {
         _.content.querySelectorAll('a.follow-action').forEach(function (link) {
           link.addEventListener('click', _.onClickLinkFollowAction);
         })
+        _.content.querySelectorAll('a.refresh-action').forEach(function (link) {
+          link.addEventListener('click', _.onClickLinkRefreshAction);
+        })
 
       }
 
@@ -125,6 +128,26 @@ export default class Filter {
       } else {
         link.classList.replace('unfollowed', 'followed');
       }
+    }).catch(function (error) {
+
+    })
+  }
+
+  onClickLinkRefreshAction(event) {
+    event.preventDefault();
+    const url = this.href;
+    const link = this;
+
+    const mini_loaders = link.parentNode.getElementsByClassName('mini-loader');
+    if (mini_loaders.length > 0) {
+      mini_loaders[0].style.display = 'block';
+    }
+
+    axios.post(url).then(function (response) {
+
+      // link.textContent = response.data.value;
+      mini_loaders[0].style.display = 'none';
+
     }).catch(function (error) {
 
     })

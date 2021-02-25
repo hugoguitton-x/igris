@@ -2,23 +2,25 @@
 
 namespace App\Controller;
 
-use App\Data\MangaSearchData;
-use App\Entity\FollowManga;
 use App\Entity\Manga;
-use App\Form\MangaSearchType;
+use App\Entity\FollowManga;
 use Psr\Log\LoggerInterface;
+use App\Data\MangaSearchData;
+use App\Form\MangaSearchType;
 use App\Repository\MangaRepository;
 use App\Repository\ChapterRepository;
-use App\Repository\FollowMangaRepository;
+use App\Helper\MangaMangadexApiHelper;
 use Doctrine\ORM\EntityManagerInterface;
-use Knp\Component\Pager\Pagination\PaginationInterface;
+use App\Repository\FollowMangaRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Contracts\Translation\TranslatorInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Contracts\Translation\TranslatorInterface;
+use Knp\Component\Pager\Pagination\PaginationInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/manga", name="manga_")
@@ -164,5 +166,26 @@ class MangaController extends AbstractController
     $message = $translator->trans($translator->trans('manga.' . $follow_status, ['%slug%' => ucfirst($manga->getName())]));
 
     return $this->json(['code' => 200, 'message' => $message, 'value' => $translator->trans(ucfirst($follow_status))], 200);
+  }
+
+    /**
+   * @Route("/refresh/{id}", name="refresh", methods={"POST"})
+   */
+  public function refreshManga(
+    Manga $manga = null,
+    EntityManagerInterface $manager,
+    TranslatorInterface $translator
+  ): Response {
+
+    if (!$this->getUser()) {
+      return $this->json(['code' => 403, 'message' => 'Unauthorized'], 403);
+    }
+
+    $mangaMangadexApi = new MangaMangadexApiHelper($this->container->get('parameter_bag'), $manager, null, null, null, false);
+    $mangaMangadexApi->refreshMangaById($manga->getMangaId());
+
+    $message = $translator->trans('manga.refresh', ['%slug%' => ucfirst($manga->getName())]);
+
+    return $this->json(['code' => 200, 'message' => $message], 200);
   }
 }
