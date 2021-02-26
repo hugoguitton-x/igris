@@ -13,6 +13,7 @@ parameters:
     consumer_secret: '%env(TWITTER_CONSUMER_SECRET)%'
     oauth_token: '%env(TWITTER_ACCESS_TOKEN)%'
     oauth_token_secret: '%env(TWITTER_ACCESS_TOKEN_SECRET)%'
+    twitter_enable: '%env(TWITTER_ENABLE)%'
 
     #Locale
     locale: 'en'

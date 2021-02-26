@@ -181,7 +181,7 @@ class MangaController extends AbstractController
       return $this->json(['code' => 403, 'message' => 'Unauthorized'], 403);
     }
 
-    $mangaMangadexApi = new MangaMangadexApiHelper($this->container->get('parameter_bag'), $manager, null, null, null, false);
+    $mangaMangadexApi = new MangaMangadexApiHelper($this->container->get('parameter_bag'), $manager, null, null, null);
     $mangaMangadexApi->refreshMangaById($manga->getMangaId());
 
     $message = $translator->trans('manga.refresh', ['%slug%' => ucfirst($manga->getName())]);

@@ -209,7 +209,7 @@ class AdministrationController extends AbstractController
 
     if ($form->isSubmitted() && $form->isValid()) {
 
-      $mangaMangadexApi = new MangaMangadexApiHelper($this->container->get('parameter_bag'), $manager, null, new Session(), $translator, false);
+      $mangaMangadexApi = new MangaMangadexApiHelper($this->container->get('parameter_bag'), $manager, null, new Session(), $translator);
       $mangaMangadexApi->refreshMangaById($form->get('manga_id')->getData());
 
       return $this->redirectToRoute('manga_list');

@@ -42,7 +42,7 @@ class MangaMangadexApiHelper
    * @param TranslatorInterface $translator
    * @param boolean $sendTwitter
    */
-  function __construct(ParameterBagInterface $params, EntityManagerInterface $manager, OutputInterface $output = null, Session $session = null, TranslatorInterface $translator = null, bool $sendTwitter)
+  function __construct(ParameterBagInterface $params, EntityManagerInterface $manager, OutputInterface $output = null, Session $session = null, TranslatorInterface $translator = null)
   {
     $this->params = $params;
     $this->manager = $manager;
@@ -67,7 +67,7 @@ class MangaMangadexApiHelper
     $this->chapterRepo = $this->manager->getRepository(Chapter::class);
 
     $this->twitter = new TwitterHelper($params);
-    $this->sendTwitter = $sendTwitter;
+    $this->sendTwitter = $this->twitter->getTwitterEnable();
   }
 
   public function refreshMangaById(string $mangaId)

@@ -3,12 +3,14 @@
 namespace App\Helper;
 
 use Abraham\TwitterOAuth\TwitterOAuth;
+use phpDocumentor\Reflection\Types\Boolean;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class TwitterHelper
 {
 
   private $connection;
+  private bool $twitterEnable;
 
   function __construct(ParameterBagInterface $params)
   {
@@ -16,6 +18,8 @@ class TwitterHelper
     $consumerSecret = $params->get('consumer_secret');
     $oauthToken = $params->get('oauth_token');
     $oauthTokenSecret = $params->get('oauth_token_secret');
+
+    $this->setTwitterEnabled(filter_var($params->get('twitter_enable'), FILTER_VALIDATE_BOOLEAN));
 
     $this->connection = new TwitterOAuth($consumerKey, $consumerSecret, $oauthToken, $oauthTokenSecret);
   }
@@ -86,12 +90,19 @@ class TwitterHelper
       $arrayCfg['media_ids'] = $mediaIDstr;
     }
 
-
-
     $arrayCfg['status'] = $str;
 
     $result = $this->connection->post("statuses/update", $arrayCfg);
 
     return $result;
+  }
+
+  public function getTwitterEnable() {
+    return $this->twitterEnable;
+  }
+
+  private function setTwitterEnabled(bool $bool)
+  {
+    $this->twitterEnable = $bool;
   }
 }

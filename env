@@ -16,3 +16,4 @@ TWITTER_CONSUMER_KEY=<api_consumer_key>
 TWITTER_CONSUMER_SECRET=<api_comsumer_secret>
 TWITTER_ACCESS_TOKEN=<api_access_token>
 TWITTER_ACCESS_TOKEN_SECRET=<api_access_token_secret>
+TWITTER_ENABLE=<TRUE|FALSE>
