@@ -1,0 +1,1 @@
+(self.webpackChunk=self.webpackChunk||[]).push([[348],{2056:(e,a,n)=>{"use strict";var i=n(9755),c=n.n(i);c()((function(){if(window.matchMedia){var e=c()('head > link[rel="icon"][media]');c().each(e,(function(a,n){var i=window.matchMedia(n.media);function d(){i.matches&&(e.remove(),e=c()(n).appendTo("head"))}i.addListener(d),d()}))}}))}},0,[[2056,666,755]]]);

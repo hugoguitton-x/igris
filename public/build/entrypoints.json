@@ -2,56 +2,56 @@
   "entrypoints": {
     "app": {
       "js": [
-        "/build/runtime.d94b3b43.js",
-        "/build/0.cf60d32b.js",
-        "/build/2.eb541226.js",
-        "/build/app.866e000a.js"
+        "/build/runtime.cc247730.js",
+        "/build/755.a53460b1.js",
+        "/build/488.4b5c1e43.js",
+        "/build/app.16cd78f5.js"
       ],
       "css": [
-        "/build/app.e6433727.css"
+        "/build/app.9d937d4b.css"
       ]
     },
     "admin": {
       "js": [
-        "/build/runtime.d94b3b43.js",
-        "/build/0.cf60d32b.js",
-        "/build/2.eb541226.js",
-        "/build/admin.e06308f5.js"
+        "/build/runtime.cc247730.js",
+        "/build/755.a53460b1.js",
+        "/build/488.4b5c1e43.js",
+        "/build/admin.6271d3a4.js"
       ],
       "css": [
-        "/build/admin.9dbae647.css"
+        "/build/admin.3e1ba50e.css"
       ]
     },
     "base": {
       "js": [
-        "/build/runtime.d94b3b43.js",
-        "/build/0.cf60d32b.js",
-        "/build/base.05de049e.js"
+        "/build/runtime.cc247730.js",
+        "/build/755.a53460b1.js",
+        "/build/base.56d2982d.js"
       ]
     },
     "form": {
       "js": [
-        "/build/runtime.d94b3b43.js",
-        "/build/0.cf60d32b.js",
-        "/build/1.2a44d5d4.js",
-        "/build/form.103ca7a2.js"
+        "/build/runtime.cc247730.js",
+        "/build/755.a53460b1.js",
+        "/build/842.8df401b3.js",
+        "/build/form.47d4ed95.js"
       ]
     },
     "signup": {
       "js": [
-        "/build/runtime.d94b3b43.js",
-        "/build/signup.bd42fcee.js"
+        "/build/runtime.cc247730.js",
+        "/build/signup.d8292cd1.js"
       ],
       "css": [
-        "/build/signup.4acbc92d.css"
+        "/build/signup.04b77c8e.css"
       ]
     },
     "manga": {
       "js": [
-        "/build/runtime.d94b3b43.js",
-        "/build/1.2a44d5d4.js",
-        "/build/3.4d240996.js",
-        "/build/manga.01f32afd.js"
+        "/build/runtime.cc247730.js",
+        "/build/842.8df401b3.js",
+        "/build/194.91e6a4f7.js",
+        "/build/manga.363e6210.js"
       ]
     }
   }
