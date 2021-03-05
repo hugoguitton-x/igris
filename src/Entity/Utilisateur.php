@@ -91,11 +91,17 @@ class Utilisateur implements UserInterface
    */
   private $followMangas;
 
+  /**
+   * @ORM\OneToMany(targetEntity=CompteDepense::class, mappedBy="utilisateur", orphanRemoval=true)
+   */
+  private $comptesDepense;
+
   public function __construct()
   {
     $this->documents = new ArrayCollection();
     $this->avis = new ArrayCollection();
     $this->followMangas = new ArrayCollection();
+    $this->comptesDepense = new ArrayCollection();
   }
 
   public function getId(): ?int
@@ -291,6 +297,36 @@ class Utilisateur implements UserInterface
           // set the owning side to null (unless already changed)
           if ($followManga->getUtilisateur() === $this) {
               $followManga->setUtilisateur(null);
+          }
+      }
+
+      return $this;
+  }
+
+  /**
+   * @return Collection|CompteDepense[]
+   */
+  public function getComptesDepense(): Collection
+  {
+      return $this->comptesDepense;
+  }
+
+  public function addComptesDepense(CompteDepense $comptesDepense): self
+  {
+      if (!$this->comptesDepense->contains($comptesDepense)) {
+          $this->comptesDepense[] = $comptesDepense;
+          $comptesDepense->setUtilisateur($this);
+      }
+
+      return $this;
+  }
+
+  public function removeComptesDepense(CompteDepense $comptesDepense): self
+  {
+      if ($this->comptesDepense->removeElement($comptesDepense)) {
+          // set the owning side to null (unless already changed)
+          if ($comptesDepense->getUtilisateur() === $this) {
+              $comptesDepense->setUtilisateur(null);
           }
       }
 
