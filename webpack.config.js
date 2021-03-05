@@ -29,6 +29,7 @@ Encore
     .addEntry('form', './assets/js/form.js')
     .addEntry('signup', './assets/js/signup.js')
     .addEntry('manga', './assets/js/manga.js')
+    .addEntry('depense', './assets/js/depense.js')
     //.addEntry('page1', './assets/js/page1.js')
     //.addEntry('page2', './assets/js/page2.js')
 

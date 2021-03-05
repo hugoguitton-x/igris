@@ -5,10 +5,11 @@
         "/build/runtime.cc247730.js",
         "/build/755.a53460b1.js",
         "/build/488.4b5c1e43.js",
-        "/build/app.16cd78f5.js"
+        "/build/254.f4272967.js",
+        "/build/app.e7cd3558.js"
       ],
       "css": [
-        "/build/app.9d937d4b.css"
+        "/build/app.3611b855.css"
       ]
     },
     "admin": {
@@ -50,8 +51,17 @@
       "js": [
         "/build/runtime.cc247730.js",
         "/build/842.8df401b3.js",
-        "/build/194.91e6a4f7.js",
-        "/build/manga.363e6210.js"
+        "/build/610.65742492.js",
+        "/build/manga.155add08.js"
+      ]
+    },
+    "depense": {
+      "js": [
+        "/build/runtime.cc247730.js",
+        "/build/755.a53460b1.js",
+        "/build/842.8df401b3.js",
+        "/build/610.65742492.js",
+        "/build/depense.1eb55242.js"
       ]
     }
   }

@@ -22,6 +22,7 @@
         "aos": "^2.3.4",
         "axios": "^0.21.1",
         "bootstrap": "^4.5.3",
+        "bootstrap-select": "^1.13.18",
         "jquery": "^3.5.1",
         "popper.js": "^1.16.1",
         "swiper": "^6.3.5"

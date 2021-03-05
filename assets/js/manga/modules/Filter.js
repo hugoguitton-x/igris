@@ -86,12 +86,11 @@ export default class Filter {
       _.pagination.innerHTML = response.data.pagination;
 
       history.replaceState({}, '', url);
-      _.loader.style.display = 'none';
 
     }).catch(function (error) {
       console.error(error);
     }).finally(() => {
-      // @TODO STOP LOADING
+      _.loader.style.display = 'none';
     })
   }
 

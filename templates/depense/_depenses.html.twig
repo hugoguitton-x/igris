@@ -1,0 +1,35 @@
+<table class="table table-striped">
+  <thead>
+      <tr>
+        <th scope="col">Date</th>
+        <th scope="col">Montant</th>
+        <th scope="col">Catégorie</th>
+      </tr>
+  </thead>
+  <tbody>
+      {% for depense in depenses %}
+        <tr>
+            <td>
+            {{ depense.date|format_datetime(
+                'short',
+                'none',
+                locale = app.request.getLocale()
+            ) }}
+            </td>
+            <td>
+            {{ depense.montant|format_currency('EUR') }}
+            </td>
+            <td>
+            {{ depense.categorie.libelle }}
+            </td>
+        </tr>
+      {% endfor %}
+  </tbody>
+</table>
+
+<div style="display: flex; justify-content: space-between;">
+  <div><b>Solde Initial : {{ soldeIntial|format_currency('EUR') }}</B></div>
+  <div><b>Delta : {{ depenseMonth|format_currency('EUR') }}</B></div>
+  <div><b>Solde Final : {{ soldeFinal|format_currency('EUR') }}</B></div>
+</div>
+

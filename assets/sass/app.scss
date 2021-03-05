@@ -4,6 +4,7 @@
 @import "../sass/fade_in";
 
 @import "../sass/main_sass/avis";
+@import "../sass/main_sass/depense";
 @import "../sass/main_sass/grid";
 @import "../sass/main_sass/league";
 @import "../sass/main_sass/loader";
@@ -15,4 +16,4 @@
 
 // Bootstrap and its default variables
 @import "../../node_modules/bootstrap/scss/bootstrap";
-
+@import "../../node_modules/bootstrap-select/dist/css/bootstrap-select";

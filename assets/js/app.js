@@ -8,6 +8,7 @@
 // any CSS you import will output into a single css file (app.css in this case)
 import "../sass/app.scss";
 import "bootstrap";
+import "bootstrap-select";
 
 import '@fortawesome/fontawesome-free/js/fontawesome'
 import '@fortawesome/fontawesome-free/js/solid'

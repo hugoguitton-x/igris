@@ -65,15 +65,21 @@
 }
 
 
-.mini-loader {
+.mini-loader{
   border-radius: 50%;
   border: 3px solid transparent;
   border-top-color: white;
+
+  &__dark {
+    border-top-color: $brand-dark;
+  }
+
   width: 20px;
   height: 20px;
   -webkit-animation: spin 1s linear infinite;
   animation: spin 1s linear infinite;
   display: none;
+
 }
 
 /* Safari */

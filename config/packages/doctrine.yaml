@@ -21,3 +21,5 @@ doctrine:
                 JSONB_AG:   Boldtrn\JsonbBundle\Query\JsonbAtGreater
                 JSONB_HGG:  Boldtrn\JsonbBundle\Query\JsonbHashGreaterGreater
                 JSONB_EX:   Boldtrn\JsonbBundle\Query\JsonbExistence
+                MONTH:      DoctrineExtensions\Query\Postgresql\Month
+                YEAR:      DoctrineExtensions\Query\Postgresql\Year

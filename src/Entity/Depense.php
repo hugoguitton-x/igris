@@ -28,7 +28,8 @@ class Depense
     private $date;
 
     /**
-     * @ORM\ManyToOne(targetEntity=compteDepense::class, inversedBy="depenses")
+     * @ORM\ManyToOne(targetEntity=CompteDepense::class, inversedBy="depenses")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $compteDepense;
 

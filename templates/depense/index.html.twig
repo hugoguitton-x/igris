@@ -1,20 +1,32 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Hello DepenseController!{% endblock %}
+{% extends 'page.html.twig' %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+  <div class="container fade-in js-filter">
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <div>
+        {{ form_start(formDepense, {attr: {class: 'filter js-filter-form filter-depense'}}) }}
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'D:/Guitton/Documents/Igris/src/Controller/DepenseController.php'|file_link(0) }}">src/Controller/DepenseController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'D:/Guitton/Documents/Igris/templates/depense/index.html.twig'|file_link(0) }}">templates/depense/index.html.twig</a></code></li>
-    </ul>
-</div>
+        {{ form_row(formDepense.categories) }}
+        {{ form_row(formDepense.date) }}
+
+        {{ form_end(formDepense) }}
+    </div>
+
+    <div class="js-filter-content">
+      {% include 'depense/_depenses.html.twig' with {depenses: depenses, soldeIntial: soldeIntial, depenseMonth: depenseMonth, soldeFinal: soldeFinal} only %}
+    </div>
+    <div class="mini-loader mini-loader__dark" unique="true"></div>
+
+    <div>
+      Budget moyen <sub>/course</sub> : {{ depenseCourseAvg|format_currency('EUR') }}
+      </br>
+      Budget moyen course <sub>/mois</sub> : {{ depenseCourseAvgMonth|format_currency('EUR') }}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+
+  {{ encore_entry_script_tags('form') }}
+  {{ encore_entry_script_tags('depense') }}
+
 {% endblock %}
