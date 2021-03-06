@@ -12,16 +12,32 @@
         {{ form_end(formDepense) }}
     </div>
 
+    <a href="{{ path( 'depense_categorie_new') }}" class="new" title="{{ 'Add'|trans }}" data-toggle="tooltip">
+      Nouvelle Catégorie
+    </a>
+
+    <a href="{{ path( 'depense_new') }}" class="new" title="{{ 'Add'|trans }}" data-toggle="tooltip">
+      Nouvelle Dépense
+    </a>
+
+    <a href="{{ path( 'depense_recurrente_new') }}" class="new" title="{{ 'Add'|trans }}" data-toggle="tooltip">
+      Nouvelle Dépense récurrente
+    </a>
+
     <div class="js-filter-content">
-      {% include 'depense/_depenses.html.twig' with {depenses: depenses, soldeIntial: soldeIntial, depenseMonth: depenseMonth, soldeFinal: soldeFinal} only %}
+      {% include 'depense/_depenses.html.twig' with {depenses: depenses, soldeIntial: soldeIntial, depenseMonth: depenseMonth, soldeFinal: soldeFinal, depensesRecurrentes: depensesRecurrentes} only %}
     </div>
-    <div class="mini-loader mini-loader__dark" unique="true"></div>
 
     <div>
       Budget moyen <sub>/course</sub> : {{ depenseCourseAvg|format_currency('EUR') }}
       </br>
       Budget moyen course <sub>/mois</sub> : {{ depenseCourseAvgMonth|format_currency('EUR') }}
     </div>
+
+    <div class="mini-loader mini-loader__dark" unique="true"></div>
+
+
+  </div>
 {% endblock %}
 
 {% block javascripts %}

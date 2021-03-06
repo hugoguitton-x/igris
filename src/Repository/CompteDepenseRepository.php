@@ -17,6 +17,7 @@ class CompteDepenseRepository extends ServiceEntityRepository
 {
 
   private $security;
+
   /**
    * @var Security
    */

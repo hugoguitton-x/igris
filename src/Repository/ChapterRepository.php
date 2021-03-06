@@ -54,7 +54,7 @@ class ChapterRepository extends ServiceEntityRepository
     }
 
 
-    return $query->fetchAll();
+    return $query->fetchAllAssociative();
   }
 
   // /**

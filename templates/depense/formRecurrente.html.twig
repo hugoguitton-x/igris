@@ -11,18 +11,16 @@
       {% endif %}
     </h1>
 
-    {{ form_start(formDepense) }}
-    {{ form_row(formDepense.montant) }}
-    {{ form_row(formDepense.date) }}
-    {{ form_row(formDepense.compteDepense) }}
-    {{ form_row(formDepense.categorie) }}
-    {{ form_row(formDepense.description) }}
-    {{ form_widget(formDepense._token) }}
+    {{ form_start(formRecurrente) }}
+    {{ form_row(formRecurrente.montant) }}
+    {{ form_row(formRecurrente.compteDepense) }}
+    {{ form_row(formRecurrente.categorie) }}
+    {{ form_widget(formRecurrente._token) }}
 
     <button type="submit" class="btn btn-primary">
       {{ 'Submit'|trans }}
     </button>
 
-    {{ form_end(formDepense) }}
+    {{ form_end(formRecurrente) }}
   </div>
 {% endblock %}

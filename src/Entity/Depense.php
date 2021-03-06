@@ -39,6 +39,16 @@ class Depense
      */
     private $categorie;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=DepenseRecurrente::class, inversedBy="depenses")
+     */
+    private $depenseRecurrente;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $description;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -88,6 +98,30 @@ class Depense
     public function setCategorie(?CategorieDepense $categorie): self
     {
         $this->categorie = $categorie;
+
+        return $this;
+    }
+
+    public function getDepenseRecurrente(): ?DepenseRecurrente
+    {
+        return $this->depenseRecurrente;
+    }
+
+    public function setDepenseRecurrente(?DepenseRecurrente $depenseRecurrente): self
+    {
+        $this->depenseRecurrente = $depenseRecurrente;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }

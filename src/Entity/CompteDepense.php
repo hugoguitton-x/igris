@@ -40,9 +40,15 @@ class CompteDepense
      */
     private $nom;
 
+    /**
+     * @ORM\OneToMany(targetEntity=DepenseRecurrente::class, mappedBy="compteDepense")
+     */
+    private $depensesRecurrentes;
+
     public function __construct()
     {
         $this->depenses = new ArrayCollection();
+        $this->depensesRecurrentes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -112,6 +118,36 @@ class CompteDepense
     public function setNom(string $nom): self
     {
         $this->nom = $nom;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|DepenseRecurrente[]
+     */
+    public function getDepensesRecurrentes(): Collection
+    {
+        return $this->depensesRecurrentes;
+    }
+
+    public function addDepensesRecurrente(DepenseRecurrente $depensesRecurrente): self
+    {
+        if (!$this->depensesRecurrentes->contains($depensesRecurrente)) {
+            $this->depensesRecurrentes[] = $depensesRecurrente;
+            $depensesRecurrente->setCompteDepense($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDepensesRecurrente(DepenseRecurrente $depensesRecurrente): self
+    {
+        if ($this->depensesRecurrentes->removeElement($depensesRecurrente)) {
+            // set the owning side to null (unless already changed)
+            if ($depensesRecurrente->getCompteDepense() === $this) {
+                $depensesRecurrente->setCompteDepense(null);
+            }
+        }
 
         return $this;
     }

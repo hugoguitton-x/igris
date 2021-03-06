@@ -26,6 +26,7 @@ class DepenseFilterType extends AbstractType
       ->add('date', DateType::class, [
         'label' => false,
         'attr' => ['class' => 'form-date-filter'],
+        'years' => range(date('2021'), date('Y') + 10),
         'required' => true,
       ]);
   }
