@@ -40,9 +40,9 @@ class MangaMangadexApiHelper
    * @param OutputInterface $output
    * @param Session $session
    * @param TranslatorInterface $translator
-   * @param boolean $sendTwitter
+   * @param boolean $add
    */
-  function __construct(ParameterBagInterface $params, EntityManagerInterface $manager, OutputInterface $output = null, Session $session = null, TranslatorInterface $translator = null)
+  function __construct(ParameterBagInterface $params, EntityManagerInterface $manager, OutputInterface $output = null, Session $session = null, TranslatorInterface $translator = null, bool $add = false)
   {
     $this->params = $params;
     $this->manager = $manager;
@@ -68,6 +68,8 @@ class MangaMangadexApiHelper
 
     $this->twitter = new TwitterHelper($params);
     $this->sendTwitter = $this->twitter->getTwitterEnable();
+
+    $this->add = $add;
   }
 
   public function refreshMangaById(string $mangaId)
@@ -141,6 +143,13 @@ class MangaMangadexApiHelper
 
     $this->manager->persist($this->manga);
     $this->manager->flush();
+
+    $string = '"' . $this->manga->getName() . '"' . ' a été ajouté !' . PHP_EOL;
+    $string .= 'Disponible ici ' .  $this->getMangadexUrl() . '/manga/' . $mangaId;
+
+    if ($this->sendTwitter && ($this->add)) {
+      $result = $this->twitter->sendTweet($string);
+    }
 
     $this->addFlash('success', 'successfully.added', ['%slug%' => ucfirst($this->manga->getName())]);
 
@@ -251,7 +260,7 @@ class MangaMangadexApiHelper
     $string = $this->manga->getName() . ' (' . $langCode->getLibelle() . ') - Chapitre n°' . $chapter->getNumber() . ' sortie !' . PHP_EOL;
     $string .= 'Disponible ici ' . $this->getMangadexUrl() . '/chapter/' . $chapter_json->id;
 
-    if ($this->manga->getTwitter() && $this->sendTwitter) {
+    if ($this->manga->getTwitter() && $this->sendTwitter && !($this->add)) {
       $result = $this->twitter->sendTweet($string);
     }
 

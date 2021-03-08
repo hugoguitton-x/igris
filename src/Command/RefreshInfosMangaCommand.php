@@ -61,7 +61,7 @@ class RefreshInfosMangaCommand extends Command
     foreach ($mangas as $manga) {
       $output->writeln('<comment> -- ' . $manga->getName() . ' --' . ' (' . $count . '/' . $countMangas . ') </comment>');
 
-      $mangaMangadexApi = new MangaMangadexApiHelper($this->params, $this->manager, $output, null, null);
+      $mangaMangadexApi = new MangaMangadexApiHelper($this->params, $this->manager, $output, null, null, false);
       $mangaMangadexApi->refreshMangaById($manga->getMangaId());
 
       $count++;
