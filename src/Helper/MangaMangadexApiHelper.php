@@ -5,7 +5,6 @@ namespace App\Helper;
 use App\Entity\Manga;
 use App\Entity\Chapter;
 use App\Entity\LanguageCode;
-use SebastianBergmann\Diff\Chunk;
 use App\Repository\MangaRepository;
 use App\Repository\ChapterRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -14,6 +13,7 @@ use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\HttpClient\NativeHttpClient;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
@@ -93,11 +93,11 @@ class MangaMangadexApiHelper
   /**
    * Undocumented function
    *
-   * @param NativeHttpClient $client
+   * @param HttpClient $client
    * @param string $mangaId
    * @return boolean|null
    */
-  private function manageMangaFromApi(NativeHttpClient $client, string $mangaId): ?bool
+  private function manageMangaFromApi(HttpClientInterface $client, string $mangaId): ?bool
   {
     $response = $client->request('GET', $this->getMangadexUrl() . '/api/v2/manga/' . $mangaId);
 
