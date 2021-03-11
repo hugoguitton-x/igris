@@ -5,17 +5,17 @@ namespace App\Helper;
 use App\Entity\Manga;
 use App\Entity\Chapter;
 use App\Entity\LanguageCode;
+use SebastianBergmann\Diff\Chunk;
 use App\Repository\MangaRepository;
 use App\Repository\ChapterRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\LanguageCodeRepository;
 use Symfony\Component\HttpClient\HttpClient;
-use Symfony\Component\HttpClient\NativeHttpClient;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class MangaMangadexApiHelper
 {
@@ -93,7 +93,7 @@ class MangaMangadexApiHelper
   /**
    * Undocumented function
    *
-   * @param HttpClient $client
+   * @param HttpClientInterface $client
    * @param string $mangaId
    * @return boolean|null
    */
@@ -193,12 +193,12 @@ class MangaMangadexApiHelper
   /**
    * Undocumented function
    *
-   * @param NativeHttpClient $client
+   * @param HttpClientInterface $client
    * @param string $mangaId
    * @param array $langCodeAllow
    * @return void
    */
-  private function manageChapterFromApi(NativeHttpClient $client, string $mangaId, array $langCodeAllow)
+  private function manageChapterFromApi(HttpClientInterface $client, string $mangaId, array $langCodeAllow)
   {
     $response = $client->request('GET', $this->getMangadexUrl() . '/api/v2/manga/' . $mangaId . '/chapters');
     if ($response->getStatusCode() != 200) {
