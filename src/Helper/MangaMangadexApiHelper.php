@@ -257,7 +257,7 @@ class MangaMangadexApiHelper
 
     $this->writeOutput($this->manga->getName() . ' - Langue : ' . $langCode->getLibelle() . ' - Chapitre n°' . $chapter->getNumber() . ' ajouté !');
 
-    $string = $this->manga->getName() . ' (' . $langCode->getLibelle() . ') - Chapitre n°' . $chapter->getNumber() . ' sortie !' . PHP_EOL;
+    $string = $langCode->getTwitterFlag() .' ' . $this->manga->getName() . ' - Chapitre n°' . $chapter->getNumber() . ' sortie !' . PHP_EOL;
     $string .= 'Disponible ici ' . $this->getMangadexUrl() . '/chapter/' . $chapter_json->id;
 
     if ($this->manga->getTwitter() && $this->sendTwitter && !($this->add)) {

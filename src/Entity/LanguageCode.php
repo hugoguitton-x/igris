@@ -34,6 +34,11 @@ class LanguageCode
    */
   private $chapters;
 
+  /**
+   * @ORM\Column(type="string", length=255)
+   */
+  private $TwitterFlag;
+
   public function __construct()
   {
     $this->chapters = new ArrayCollection();
@@ -97,5 +102,17 @@ class LanguageCode
     }
 
     return $this;
+  }
+
+  public function getTwitterFlag(): ?string
+  {
+      return $this->TwitterFlag;
+  }
+
+  public function setTwitterFlag(string $TwitterFlag): self
+  {
+      $this->TwitterFlag = $TwitterFlag;
+
+      return $this;
   }
 }
