@@ -64,7 +64,7 @@ class RefreshImageMangaCommand extends Command
   {
     $mangaRepo = $manager->getRepository(Manga::class);
 
-    $mangadexURL = $this->params->get('mangadex_url');
+    $mangadexURL = $this->params->get('api_mangadex_url');
 
     $client = HttpClient::create(['http_version' => '2.0']);
     $response = $client->request('GET', $mangadexURL . '/api/v2/manga/' . $mangaId);

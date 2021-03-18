@@ -99,7 +99,7 @@ class MangaMangadexApiHelper
    */
   private function manageMangaFromApi(HttpClientInterface $client, string $mangaId): ?bool
   {
-    $response = $client->request('GET', $this->getMangadexUrl() . '/api/v2/manga/' . $mangaId);
+    $response = $client->request('GET', $this->getApiMangadexUrlManga($mangaId));
 
     if ($response->getStatusCode() != 200) {
       $this->writeOutput("<error>API can't be reach for this manga</error>");
@@ -145,7 +145,7 @@ class MangaMangadexApiHelper
     $this->manager->flush();
 
     $string = '"' . $this->manga->getName() . '"' . ' a été ajouté !' . PHP_EOL;
-    $string .= 'Disponible ici ' .  $this->getMangadexUrl() . '/manga/' . $mangaId;
+    $string .= 'Disponible ici ' .  $this->getMangadexUrlManga($mangaId);
 
     if ($this->sendTwitter && ($this->add)) {
       $result = $this->twitter->sendTweet($string);
@@ -200,7 +200,7 @@ class MangaMangadexApiHelper
    */
   private function manageChapterFromApi(HttpClientInterface $client, string $mangaId, array $langCodeAllow)
   {
-    $response = $client->request('GET', $this->getMangadexUrl() . '/api/v2/manga/' . $mangaId . '/chapters');
+    $response = $client->request('GET',  $this->getApiMangadexUrlChapters($mangaId));
     if ($response->getStatusCode() != 200) {
       $this->writeOutput("<error>" . $response->getStatusCode() . ' - ' . $response->getContent() . "</error>");
     }
@@ -257,8 +257,8 @@ class MangaMangadexApiHelper
 
     $this->writeOutput($this->manga->getName() . ' - Langue : ' . $langCode->getLibelle() . ' - Chapitre n°' . $chapter->getNumber() . ' ajouté !');
 
-    $string = $langCode->getTwitterFlag() .' ' . $this->manga->getName() . ' - Chapitre n°' . $chapter->getNumber() . ' sortie !' . PHP_EOL;
-    $string .= 'Disponible ici ' . $this->getMangadexUrl() . '/chapter/' . $chapter_json->id;
+    $string = $langCode->getTwitterFlag() . ' ' . $this->manga->getName() . ' - Chapitre n°' . $chapter->getNumber() . ' sortie !' . PHP_EOL;
+    $string .= 'Disponible ici ' . $this->getMangadexUrlChapter($chapter_json->id);
 
     if ($this->manga->getTwitter() && $this->sendTwitter && !($this->add)) {
       $result = $this->twitter->sendTweet($string);
@@ -332,6 +332,7 @@ class MangaMangadexApiHelper
     return $this->langCodeRepo->findAllLangCodeArray();
   }
 
+
   /**
    * Undocumented function
    *
@@ -340,5 +341,58 @@ class MangaMangadexApiHelper
   private function getMangadexUrl(): string
   {
     return $this->params->get('mangadex_url');
+  }
+
+  /**
+   * Undocumented function
+   *
+   * @return string
+   */
+  private function getMangadexUrlManga(string $id): string
+  {
+    return $this->params->get('mangadex_url')  . '/manga/' . $id;
+  }
+
+  /**
+   * Undocumented function
+   *
+   * @return string
+   */
+  private function getMangadexUrlChapter(string $id): string
+  {
+    return $this->params->get('mangadex_url')  . '/chapter/' . $id;
+  }
+
+
+  /**
+   * Undocumented function
+   *
+   * @return string
+   */
+  private function getApiMangadexUrl(): string
+  {
+    return $this->params->get('api_mangadex_url');
+  }
+
+  /**
+   * Undocumented function
+   *
+   * @param string $id
+   * @return string
+   */
+  private function getApiMangadexUrlManga(string $id): string
+  {
+    return $this->getApiMangadexUrl() . '/v2/manga/' . $id;
+  }
+
+  /**
+   * Undocumented function
+   *
+   * @param string $id
+   * @return string
+   */
+  private function getApiMangadexUrlChapters(string $id): string
+  {
+    return $this->getApiMangadexUrlManga($id) . '/chapters';
   }
 }

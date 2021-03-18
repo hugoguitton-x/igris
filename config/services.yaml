@@ -6,6 +6,7 @@
 parameters:
     uploads_directory: '%kernel.project_dir%/public/uploads/'
     mangadex_url: '%env(MANGADEX_URL)%'
+    api_mangadex_url: '%env(API_MANGADEX_URL)%'
     riot_api_key: '%env(RIOT_API_KEY)%'
 
     #Twitter

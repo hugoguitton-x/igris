@@ -10,6 +10,7 @@ PG_DATABASE=<db_name>
 
 RIOT_API_KEY=<api_key>
 MANGADEX_URL=<url>
+API_MANGADEX_URL=<url>
 
 # TWITTER
 TWITTER_CONSUMER_KEY=<api_consumer_key>
