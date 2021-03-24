@@ -2,12 +2,13 @@
     "devDependencies": {
         "@symfony/stimulus-bridge": "^2.0.0",
         "@symfony/webpack-encore": "^1.0.0",
-        "core-js": "^3.8.0",
+        "core-js": "^3.9.1",
+        "is-svg": "^4.3.1",
         "node-sass": "^4.14.1",
         "regenerator-runtime": "^0.13.2",
         "sass-loader": "^9.0.1",
         "stimulus": "^2.0.0",
-        "webpack-notifier": "^1.10.1"
+        "webpack-notifier": "^1.13.0"
     },
     "license": "UNLICENSED",
     "private": true,
@@ -18,13 +19,13 @@
         "build": "encore production --progress"
     },
     "dependencies": {
-        "@fortawesome/fontawesome-free": "^5.15.1",
+        "@fortawesome/fontawesome-free": "^5.15.3",
         "aos": "^2.3.4",
         "axios": "^0.21.1",
-        "bootstrap": "^4.5.3",
+        "bootstrap": "^4.6.0",
         "bootstrap-select": "^1.13.18",
-        "jquery": "^3.5.1",
+        "jquery": "^3.6.0",
         "popper.js": "^1.16.1",
-        "swiper": "^6.3.5"
+        "swiper": "^6.5.0"
     }
 }
