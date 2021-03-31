@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "084a306c797ecf20aceab920f437dc14",
+    "content-hash": "58bce272e7325f873b9339f027233b30",
     "packages": [
         {
             "name": "abraham/twitteroauth",
@@ -5156,16 +5156,16 @@
         },
         {
             "name": "symfony/monolog-bundle",
-            "version": "dev-master",
+            "version": "v3.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/monolog-bundle.git",
-                "reference": "6ba90b95cfd67792263960f421b4dbaa8dbc0427"
+                "reference": "4054b2e940a25195ae15f0a49ab0c51718922eb4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/monolog-bundle/zipball/6ba90b95cfd67792263960f421b4dbaa8dbc0427",
-                "reference": "6ba90b95cfd67792263960f421b4dbaa8dbc0427",
+                "url": "https://api.github.com/repos/symfony/monolog-bundle/zipball/4054b2e940a25195ae15f0a49ab0c51718922eb4",
+                "reference": "4054b2e940a25195ae15f0a49ab0c51718922eb4",
                 "shasum": ""
             },
             "require": {
@@ -5229,7 +5229,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-03-21T18:19:10+00:00"
+            "time": "2021-03-31T07:20:47+00:00"
         },
         {
             "name": "symfony/notifier",
@@ -9209,9 +9209,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "symfony/monolog-bundle": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

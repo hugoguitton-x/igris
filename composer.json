@@ -22,7 +22,7 @@
         "symfony/http-client": "5.2.*",
         "symfony/intl": "5.2.*",
         "symfony/mailer": "5.2.*",
-        "symfony/monolog-bundle": "3.x-dev",
+        "symfony/monolog-bundle": "^3.0",
         "symfony/notifier": "5.2.*",
         "symfony/orm-pack": "*",
         "symfony/process": "5.2.*",
