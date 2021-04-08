@@ -17,9 +17,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use Knp\Component\Pager\Pagination\PaginationInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
@@ -41,7 +39,6 @@ class MangaController extends AbstractController
    */
   public function listMangas(MangaRepository $repo, PaginatorInterface $paginator, Request $request)
   {
-
     $data = new MangaSearchData();
     $data->page = $request->get('page', 1);
     $form = $this->createForm(MangaSearchType::class, $data);
