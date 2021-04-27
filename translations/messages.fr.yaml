@@ -3,15 +3,19 @@ Actions: Actions
 Add: Ajouter
 Administration: Administration
 Administrator: Administrateur
+Amount: Montant
 Are you sure you want to delete this user?: Êtes-vous sûre de vouloir supprimer cette utilisateur ?
 Avatar: Avatar
 
 # C
+Category: Catégorie
 Chapter: Chapitre
 Confirm password: Comfirmation mot de passe
 
 # D
+Date: Date
 Delete: Supprimer
+Description: Description
 Disabled: Désactivé
 Duration of episodes: Durée des épisodes
 
@@ -19,6 +23,7 @@ Duration of episodes: Durée des épisodes
 Email: E-mail
 Enabled: Activé
 English: Anglais
+Expenditure: Dépense
 Episode: Épisode
 Episodes: Épisodes
 
@@ -52,6 +57,7 @@ Picture: Image
 # R
 Rating: Note
 Ratings: Notes
+Recurring expense: Dépense récurrente
 Refresh: Rafraîchir
 Remember me: Se souvenir de moi
 Registration: Inscription
@@ -60,8 +66,10 @@ Reviews: Critiques
 Roles: Rôles
 
 # S
+Salary: Salaire
 Search Manga...: Rechercher un manga...
 See all: Afficher tout
+Select category: Sélectionner catégorie
 Serie: Série
 Sign Up: S'inscrire
 Site: Site

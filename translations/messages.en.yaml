@@ -3,15 +3,19 @@ Actions: Actions
 Add: Add
 Administration: Administration
 Administrator: Administrator
+Amount: Amount
 Are you sure you want to delete this user?: Are you sure you want to delete this user?
 Avatar: Avatar
 
 # C
+Category: Category
 Chapter: Chapter
 Confirm password: Confirm password
 
 # D
+Date: Date
 Delete: Delete
+Description: Description
 Disabled: Disabled
 Duration of episodes: Duration of episodes
 
@@ -19,6 +23,7 @@ Duration of episodes: Duration of episodes
 Email: Email
 Enabled: Enabled
 English: English
+Expenditure: Expenditure
 Episode: Episode
 Episodes: Episodes
 
@@ -53,6 +58,7 @@ Picture: Picture
 Rating: Rating
 Ratings: Ratings
 Refesh: Refesh
+Recurring expense: Recurring expense
 Remember me: Remember me
 Registration: Registration
 Review: Review
@@ -60,8 +66,10 @@ Reviews: Reviews
 Roles: Roles
 
 # S
+Salary: Salary
 Search Manga...: Search Manga...
 See all: See all
+Select category: Select category
 Serie: Serie
 Sign Up: Sign Up
 Site: Site

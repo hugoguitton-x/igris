@@ -21,7 +21,8 @@ class DepenseFilterType extends AbstractType
         'class' => CategorieDepense::class,
         'choice_label' => 'libelle',
         'multiple' => true,
-        'attr' => ['class' => 'selectpicker', 'title' => 'Sélectionner catégorie']
+        'attr' => ['class' => 'selectpicker', 'title' => 'Select category'],
+        'choice_translation_domain' => 'messages',
       ])
       ->add('date', DateType::class, [
         'label' => false,

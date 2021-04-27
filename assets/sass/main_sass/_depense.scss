@@ -23,3 +23,19 @@
 }
 
 
+.depense {
+  &_actions {
+    display: flex;
+    margin-bottom: 1rem;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    .material-icons {
+      vertical-align: -6px;
+    }
+    &__buttons {
+      flex-grow: 1;
+      margin: 0 2rem;
+    }
+  }
+}
