@@ -55,6 +55,7 @@ class DepenseController extends AbstractController
           'depenseMonth' => $depenseMonth['depenseMonth'],
           'soldeFinal' => ($compte->getSolde() - $depenseTotal['depenseTotal']),
           'depensesRecurrentes' => $depensesRecurrentes,
+          'dateSearch' => $data->date
         ]),
       ]);
     }
@@ -71,6 +72,7 @@ class DepenseController extends AbstractController
       'depenseCourseAvgMonth' => (- $depenseCourseAvgMonth),
       'depenseCourseAvg' => (- $depenseCourseAvg),
       'depensesRecurrentes' => $depensesRecurrentes,
+      'dateSearch' => $data->date
     ]);
   }
 

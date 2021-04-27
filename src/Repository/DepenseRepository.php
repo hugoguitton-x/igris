@@ -72,6 +72,7 @@ class DepenseRepository extends ServiceEntityRepository
       ->select('SUM(d.montant) as depenseMonth')
       ->join('d.compteDepense', 'cd')
       ->andWhere('cd.utilisateur = :utilisateur')
+      ->andWhere('d.categorie <> 13')
       ->setParameter('utilisateur', $this->security->getUser());
 
     if (!empty($search->date)) {
