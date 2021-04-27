@@ -30,13 +30,12 @@
     </div>
 
     <div>
-      Budget moyen <sub>/course</sub> : {{ depenseCourseAvg|format_currency('EUR') }}
+      {{ 'Budget moyen'|trans }} <sub>{{ '/course' }}</sub> : {{ depenseCourseAvg|format_currency('EUR') }}
       </br>
-      Budget moyen course <sub>/mois</sub> : {{ depenseCourseAvgMonth|format_currency('EUR') }}
+      {{ 'Budget moyen course'|trans }} <sub>{{ '/mois' }}</sub> : {{ depenseCourseAvgMonth|format_currency('EUR') }}
     </div>
 
     <div class="mini-loader mini-loader__dark" unique="true"></div>
-
 
   </div>
 {% endblock %}

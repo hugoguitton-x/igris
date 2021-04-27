@@ -64,8 +64,8 @@
 </table>
 
 <div style="display: flex; justify-content: space-between;">
-  <div><b>Solde Initial : {{ soldeIntial|format_currency('EUR') }}</B></div>
-  <div><b>Delta : {{ depenseMonth|format_currency('EUR') }}</B></div>
-  <div><b>Solde Final : {{ soldeFinal|format_currency('EUR') }}</B></div>
+  <div><b>{{ 'Solde Initial'|trans }} : {{ soldeIntial|format_currency('EUR') }}</B></div>
+  <div><b>{{ 'Delta'|trans }} : {{ depenseMonth|format_currency('EUR') }}</B></div>
+  <div><b>{{ 'Solde Final'|trans }} : {{ soldeFinal|format_currency('EUR') }}</B></div>
 </div>
 
