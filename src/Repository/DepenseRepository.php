@@ -91,6 +91,33 @@ class DepenseRepository extends ServiceEntityRepository
     return $query->getQuery()->getSingleResult();
   }
 
+  public function findVersement(DepenseSearchData $search)
+  {
+
+    $query = $this
+      ->createQueryBuilder('d')
+      ->select('-SUM(d.montant) as value')
+      ->join('d.compteDepense', 'cd')
+      ->andWhere('cd.utilisateur = :utilisateur')
+      ->andWhere('d.categorie = 13')
+      ->setParameter('utilisateur', $this->security->getUser());
+
+    if (!empty($search->date)) {
+      $month = (int) $search->date->format('m');
+      $year = (int) $search->date->format('Y');
+
+      $startDate = new \DateTimeImmutable("$year-$month-01T00:00:00");
+      $endDate = $startDate->modify('last day of this month')->setTime(23, 59, 59);
+
+      $query = $query
+        ->andWhere('d.date BETWEEN :start AND :end')
+        ->setParameter('start', $startDate)
+        ->setParameter('end', $endDate);
+    }
+
+    return $query->getQuery()->getSingleResult();
+  }
+
   public function findDepenseAfterDate(DepenseSearchData $search)
   {
 
