@@ -38,6 +38,7 @@ class DepenseController extends AbstractController
 
     $form = $this->createForm(DepenseFilterType::class, $data);
     $form->handleRequest($request);
+
     $depenses = $depenseRepository->findByFilter($data);
 
     $compte = $compteRepository->findOneByUtilisateur($this->getUser(), array('id' => 'ASC'));
