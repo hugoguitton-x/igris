@@ -4,7 +4,7 @@
         {% for depenseRecurrente in depensesRecurrentes %}
           <tr>
               <td>
-              {{ depenseRecurrente.categorie.libelle }}
+              {{ depenseRecurrente.categorie.libelle|trans }}
               </td>
               <td>
               {{ depenseRecurrente.montant|format_currency('EUR') }}
@@ -64,8 +64,8 @@
 </table>
 
 <div style="display: flex; justify-content: space-between;">
-  <div><b>{{ 'Solde Initial'|trans }} : {{ soldeIntial|format_currency('EUR') }}</B></div>
+  <div><b>{{ 'Initial balance'|trans }} : {{ soldeIntial|format_currency('EUR') }}</B></div>
   <div><b>{{ 'Delta'|trans }} : {{ depenseMonth|format_currency('EUR') }}</B></div>
-  <div><b>{{ 'Solde Final'|trans }} : {{ soldeFinal|format_currency('EUR') }}</B></div>
+  <div><b>{{ 'Final balance'|trans }} : {{ soldeFinal|format_currency('EUR') }}</B></div>
 </div>
 

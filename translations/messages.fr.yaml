@@ -6,8 +6,10 @@ Administrator: Administrateur
 Amount: Montant
 Are you sure you want to delete this user?: Êtes-vous sûre de vouloir supprimer cette utilisateur ?
 Avatar: Avatar
+Average budget: Budget moyen
 
 # C
+CAF: CAF
 Category: Catégorie
 Chapter: Chapitre
 Confirm password: Comfirmation mot de passe
@@ -15,6 +17,7 @@ Confirm password: Comfirmation mot de passe
 # D
 Date: Date
 Delete: Supprimer
+Delta: Delta
 Description: Description
 Disabled: Désactivé
 Duration of episodes: Durée des épisodes
@@ -23,14 +26,27 @@ Duration of episodes: Durée des épisodes
 Email: E-mail
 Enabled: Activé
 English: Anglais
-Expenditure: Dépense
 Episode: Épisode
 Episodes: Épisodes
+Exceptional: Exceptional
+Expenditure: Dépense
 
 # F
+Final balance: Solde final
 First Name: Prénom
 Followed: Suivi
 French : Français
+
+# G
+Grocery store: Courses (magasin)
+grocery: course
+
+# H
+Hairdresser: Coiffeur
+
+# I
+Initial balance: Solde initial
+Internet: Internet
 
 # L
 Last connection: Dernière connexion
@@ -44,23 +60,33 @@ Logout: Déconnexion
 Manga: Manga
 Mangas: Mangas
 Modify: Modifier
+Mutual levy: Prélèvement mutuel
 My review: Ma critique
+month: mois
 
 # N
 Name: Nom
 Number of episodes: Nombre d'épisodes
 
+# O
+Outside meal: Repas extérieur
+
 # P
 Password: Mot de passe
+Personal transfer: Virement personnel
 Picture: Image
+
+# Q
+Quarterly fee | Credit Card: Cotisation Trimestrielle | Carte Bleue
 
 # R
 Rating: Note
 Ratings: Notes
 Recurring expense: Dépense récurrente
 Refresh: Rafraîchir
-Remember me: Se souvenir de moi
 Registration: Inscription
+Remember me: Se souvenir de moi
+Rent: Loyer
 Review: Critique
 Reviews: Critiques
 Roles: Rôles
@@ -73,11 +99,13 @@ Select category: Sélectionner catégorie
 Serie: Série
 Sign Up: S'inscrire
 Site: Site
+Spotify: Spotify
 Submit: Valider
 Synopsis: Synopsis
 
 #T
 Title ID: ID du titre
+Transport subscription: Abonnement Transport
 
 # U
 Unfollowed: Non suivi
