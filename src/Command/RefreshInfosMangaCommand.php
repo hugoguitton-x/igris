@@ -2,16 +2,10 @@
 
 namespace App\Command;
 
-use App\Entity\Manga;
-use App\Entity\Chapter;
-use App\Entity\LanguageCode;
-use App\Helper\MangaMangadexApiHelper;
 use App\Helper\TwitterHelper;
 use App\Repository\MangaRepository;
-use App\Repository\ChapterRepository;
+use App\Helper\MangaMangadexApiHelperV5;
 use Doctrine\ORM\EntityManagerInterface;
-use App\Repository\LanguageCodeRepository;
-use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Console\Input\InputInterface;
@@ -58,11 +52,19 @@ class RefreshInfosMangaCommand extends Command
 
     $count = 1;
     $start = microtime(true);
+
+    $mangaMangadexApi = new MangaMangadexApiHelperV5($this->params, $this->manager, ["type" => "command", "lang" => "fr"], $output);
     foreach ($mangas as $manga) {
       $output->writeln('<comment> -- ' . $manga->getName() . ' --' . ' (' . $count . '/' . $countMangas . ') </comment>');
 
-      $mangaMangadexApi = new MangaMangadexApiHelper($this->params, $this->manager, $output, null, null, false);
-      $mangaMangadexApi->refreshMangaById($manga->getMangaId());
+      $result = $mangaMangadexApi->refreshMangaById($manga->getMangadexId());
+      if ($result === "updated" || $result === "created") {
+        $output->writeln("<info> OK </info>");
+      } else if ($result === "not_updated") {
+        $output->writeln("<info> SKIP </info>");
+      } else {
+        $output->writeln("<error> KO : " . $result . "</error>");
+      }
 
       $count++;
       sleep(2);
