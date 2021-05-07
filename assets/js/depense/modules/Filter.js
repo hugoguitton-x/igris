@@ -43,6 +43,7 @@ export default class Filter {
     const url = new URL(this.form.getAttribute('action') || window.location.href);
     const params = new URLSearchParams();
     data.forEach((value, key) => {
+      value = (key == "date[day]") ? 1 : value;
       params.append(key, value);
     });
 

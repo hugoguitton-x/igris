@@ -38,11 +38,13 @@ class DepenseController extends AbstractController
 
     $form = $this->createForm(DepenseFilterType::class, $data);
     $form->handleRequest($request);
+
     $depenses = $depenseRepository->findByFilter($data);
 
     $compte = $compteRepository->findOneByUtilisateur($this->getUser(), array('id' => 'ASC'));
     $depenseMonth = $depenseRepository->findDepenseForMonth($data);
     $depenseTotal = $depenseRepository->findDepenseAfterDate($data);
+    $versement = $depenseRepository->findVersement($data);
     $depensesRecurrentes = $depenseRecurrenteRepository->findDepenseRecurrenteByAccountNotUsed($data);
 
     if ($request->get('ajax')) {
@@ -51,10 +53,11 @@ class DepenseController extends AbstractController
         'content' => $this->renderView('depense/_depenses.html.twig', [
           'depenses' => $depenses,
           'formDepense' => $form->createView(),
-          'soldeIntial' => ($compte->getSolde() - $depenseTotal['depenseTotal']) - $depenseMonth['depenseMonth'],
+          'soldeIntial' => $versement['value'] + ($compte->getSolde() - $depenseTotal['depenseTotal']) - $depenseMonth['depenseMonth'],
           'depenseMonth' => $depenseMonth['depenseMonth'],
           'soldeFinal' => ($compte->getSolde() - $depenseTotal['depenseTotal']),
           'depensesRecurrentes' => $depensesRecurrentes,
+          'dateSearch' => $data->date
         ]),
       ]);
     }
@@ -65,12 +68,13 @@ class DepenseController extends AbstractController
     return $this->render('depense/index.html.twig', [
       'depenses' => $depenses,
       'formDepense' => $form->createView(),
-      'soldeIntial' => ($compte->getSolde() - $depenseTotal['depenseTotal']) - $depenseMonth['depenseMonth'],
+      'soldeIntial' => $versement['value'] + ($compte->getSolde() - $depenseTotal['depenseTotal']) - $depenseMonth['depenseMonth'],
       'depenseMonth' => $depenseMonth['depenseMonth'],
       'soldeFinal' => ($compte->getSolde() - $depenseTotal['depenseTotal']),
       'depenseCourseAvgMonth' => (- $depenseCourseAvgMonth),
       'depenseCourseAvg' => (- $depenseCourseAvg),
       'depensesRecurrentes' => $depensesRecurrentes,
+      'dateSearch' => $data->date
     ]);
   }
 

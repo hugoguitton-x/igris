@@ -13,7 +13,7 @@ class MangaType extends AbstractType
   public function buildForm(FormBuilderInterface $builder, array $options)
   {
     $builder
-      ->add('manga_id', TextType::class, [
+      ->add('mangadex_id', TextType::class, [
         'label' => 'Title ID'
       ]);
   }

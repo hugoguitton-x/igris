@@ -53,6 +53,16 @@ class Manga
    */
   private $lastUploaded;
 
+  /**
+   * @ORM\Column(type="string", length=255, nullable=true)
+   */
+  private $mangadexId;
+
+  /**
+   * @ORM\Column(type="string", length=255, nullable=true)
+   */
+  private $rawName;
+
   public function __construct()
   {
     $this->lastChapter = new ArrayCollection();
@@ -208,6 +218,30 @@ class Manga
   public function setLastUploaded(?\DateTimeInterface $lastUploaded): self
   {
       $this->lastUploaded = $lastUploaded;
+
+      return $this;
+  }
+
+  public function getMangadexId(): ?string
+  {
+      return $this->mangadexId;
+  }
+
+  public function setMangadexId(?string $mangadexId): self
+  {
+      $this->mangadexId = $mangadexId;
+
+      return $this;
+  }
+
+  public function getRawName(): ?string
+  {
+      return $this->rawName;
+  }
+
+  public function setRawName(?string $rawName): self
+  {
+      $this->rawName = $rawName;
 
       return $this;
   }

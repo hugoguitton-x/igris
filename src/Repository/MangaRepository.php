@@ -53,6 +53,22 @@ class MangaRepository extends ServiceEntityRepository
     return $pagination;
   }
 
+  /**
+   * Undocumented function
+   *
+   * @return void
+   */
+  public function findAllForCSV()
+  {
+
+    $query = $this
+      ->createQueryBuilder('m')
+      ->select('m.name, m.image, m.mangaId, m.Twitter');
+
+    return $query->getQuery()->getResult();
+  }
+
+
   // /**
   //  * @return Manga[] Returns an array of Manga objects
   //  */

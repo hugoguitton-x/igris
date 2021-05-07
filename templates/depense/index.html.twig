@@ -2,6 +2,19 @@
 
 {% block body %}
   <div class="container fade-in js-filter">
+    <div class="depense_actions">
+      <a href="{{ path( 'depense_categorie_new') }}" class="depense_actions__buttons btn btn-dark" title="{{ 'Add'|trans }}" data-toggle="tooltip">
+        <i class="material-icons">add</i>{{ 'Category'|trans }}
+      </a>
+
+      <a href="{{ path( 'depense_new') }}" class="depense_actions__buttons btn btn-danger" title="{{ 'Add'|trans }}" data-toggle="tooltip">
+        <i class="material-icons">add</i>{{ 'Expenditure'|trans }}
+      </a>
+
+      <a href="{{ path( 'depense_recurrente_new') }}" class="depense_actions__buttons btn btn-info" title="{{ 'Add'|trans }}" data-toggle="tooltip">
+        <i class="material-icons">add</i>{{ 'Recurring expense'|trans }}
+      </a>
+    </div>
 
     <div>
         {{ form_start(formDepense, {attr: {class: 'filter js-filter-form filter-depense'}}) }}
@@ -12,30 +25,17 @@
         {{ form_end(formDepense) }}
     </div>
 
-    <a href="{{ path( 'depense_categorie_new') }}" class="new" title="{{ 'Add'|trans }}" data-toggle="tooltip">
-      Nouvelle Catégorie
-    </a>
-
-    <a href="{{ path( 'depense_new') }}" class="new" title="{{ 'Add'|trans }}" data-toggle="tooltip">
-      Nouvelle Dépense
-    </a>
-
-    <a href="{{ path( 'depense_recurrente_new') }}" class="new" title="{{ 'Add'|trans }}" data-toggle="tooltip">
-      Nouvelle Dépense récurrente
-    </a>
-
     <div class="js-filter-content">
-      {% include 'depense/_depenses.html.twig' with {depenses: depenses, soldeIntial: soldeIntial, depenseMonth: depenseMonth, soldeFinal: soldeFinal, depensesRecurrentes: depensesRecurrentes} only %}
+      {% include 'depense/_depenses.html.twig' with {depenses: depenses, soldeIntial: soldeIntial, depenseMonth: depenseMonth, soldeFinal: soldeFinal, depensesRecurrentes: depensesRecurrentes, dateSearch: dateSearch} only %}
     </div>
 
     <div>
-      Budget moyen <sub>/course</sub> : {{ depenseCourseAvg|format_currency('EUR') }}
+      {{ 'Average budget'|trans }} <sub>/{{ 'grocery'|trans }}</sub> : {{ depenseCourseAvg|format_currency('EUR') }}
       </br>
-      Budget moyen course <sub>/mois</sub> : {{ depenseCourseAvgMonth|format_currency('EUR') }}
+      {{ 'Average budget'|trans }} ({{ 'grocery'|trans }}) <sub>/{{ 'month'|trans }}</sub> : {{ depenseCourseAvgMonth|format_currency('EUR') }}
     </div>
 
     <div class="mini-loader mini-loader__dark" unique="true"></div>
-
 
   </div>
 {% endblock %}

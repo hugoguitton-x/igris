@@ -31,25 +31,26 @@ export default class Filter {
    */
   bindEvents() {
 
-    this.pagination.addEventListener('click', e => {
-      if (e.target.tagName === 'A') {
-        e.preventDefault();
-        this.loadUrl(e.target.getAttribute('href'));
-      }
-    })
+    if (this.pagination) {
+      this.pagination.addEventListener('click', e => {
+        if (e.target.tagName === 'A') {
+          e.preventDefault();
+          this.loadUrl(e.target.getAttribute('href'));
+        }
+      })
+    }
 
-    this.form.querySelectorAll('input').forEach(input => {
-      input.addEventListener('input', () => {
-        clearTimeout(this.timeout);
-        this.timeout = setTimeout(this.loadForm.bind(this), 1000);
-      });
-    })
-
-
+    if (this.form) {
+      this.form.querySelectorAll('input').forEach(input => {
+        input.addEventListener('input', () => {
+          clearTimeout(this.timeout);
+          this.timeout = setTimeout(this.loadForm.bind(this), 1000);
+        });
+      })
+    }
   }
 
   loadForm() {
-    // @TODO display loading
     const data = new FormData(this.form);
     const url = new URL(this.form.getAttribute('action') || window.location.href);
     const params = new URLSearchParams();
@@ -83,7 +84,9 @@ export default class Filter {
 
       }
 
-      _.pagination.innerHTML = response.data.pagination;
+      if(_.pagination) {
+        _.pagination.innerHTML = response.data.pagination;
+      }
 
       history.replaceState({}, '', url);
 

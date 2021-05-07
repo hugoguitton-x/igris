@@ -18,7 +18,7 @@ class Chapter
   private $id;
 
   /**
-   * @ORM\Column(type="integer")
+   * @ORM\Column(type="string")
    */
   private $chapter_id;
 
@@ -40,21 +40,32 @@ class Chapter
   private $manga;
 
   /**
-   * @ORM\Column(type="datetime")
+   * @ORM\Column(type="string", length=255, nullable=true)
    */
-  private $date;
+  private $title;
+
+  /**
+   * @ORM\Column(type="integer", nullable=true)
+   */
+  private $volume;
+
+  /**
+   * @ORM\Column(type="datetime", nullable=true)
+   * @ORM\JoinColumn(nullable=false)
+   */
+  private $publishedAt;
 
   public function getId(): ?int
   {
     return $this->id;
   }
 
-  public function getChapterId(): ?int
+  public function getChapterId(): ?string
   {
     return $this->chapter_id;
   }
 
-  public function setChapterId(int $chapter_id): self
+  public function setChapterId(string $chapter_id): self
   {
     $this->chapter_id = $chapter_id;
 
@@ -97,15 +108,39 @@ class Chapter
     return $this;
   }
 
-  public function getDate(): ?\DateTimeInterface
+  public function getTitle(): ?string
   {
-    return $this->date;
+      return $this->title;
   }
 
-  public function setDate(\DateTimeInterface $date): self
+  public function setTitle(?string $title): self
   {
-    $this->date = $date;
+      $this->title = $title;
 
-    return $this;
+      return $this;
+  }
+
+  public function getVolume(): ?int
+  {
+      return $this->volume;
+  }
+
+  public function setVolume(?int $volume): self
+  {
+      $this->volume = $volume;
+
+      return $this;
+  }
+
+  public function getPublishedAt(): \DateTimeInterface
+  {
+      return $this->publishedAt;
+  }
+
+  public function setPublishedAt(\DateTimeInterface $publishedAt): self
+  {
+      $this->publishedAt = $publishedAt;
+
+      return $this;
   }
 }

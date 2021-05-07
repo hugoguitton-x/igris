@@ -9,7 +9,7 @@ use App\Data\MangaSearchData;
 use App\Form\MangaSearchType;
 use App\Repository\MangaRepository;
 use App\Repository\ChapterRepository;
-use App\Helper\MangaMangadexApiHelper;
+use App\Helper\MangaMangadexApiHelperV5;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\FollowMangaRepository;
 use Knp\Component\Pager\PaginatorInterface;
@@ -17,9 +17,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use Knp\Component\Pager\Pagination\PaginationInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
@@ -39,9 +37,8 @@ class MangaController extends AbstractController
   /**
    * @Route("", name="list")
    */
-  public function listMangas(MangaRepository $repo, PaginatorInterface $paginator, Request $request)
+  public function listMangas(MangaRepository $repo, Request $request)
   {
-
     $data = new MangaSearchData();
     $data->page = $request->get('page', 1);
     $form = $this->createForm(MangaSearchType::class, $data);
@@ -49,9 +46,7 @@ class MangaController extends AbstractController
 
     $mangas = $repo->findMangaOrderByNameQuery($data);
 
-
-    if($request->get('ajax')) {
-
+    if ($request->get('ajax')) {
       return new JsonResponse([
         'content' => $this->renderView('manga/_mangas.html.twig', ['mangas' => $mangas]),
         'pagination' => $this->renderView('manga/_pagination.html.twig', ['mangas' => $mangas])
@@ -62,6 +57,37 @@ class MangaController extends AbstractController
     return $this->render('manga/mangas-list.html.twig', [
       'controller_name' => 'MangaController',
       'mangas' => $mangas,
+      'form' => $form->createView()
+    ]);
+  }
+
+  /**
+   * @Route("/search", name="search")
+   */
+  public function searchMangas(MangaRepository $repo, Request $request, EntityManagerInterface $manager)
+  {
+    $data = new MangaSearchData();
+    $data->page = $request->get('page', 1);
+    $form = $this->createForm(MangaSearchType::class, $data);
+    $form->handleRequest($request);
+
+    $mangaMangadexApi = new MangaMangadexApiHelperV5($this->container->get('parameter_bag'), $manager);
+
+    if ($data->q) {
+      $result_search = $mangaMangadexApi->mangaList(["title" =>  $data->q, "limit" => 100]);
+    }
+
+    if ($request->get('ajax')) {
+
+      return new JsonResponse([
+        'content' => $this->renderView('manga/_search.html.twig', ['result_search' => $result_search])
+      ]);
+    }
+
+    //dd($result_search);
+    return $this->render('manga/mangas-search.html.twig', [
+      'controller_name' => 'MangaController',
+      'result_search' => $result_search,
       'form' => $form->createView()
     ]);
   }
@@ -93,7 +119,6 @@ class MangaController extends AbstractController
       'chapters' => $chapters
     ]);
   }
-
 
   /**
    * @Route("/twitter/{id}", name="twitter", methods={"POST"})
@@ -168,7 +193,7 @@ class MangaController extends AbstractController
     return $this->json(['code' => 200, 'message' => $message, 'value' => $translator->trans(ucfirst($follow_status))], 200);
   }
 
-    /**
+  /**
    * @Route("/refresh/{id}", name="refresh", methods={"POST"})
    */
   public function refreshManga(
@@ -181,7 +206,7 @@ class MangaController extends AbstractController
       return $this->json(['code' => 403, 'message' => 'Unauthorized'], 403);
     }
 
-    $mangaMangadexApi = new MangaMangadexApiHelper($this->container->get('parameter_bag'), $manager, null, null, null, false);
+    $mangaMangadexApi = new MangaMangadexApiHelperV5($this->container->get('parameter_bag'), $manager);
     $mangaMangadexApi->refreshMangaById($manga->getMangaId());
 
     $message = $translator->trans('manga.refresh', ['%slug%' => ucfirst($manga->getName())]);

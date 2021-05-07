@@ -3,29 +3,50 @@ Actions: Actions
 Add: Add
 Administration: Administration
 Administrator: Administrator
+Amount: Amount
 Are you sure you want to delete this user?: Are you sure you want to delete this user?
 Avatar: Avatar
+Average budget: Average budget
 
 # C
+CAF: CAF
+Category: Category
 Chapter: Chapter
 Confirm password: Confirm password
 
 # D
+Date: Date
 Delete: Delete
+Delta: Delta
+Description: Description
 Disabled: Disabled
 Duration of episodes: Duration of episodes
 
 # E
-Email: Email
-Enabled: Enabled
-English: English
-Episode: Episode
-Episodes: Episodes
+Email: E-mail
+Enabled: Activé
+English: Anglais
+Episode: Épisode
+Episodes: Épisodes
+Exceptional: Exceptionnel
+Expenditure: Dépense
 
 # F
+Final balance: Final balance
 First Name: First Name
 Followed: Followed
 French : French
+
+# G
+Grocery store: Grocery store
+grocery: grocery
+
+# H
+Hairdresser: Hairdresser
+
+# I
+Initial balance: Initial balance
+Internet: Internet
 
 # L
 Last connection: Last connection
@@ -39,37 +60,52 @@ Logout: Logout
 Manga: Manga
 Mangas: Mangas
 Modify: Modify
+Mutual levy: Mutual levy
 My review: My review
+month: month
 
 # N
 Name: Name
 Number of episodes: Number of episodes
 
+# O
+Outside meal: Outside meal
+
 # P
 Password: Password
+Personal transfer: Personal transfer
 Picture: Picture
+
+# Q
+Quarterly fee | Credit Card: Quarterly fee | Credit Card
 
 # R
 Rating: Rating
 Ratings: Ratings
 Refesh: Refesh
-Remember me: Remember me
+Recurring expense: Recurring expense
 Registration: Registration
+Remember me: Remember me
+Rent: Rent
 Review: Review
 Reviews: Reviews
 Roles: Roles
 
 # S
+Salary: Salary
 Search Manga...: Search Manga...
 See all: See all
+Select category: Select category
 Serie: Serie
 Sign Up: Sign Up
 Site: Site
+Spotify: Spotify
 Submit: Submit
 Synopsis: Synopsis
 
 #T
 Title ID: Title ID
+Transport subscription: Transport subscription
 
 # U
 Unfollowed: Unfollowed

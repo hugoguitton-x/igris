@@ -5,9 +5,9 @@
     <div class="row">
         {% for chapter in chapters %}
 
-          {% if (chapter.date > ('now'|date('Y-m-d H:i:s'))) %}
+          {% if (chapter.published_at > ('now'|date('Y-m-d H:i:s'))) %}
               {% set class = 'manga_futur' %}
-          {% elseif (chapter.date >= ('now'|date_modify('-4 hours')|date('Y-m-d H:i:s'))) %}
+          {% elseif (chapter.published_at >= ('now'|date_modify('-4 hours')|date('Y-m-d H:i:s'))) %}
               {% set class = 'manga_new' %}
           {% else %}
               {% set class = '' %}
@@ -33,7 +33,7 @@
                   </div>
 
                   <div class="date">
-                      {{ chapter.date|ago }}
+                      {{ chapter.published_at|ago }}
                   </div>
                 </div>
           </div>

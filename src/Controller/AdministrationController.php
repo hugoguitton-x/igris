@@ -4,32 +4,23 @@ namespace App\Controller;
 
 use App\Entity\Manga;
 use App\Entity\Serie;
-use App\Entity\Chapter;
 use App\Form\MangaType;
 use App\Form\SerieType;
 use App\Form\EditUserType;
 use App\Entity\Utilisateur;
-use App\Entity\LanguageCode;
 use App\Service\FileRemover;
 use Psr\Log\LoggerInterface;
 use App\Helper\TwitterHelper;
 use App\Service\FileUploader;
-use Abraham\TwitterOAuth\TwitterOAuth;
-use App\Helper\MangaMangadexApiHelper;
+use App\Repository\MangaRepository;
+use App\Helper\MangaMangadexApiHelperV5;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\UtilisateurRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpKernel\KernelInterface;
-use Symfony\Component\Console\Output\BufferedOutput;
-use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
@@ -190,6 +181,7 @@ class AdministrationController extends AbstractController
    */
   public function manageFormManga(
     Request $request,
+    MangaRepository $repo,
     EntityManagerInterface $manager,
     Manga $manga = null,
     TranslatorInterface $translator
@@ -209,8 +201,15 @@ class AdministrationController extends AbstractController
 
     if ($form->isSubmitted() && $form->isValid()) {
 
-      $mangaMangadexApi = new MangaMangadexApiHelper($this->container->get('parameter_bag'), $manager, null, new Session(), $translator, true);
-      $mangaMangadexApi->refreshMangaById($form->get('manga_id')->getData());
+      $mangaMangadexApi = new MangaMangadexApiHelperV5($this->container->get('parameter_bag'), $manager);
+      $result = $mangaMangadexApi->refreshMangaById($form->get('mangadex_id')->getData());
+
+      if ($result === "created") {
+        $manga = $repo->findOneBy(["mangadex_id" => $form->get('mangadex_id')->getData()]);
+        $this->addFlash('success',  $translator->trans('successfully.added', ['%slug%' => ucfirst($manga->getName())]));
+      } else if ($result === "updated") {
+        $this->addFlash('warning',  $translator->trans('successfully.modified', ['%slug%' => ucfirst($manga->getName())]));
+      }
 
       return $this->redirectToRoute('manga_list');
     }

@@ -26,7 +26,7 @@ class ChapterRepository extends ServiceEntityRepository
   {
     $conn = $this->getEntityManager()->getConnection();
 
-    $sql = 'SELECT m.name, m.image, m.manga_id, lc.lang_code, lc.libelle, c.number, c.chapter_id, c.date
+    $sql = 'SELECT m.name, m.image, m.manga_id, lc.lang_code, lc.libelle, c.number, c.chapter_id, c.published_at
         FROM manga m
         LEFT JOIN
         (
@@ -38,19 +38,20 @@ class ChapterRepository extends ServiceEntityRepository
         LEFT JOIN language_code lc
         ON lc.id = cs.lang_code_id
         LEFT JOIN chapter c
-        ON c.manga_id = cs.manga_id AND c.lang_code_id = cs.lang_code_id AND c.number = cs.chapter_number ';
+        ON c.manga_id = cs.manga_id AND c.lang_code_id = cs.lang_code_id AND c.number = cs.chapter_number
+        WHERE cs.chapter_number is not null ';
 
     if ($language) {
-      $sql .= 'WHERE lc.libelle = :language ';
+      $sql .= 'AND lc.libelle = :language ';
     }
 
-    $sql .= 'ORDER BY c.date DESC';
+    $sql .= 'ORDER BY c.published_at DESC';
 
     $query = $conn->prepare($sql);
     if ($language) {
-      $query->execute(['language' => $language]);
+      $query->executeQuery(['language' => $language]);
     } else {
-      $query->execute();
+      $query->executeQuery();
     }
 
 
