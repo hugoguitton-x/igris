@@ -1,0 +1,26 @@
+{% extends 'page.html.twig' %}
+
+{% block body %}
+  <div class="container fade-in">
+    {{ parent() }}
+    <h1 class="mt-4">
+      {% if editMode %}
+        {{ 'Modify'|trans }}
+      {% else %}
+        {{ 'Add'|trans }}
+      {% endif %}
+    </h1>
+
+    {{ form_start(formRecurrente) }}
+    {{ form_row(formRecurrente.montant) }}
+    {{ form_row(formRecurrente.compteDepense) }}
+    {{ form_row(formRecurrente.categorie) }}
+    {{ form_widget(formRecurrente._token) }}
+
+    <button type="submit" class="btn btn-primary">
+      {{ 'Submit'|trans }}
+    </button>
+
+    {{ form_end(formRecurrente) }}
+  </div>
+{% endblock %}

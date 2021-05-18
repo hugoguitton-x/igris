@@ -1,0 +1,11 @@
+@import "./variables";
+@import "mixins";
+
+@import "fade_in";
+
+@import "./admin_sass/general";
+@import "./admin_sass/sidebar";
+@import "./admin_sass/users";
+
+// Bootstrap and its default variables
+@import "~bootstrap/scss/bootstrap";

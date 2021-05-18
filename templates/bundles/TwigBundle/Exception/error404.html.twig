@@ -1,0 +1,11 @@
+{% extends 'page.html.twig' %}
+
+{% block body %}
+  <div class="container fade-in">
+    <h1>
+      Erreur
+      {{ status_code }}
+    </h1>
+    {{ exception.message }}
+  </div>
+{% endblock %}

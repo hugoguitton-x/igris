@@ -1,0 +1,9 @@
+<ul>
+  {% for result in result_search %}
+      <li>
+        <strong>{{ result.data.attributes.title.en }}</strong> (<em>{{ result.data.id }}</em>)
+        <br> {{ result.data.attributes.description.en }}
+        <br> {{ result.data.attributes.updatedAt }}
+      </li>
+  {% endfor %}
+  </ul>

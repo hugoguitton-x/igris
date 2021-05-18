@@ -1,0 +1,13 @@
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 5">
+  <div id="toastAlert" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="5000">
+    <div class="toast-header">
+      <strong class="me-auto">Igris</strong>
+      <small>{{ 'now'|ago }}</small>
+    </div>
+    <div class="toast-body">
+      {% if toastMessage is defined %}
+        {{ toastMessage|trans }}
+      {% endif %}
+    </div>
+  </div>
+</div>

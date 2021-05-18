@@ -1,0 +1,29 @@
+{% extends 'administration/index.html.twig' %}
+
+{% form_theme formManga 'form/bootstrap_5_layout.html.twig' %}
+
+{% block container %}
+  {{ parent() }}
+  <h1 class="mt-4">
+    {% if editMode %}
+      {{ 'Modify'|trans }}
+    {% else %}
+      {{ 'Add'|trans }}
+    {% endif %}
+  </h1>
+
+  {{ form_start(formManga) }}
+  {{ form_row(formManga.mangadex_id) }}
+  {{ form_widget(formManga._token) }}
+
+  <button type="submit" class="btn btn-primary">{{ 'Submit'|trans }}</button>
+
+  {{
+    form_end(
+      formManga,
+      {
+        render_rest: false
+      }
+    )
+  }}
+{% endblock %}

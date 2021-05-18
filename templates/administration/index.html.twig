@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="icon"
+      href="{{ asset('light_favicon.ico') }}"
+      media="(prefers-color-scheme:no-preference)" />
+    <link rel="icon"
+      href="{{ asset('dark_favicon.ico') }}"
+      media="(prefers-color-scheme:dark)" />
+    <link rel="icon"
+      href="{{ asset('light_favicon.ico') }}"
+      media="(prefers-color-scheme:light)" />
+
+    <title>
+      {% block title %}
+        Igris -
+        {{ 'Administration'|trans }}
+      {% endblock %}
+    </title>
+
+    {{ encore_entry_link_tags('admin') }}
+    {% block stylesheets %}
+
+    {% endblock %}
+  </head>
+
+  {% block body %}
+    <body>
+      <div class="d-flex fade-in" id="wrapper">
+        {% block nav %}
+          {% include 'administration/navigation.html.twig' %}
+        {% endblock %}
+        <div id="page-content-wrapper">
+          <div class="container-fluid text-center">
+            {% block container %}
+              <button class="navbar-toggler navbar-dark"
+                type="button"
+                data-toggle="collapse"
+                data-target="#navbarColor01"
+                aria-controls="navbarColor01"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+                id="menu-toggle">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+            {% endblock %}
+          </div>
+        </div>
+      </div>
+
+      {{ encore_entry_script_tags('admin') }}
+    </body>
+  {% endblock %}
+</html>

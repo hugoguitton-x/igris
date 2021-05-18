@@ -1,0 +1,60 @@
+{% if (not (dateSearch|date('Y-m-d') < 'now'|date('Y-m-d'))) %}
+  <table class="table table-striped">
+    <tbody>
+        {% for depenseRecurrente in depensesRecurrentes %}
+          <tr>
+              <td>
+              {{ depenseRecurrente.categorie.libelle|trans }}
+              </td>
+              <td>
+              {{ depenseRecurrente.montant|format_currency('EUR') }}
+              </td>
+              <td>
+                <a href="{{ path( 'depense_recurrente_add', { id: depenseRecurrente.id } ) }}" class="add" title="{{ 'Add'|trans }}" data-toggle="tooltip">
+                  <i class="fas fa-plus"></i>
+                </a>
+                <a href="{{ path( 'depense_recurrente_edit', { id: depenseRecurrente.id } ) }}" class="settings" title="{{ 'Modify'|trans }}" data-toggle="tooltip">
+                  <i class="fas fa-cog"></i>
+                </a>
+                {# <a href="{{ path( 'admin_delete_user', { id: depenseRecurrente.id } ) }}" class="delete" title="{{ 'Delete'|trans }}" data-toggle="tooltip" onclick="return confirm('{{ 'Are you sure you want to delete this user?'|trans }}')">
+                  <i class="fas fa-times-circle"></i>
+                </a> #}
+              </td>
+          </tr>
+        {% endfor %}
+    </tbody>
+  </table>
+{% endif %}
+
+<div class="order-md-last">
+
+  <ul class="list-group mb-3">
+    {% for depense in depenses %}
+      <li class="list-group-item d-flex justify-content-between lh-sm">
+        <div>
+          <h6 class="my-0">{{ depense.categorie.libelle|trans }}
+            <small class="text-muted">{{ depense.date|format_datetime(
+                  'short',
+                  'none',
+                  locale = app.request.getLocale()
+              ) }}
+            </small>
+          </h6>
+          <small class="text-muted">
+            {% if depense.description %}
+                {{ depense.description }}
+            {% else %}
+                {{ '-' }}
+            {% endif %}
+          </small>
+        </div>
+        <span {% if depense.montant > 0 %} class="text-success" {% else %} class="text-danger" {% endif %}>{{ depense.montant|format_currency('EUR') }}</span>
+      </li>
+    {% endfor %}
+    <li class="list-group-item d-flex justify-content-between list-group-item-info">
+      <div><b>{{ 'Initial balance'|trans }} : {{ soldeIntial|format_currency('EUR') }}</B></div>
+      <div><b>{{ 'Delta'|trans }} : {{ depenseMonth|format_currency('EUR') }}</B></div>
+      <div><b>{{ 'Final balance'|trans }} : {{ soldeFinal|format_currency('EUR') }}</B></div>
+    </li>
+  </ul>
+</div>

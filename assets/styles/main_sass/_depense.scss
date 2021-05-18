@@ -1,0 +1,41 @@
+.form-date-filter {
+  #date_day {
+    display: none;
+  }
+}
+
+.filter-depense {
+  display: flex;
+  justify-content: space-between;
+  .bootstrap-select {
+    width: 220px!important;
+  }
+
+}
+
+.mini-loader {
+  &__dark {
+    margin: 20px auto;
+    position: fixed;
+    right: 20px;
+    bottom: 35px;
+  }
+}
+
+
+.depense {
+  &_actions {
+    display: flex;
+    margin-bottom: 1rem;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    .material-icons {
+      vertical-align: -6px;
+    }
+    &__buttons {
+      flex-grow: 1;
+      margin: 0 2rem;
+    }
+  }
+}

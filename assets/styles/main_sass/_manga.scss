@@ -1,0 +1,160 @@
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  display: flex;
+  flex-direction: row;
+  flex: 1 0;
+}
+
+.manga {
+  padding: 10px;
+  margin: 5px 0;
+  @media (min-width: $screen-sm) {
+    margin: 5px;
+  }
+  display: flex;
+  flex-direction: row;
+  flex: 1 0 100%;
+  max-width: 100%;
+
+  border-radius: 0.25rem;
+  border: 1px solid grey;
+  background-color: $brand-dark;
+  &_futur {
+    background-color: lighten($brand-dark, 30%);
+  }
+  &_new {
+    background-color: $manga-new;
+  }
+
+  @media (min-width: $screen-sm) {
+    flex: 1 0 48.5%;
+    max-width: 48.5%;
+  }
+
+  @media (min-width: $screen-md) {
+    flex: 1 0 32%;
+    max-width: 32%;
+  }
+
+  &__image {
+    width: 80px;
+    height: 120px;
+    flex: 0 0 auto;
+
+    img {
+      max-width: 100%;
+      border-radius: 0.25rem;
+      vertical-align: middle;
+      border-style: none;
+    }
+  }
+
+  &__infos,
+  &__actions {
+    padding-left: 15px;
+    min-width: 0;
+    flex-grow: 1;
+
+    .title {
+      font-weight: bold;
+      font-size: 18px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      border-bottom: 1px solid black;
+      padding-bottom: 3px;
+      color: white;
+      a {
+        color: white;
+      }
+    }
+  }
+
+  &__infos {
+    .number {
+      display: flex;
+      align-items: center;
+      padding-top: 3px;
+
+      a {
+        padding-right: 5px;
+        font-size: 16px;
+        color: white;
+      }
+
+      img.langue-manga {
+        height: 10px;
+      }
+    }
+
+    .date {
+      color: white;
+      opacity: .75;
+      font-size: 16px;
+      font-style: italic;
+    }
+  }
+
+  &__actions {
+
+    .twitter {
+      color: white;
+      a {
+        text-decoration: none;
+      }
+      &-enabled {
+        color: $color-enabled;
+        &:hover {
+          opacity: .7;
+        }
+      }
+
+      &-disabled {
+        color: $color-disabled;
+        &:hover {
+          opacity: .7;
+        }
+      }
+
+    }
+
+    .follow {
+      color: white;
+      a {
+        text-decoration: none;
+      }
+      .followed {
+        color: $color-enabled;
+        &:hover {
+          opacity: .7;
+        }
+      }
+
+      .unfollowed {
+        color: $color-disabled;
+        &:hover {
+          opacity: .7;
+        }
+      }
+    }
+
+    .refresh {
+      display: flex;
+      align-items: center;
+      a {
+        color: rgb(95, 184, 236);
+        text-decoration: none;
+        &:hover {
+          opacity: .7;
+        }
+        margin-right: 5px;
+      }
+    }
+
+  }
+}
+
+.pagination_container {
+  margin-top: 30px;
+}

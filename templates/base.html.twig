@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="{{ app.request.locale }}">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="icon"
+      href="{{ asset('light_favicon.ico') }}"
+      media="(prefers-color-scheme:no-preference)" />
+    <link rel="icon"
+      href="{{ asset('dark_favicon.ico') }}"
+      media="(prefers-color-scheme:dark)" />
+    <link rel="icon"
+      href="{{ asset('light_favicon.ico') }}"
+      media="(prefers-color-scheme:light)" />
+
+    <title>
+      {% block title %}
+        Igris
+      {% endblock %}
+    </title>
+
+    {{ encore_entry_link_tags('app') }}
+
+    {% block stylesheets %}
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+        rel="stylesheet">
+    {% endblock %}
+  </head>
+  <body>
+    <header>
+    {% block header %}
+    {% endblock %}
+    </header>
+    <div class="container">
+      <main>
+      {% block body %}
+      {% endblock %}
+      </main>
+      <footer>
+      </footer>
+    </div>
+  </body>
+<div id="toastContainer">
+  {% include 'components/toast.html.twig' %}
+</div>
+  {{ encore_entry_script_tags('app') }}
+
+  {% block javascripts %}
+  {% endblock %}
+</html>

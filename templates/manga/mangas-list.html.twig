@@ -1,0 +1,28 @@
+{% extends 'page.html.twig' %}
+
+{% block body %}
+  <div class="mt-4 mb-4 fade-in js-filter">
+    <div>
+      {% include 'manga/_filter.html.twig' with {form: form} only %}
+    </div>
+
+    <div id="loader">Loading...</div>
+
+    <div class="row js-filter-content">
+      {% include 'manga/_mangas.html.twig' with {mangas: mangas} only %}
+    </div>
+
+    <div class="pagination_container js-filter-pagination">
+        {% include 'manga/_pagination.html.twig' with {mangas: mangas} only %}
+    </div>
+
+  </div>
+
+
+{% endblock %}
+
+
+{% block javascripts %}
+  {{ encore_entry_script_tags('manga') }}
+{% endblock %}
+

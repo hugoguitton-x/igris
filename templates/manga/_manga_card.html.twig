@@ -1,0 +1,35 @@
+<div class="manga" data-aos="fade-up">
+  <div class="manga__image">
+      <img src="{{ manga.image ? manga.image : 'https://via.placeholder.com/1500' }}"/>
+  </div>
+  <div class="manga__actions">
+    <div class="title">
+        <a class="link" href="{{ mangadex_url ~ '/manga/' ~ manga.mangaId }}" target="_blank">
+            {{ manga.name }}
+        </a>
+    </div>
+
+    <div class="follow">
+            <a class="follow-action {{ manga.isFollowedByUser(app.user) ? 'followed' : 'unfollowed' }}" href="{{ path( 'manga_follow', { id: manga.id } ) }}" data-toggle="tooltip">
+                {{ manga.isFollowedByUser(app.user) ? 'Followed'|trans : 'Unfollowed'|trans }}</span>
+            </a>
+    </div>
+
+    {% if is_granted('ROLE_ADMIN') %}
+        <div class="twitter">
+            Twitter :
+            <a class="twitter-action twitter-{{ manga.twitter ? 'enabled' : 'disabled' }}" href="{{ path( 'manga_twitter', { id: manga.id } ) }}" data-toggle="tooltip">
+                {{ manga.twitter ? 'Enabled'|trans : 'Disabled'|trans }}
+            </a>
+        </div>
+        <div class="refresh">
+            <a class="refresh-action" href="{{ path( 'manga_refresh', { id: manga.id } ) }}" data-toggle="tooltip">
+                {{ 'Refresh'|trans }}
+            </a>
+        </div>
+    {% endif %}
+    <div class="spinner spinner-border text-light position-absolute" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+</div>

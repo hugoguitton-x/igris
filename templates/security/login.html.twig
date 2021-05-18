@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+  Igris -
+  {{ 'Login'|trans }}
+{% endblock %}
+
+{% block stylesheets %}
+  {{ parent() }}
+  {{ encore_entry_link_tags('signup') }}
+{% endblock %}
+
+{% block body %}
+  <div class="form-signin fade-in">
+    {% include '/security/local_switcher.html.twig' %}
+
+    <div class="text-center">
+      <img class="mb-1"
+        src="{{ asset('images/logos/logo.svg') }}"
+        alt=""
+        width="120"
+        height="120" />
+      <form action="{{ path('security_login') }}"
+        method="POST"
+        class="form-signin">
+        <h1 class="h2 mb-3 fw-normal">
+          {{ 'Login'|trans }}
+        </h1>
+        {% if error %}
+          <div class="alert alert-danger">
+            {{ error.messageKey|trans(error.messageData, 'security') }}
+          </div>
+        {% endif %}
+
+        <div class="form-floating">
+          <input type="text" class="form-control" id="floatingInput" name="_username" placeholder="{{ 'Username'|trans }}" value="{{ last_username }}" autofocus>
+          <label for="floatingInput">{{ 'Username'|trans }}</label>
+        </div>
+        <div class="form-floating">
+          <input type="password" class="form-control" id="floatingPassword" name="_password" placeholder="{{ 'Password'|trans }}" required>
+          <label for="floatingPassword">{{ 'Password'|trans }}</label>
+        </div>
+
+        <div class="checkbox mb-3">
+          <input type="checkbox" id="remember_me" name="_remember_me" />
+          <label for="remember_me">{{ 'Remember me'|trans }}</label>
+        </div>
+
+        <input type="hidden"
+          name="_csrf_token"
+          value="{{ csrf_token('authenticate') }}" />
+
+        <button class="w-100 btn btn-lg btn-primary" type="submit"> {{ 'Login'|trans }}</button>
+
+        <a href="{{ path('security_registration') }}">{{ 'Sign Up'|trans }}</a>
+
+        <p class="mt-5 mb-3 text-muted">
+          IGRIS © 2019-{{ "now"|date("Y") }}
+        </p>
+      </form>
+    </div>
+  </div>
+
+  {# <main class="">
+  <form>
+    <img class="mb-4" src="/docs/5.0/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
+    <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+
+    <div class="form-floating">
+      <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+      <label for="floatingInput">Email address</label>
+    </div>
+    <div class="form-floating">
+      <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+      <label for="floatingPassword">Password</label>
+    </div>
+
+    <div class="checkbox mb-3">
+      <label>
+        <input type="checkbox" value="remember-me"> Remember me
+      </label>
+    </div>
+    <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+    <p class="mt-5 mb-3 text-muted">© 2017–2021</p>
+  </form>
+</main> #}
+
+
+{% endblock %}

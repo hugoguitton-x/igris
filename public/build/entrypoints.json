@@ -1,0 +1,60 @@
+{
+  "entrypoints": {
+    "app": {
+      "js": [
+        "/build/runtime.32edc313.js",
+        "/build/755.f5cf308f.js",
+        "/build/169.aa82f79c.js",
+        "/build/674.d0ac4fa7.js",
+        "/build/942.8376cd83.js",
+        "/build/app.668d1f6e.js"
+      ],
+      "css": [
+        "/build/app.fe004e03.css"
+      ]
+    },
+    "admin": {
+      "js": [
+        "/build/runtime.32edc313.js",
+        "/build/755.f5cf308f.js",
+        "/build/169.aa82f79c.js",
+        "/build/674.d0ac4fa7.js",
+        "/build/admin.e7d661a6.js"
+      ],
+      "css": [
+        "/build/admin.69ead77b.css"
+      ]
+    },
+    "base": {
+      "js": [
+        "/build/runtime.32edc313.js",
+        "/build/755.f5cf308f.js",
+        "/build/base.1342a72c.js"
+      ]
+    },
+    "signup": {
+      "js": [
+        "/build/runtime.32edc313.js",
+        "/build/signup.ef086628.js"
+      ],
+      "css": [
+        "/build/signup.68a69c49.css"
+      ]
+    },
+    "manga": {
+      "js": [
+        "/build/runtime.32edc313.js",
+        "/build/169.aa82f79c.js",
+        "/build/610.4e10cb7b.js",
+        "/build/manga.b0b60735.js"
+      ]
+    },
+    "depense": {
+      "js": [
+        "/build/runtime.32edc313.js",
+        "/build/610.4e10cb7b.js",
+        "/build/depense.aa71d1ab.js"
+      ]
+    }
+  }
+}

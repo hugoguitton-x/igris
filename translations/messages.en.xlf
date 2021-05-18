@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="en" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id=".4BZ3Gd" resname="Actions">
+        <source>Actions</source>
+        <target>Actions</target>
+      </trans-unit>
+      <trans-unit id="n9coxmy" resname="Add">
+        <source>Add</source>
+        <target>Add</target>
+      </trans-unit>
+      <trans-unit id="S0LGaQ6" resname="Administration">
+        <source>Administration</source>
+        <target>Administration</target>
+      </trans-unit>
+      <trans-unit id="59PnafP" resname="Administrator">
+        <source>Administrator</source>
+        <target>Administrator</target>
+      </trans-unit>
+      <trans-unit id="SeltfN9" resname="Amount">
+        <source>Amount</source>
+        <target>Amount</target>
+      </trans-unit>
+      <trans-unit id="10m5Ia3" resname="Are you sure you want to delete this user?">
+        <source>Are you sure you want to delete this user?</source>
+        <target>Are you sure you want to delete this user?</target>
+      </trans-unit>
+      <trans-unit id="yo6CbZw" resname="Avatar">
+        <source>Avatar</source>
+        <target>Avatar</target>
+      </trans-unit>
+      <trans-unit id="59iVOk0" resname="Average budget">
+        <source>Average budget</source>
+        <target>Average budget</target>
+      </trans-unit>
+      <trans-unit id="OJbNbP6" resname="CAF">
+        <source>CAF</source>
+        <target>CAF</target>
+      </trans-unit>
+      <trans-unit id="KSwG8AR" resname="Category">
+        <source>Category</source>
+        <target>Category</target>
+      </trans-unit>
+      <trans-unit id="VIwx9zH" resname="Chapter">
+        <source>Chapter</source>
+        <target>Chapter</target>
+      </trans-unit>
+      <trans-unit id="WsJl85a" resname="Confirm password">
+        <source>Confirm password</source>
+        <target>Confirm password</target>
+      </trans-unit>
+      <trans-unit id="mcQKtAW" resname="Date">
+        <source>Date</source>
+        <target>Date</target>
+      </trans-unit>
+      <trans-unit id="4tClSWj" resname="Delete">
+        <source>Delete</source>
+        <target>Delete</target>
+      </trans-unit>
+      <trans-unit id="GIM9o5_" resname="Delta">
+        <source>Delta</source>
+        <target>Delta</target>
+      </trans-unit>
+      <trans-unit id="Um4Ah8w" resname="Description">
+        <source>Description</source>
+        <target>Description</target>
+      </trans-unit>
+      <trans-unit id="dQgbWT0" resname="Disabled">
+        <source>Disabled</source>
+        <target>Disabled</target>
+      </trans-unit>
+      <trans-unit id="ZKHpFx1" resname="Duration of episodes">
+        <source>Duration of episodes</source>
+        <target>Duration of episodes</target>
+      </trans-unit>
+      <trans-unit id="lpzL089" resname="Email">
+        <source>Email</source>
+        <target>E-mail</target>
+      </trans-unit>
+      <trans-unit id="ksHN.fT" resname="Enabled">
+        <source>Enabled</source>
+        <target>Activé</target>
+      </trans-unit>
+      <trans-unit id="uhGL9.y" resname="English">
+        <source>English</source>
+        <target>Anglais</target>
+      </trans-unit>
+      <trans-unit id="sZxFC0f" resname="Episode">
+        <source>Episode</source>
+        <target>Épisode</target>
+      </trans-unit>
+      <trans-unit id="g.lyLZu" resname="Episodes">
+        <source>Episodes</source>
+        <target>Épisodes</target>
+      </trans-unit>
+      <trans-unit id="2NWmovn" resname="Exceptional">
+        <source>Exceptional</source>
+        <target>Exceptionnel</target>
+      </trans-unit>
+      <trans-unit id="0jCb.bG" resname="Expenditure">
+        <source>Expenditure</source>
+        <target>Dépense</target>
+      </trans-unit>
+      <trans-unit id="RKGX77P" resname="Final balance">
+        <source>Final balance</source>
+        <target>Final balance</target>
+      </trans-unit>
+      <trans-unit id="ls5uYZO" resname="First Name">
+        <source>First Name</source>
+        <target>First Name</target>
+      </trans-unit>
+      <trans-unit id="pq.inGz" resname="Followed">
+        <source>Followed</source>
+        <target>Followed</target>
+      </trans-unit>
+      <trans-unit id="dFgZn_l" resname="French">
+        <source>French</source>
+        <target>French</target>
+      </trans-unit>
+      <trans-unit id=".ie30m6" resname="Grocery store">
+        <source>Grocery store</source>
+        <target>Grocery store</target>
+      </trans-unit>
+      <trans-unit id="eqXrRyp" resname="grocery">
+        <source>grocery</source>
+        <target>grocery</target>
+      </trans-unit>
+      <trans-unit id="oQTcWrI" resname="Hairdresser">
+        <source>Hairdresser</source>
+        <target>Hairdresser</target>
+      </trans-unit>
+      <trans-unit id="NU.qR_i" resname="Initial balance">
+        <source>Initial balance</source>
+        <target>Initial balance</target>
+      </trans-unit>
+      <trans-unit id="V_ikMd7" resname="Internet">
+        <source>Internet</source>
+        <target>Internet</target>
+      </trans-unit>
+      <trans-unit id="7dV5wvF" resname="Last connection">
+        <source>Last connection</source>
+        <target>Last connection</target>
+      </trans-unit>
+      <trans-unit id="9VVjs4a" resname="Last Name">
+        <source>Last Name</source>
+        <target>Last name</target>
+      </trans-unit>
+      <trans-unit id="pqMtvFY" resname="Link">
+        <source>Link</source>
+        <target>Link</target>
+      </trans-unit>
+      <trans-unit id="byAvVKe" resname="List">
+        <source>List</source>
+        <target>List</target>
+      </trans-unit>
+      <trans-unit id="nWMiwfT" resname="Login">
+        <source>Login</source>
+        <target>Login</target>
+      </trans-unit>
+      <trans-unit id="0FJ_Sz1" resname="Logout">
+        <source>Logout</source>
+        <target>Logout</target>
+      </trans-unit>
+      <trans-unit id="afxPzfA" resname="Manga">
+        <source>Manga</source>
+        <target>Manga</target>
+      </trans-unit>
+      <trans-unit id="r8toLvq" resname="Mangas">
+        <source>Mangas</source>
+        <target>Mangas</target>
+      </trans-unit>
+      <trans-unit id="2U6vaUO" resname="Modify">
+        <source>Modify</source>
+        <target>Modify</target>
+      </trans-unit>
+      <trans-unit id="Big10no" resname="Mutual levy">
+        <source>Mutual levy</source>
+        <target>Mutual levy</target>
+      </trans-unit>
+      <trans-unit id="MG7kkFs" resname="My review">
+        <source>My review</source>
+        <target>My review</target>
+      </trans-unit>
+      <trans-unit id="pcfRcZ4" resname="month">
+        <source>month</source>
+        <target>month</target>
+      </trans-unit>
+      <trans-unit id="3NHVIj9" resname="Name">
+        <source>Name</source>
+        <target>Name</target>
+      </trans-unit>
+      <trans-unit id="2zrIMpF" resname="Number of episodes">
+        <source>Number of episodes</source>
+        <target>Number of episodes</target>
+      </trans-unit>
+      <trans-unit id="Y8jeYOn" resname="Outside meal">
+        <source>Outside meal</source>
+        <target>Outside meal</target>
+      </trans-unit>
+      <trans-unit id="588_9PF" resname="Password">
+        <source>Password</source>
+        <target>Password</target>
+      </trans-unit>
+      <trans-unit id="kb._vCQ" resname="Personal transfer">
+        <source>Personal transfer</source>
+        <target>Personal transfer</target>
+      </trans-unit>
+      <trans-unit id="mhxU9V5" resname="Picture">
+        <source>Picture</source>
+        <target>Picture</target>
+      </trans-unit>
+      <trans-unit id="P8DAMjT" resname="Quarterly fee | Credit Card">
+        <source>Quarterly fee | Credit Card</source>
+        <target>Quarterly fee | Credit Card</target>
+      </trans-unit>
+      <trans-unit id="nylTBGT" resname="Rating">
+        <source>Rating</source>
+        <target>Rating</target>
+      </trans-unit>
+      <trans-unit id=".4Ymk9q" resname="Ratings">
+        <source>Ratings</source>
+        <target>Ratings</target>
+      </trans-unit>
+      <trans-unit id="DpFhARc" resname="Refresh">
+        <source>Refresh</source>
+        <target>__Refresh</target>
+      </trans-unit>
+      <trans-unit id="bo7WHr1" resname="Recurring expense">
+        <source>Recurring expense</source>
+        <target>Recurring expense</target>
+      </trans-unit>
+      <trans-unit id="x5Pg2aH" resname="Registration">
+        <source>Registration</source>
+        <target>Registration</target>
+      </trans-unit>
+      <trans-unit id="_TJnqhH" resname="Remember me">
+        <source>Remember me</source>
+        <target>Remember me</target>
+      </trans-unit>
+      <trans-unit id="8CaMuRA" resname="Rent">
+        <source>Rent</source>
+        <target>Rent</target>
+      </trans-unit>
+      <trans-unit id="r.B2alK" resname="Review">
+        <source>Review</source>
+        <target>Review</target>
+      </trans-unit>
+      <trans-unit id="hMt4cbd" resname="Reviews">
+        <source>Reviews</source>
+        <target>Reviews</target>
+      </trans-unit>
+      <trans-unit id="wlM3BVR" resname="Roles">
+        <source>Roles</source>
+        <target>Roles</target>
+      </trans-unit>
+      <trans-unit id="iIuU8zB" resname="Salary">
+        <source>Salary</source>
+        <target>Salary</target>
+      </trans-unit>
+      <trans-unit id="R1sbtF7" resname="Search Manga...">
+        <source>Search Manga...</source>
+        <target>Search Manga...</target>
+      </trans-unit>
+      <trans-unit id="16jERga" resname="See all">
+        <source>See all</source>
+        <target>See all</target>
+      </trans-unit>
+      <trans-unit id="4meIxXQ" resname="Select category">
+        <source>Select category</source>
+        <target>Select category</target>
+      </trans-unit>
+      <trans-unit id="q3dDpK2" resname="Serie">
+        <source>Serie</source>
+        <target>Serie</target>
+      </trans-unit>
+      <trans-unit id="R94jWG5" resname="Sign Up">
+        <source>Sign Up</source>
+        <target>Sign Up</target>
+      </trans-unit>
+      <trans-unit id="_nlVgU4" resname="Site">
+        <source>Site</source>
+        <target>Site</target>
+      </trans-unit>
+      <trans-unit id="cAXABkv" resname="Spotify">
+        <source>Spotify</source>
+        <target>Spotify</target>
+      </trans-unit>
+      <trans-unit id="FV_BbAQ" resname="Submit">
+        <source>Submit</source>
+        <target>Submit</target>
+      </trans-unit>
+      <trans-unit id="jrN1U4F" resname="Synopsis">
+        <source>Synopsis</source>
+        <target>Synopsis</target>
+      </trans-unit>
+      <trans-unit id="0XD6Nm6" resname="Title ID">
+        <source>Title ID</source>
+        <target>Title ID</target>
+      </trans-unit>
+      <trans-unit id="fHNXDCV" resname="Transport subscription">
+        <source>Transport subscription</source>
+        <target>Transport subscription</target>
+      </trans-unit>
+      <trans-unit id=".YM.VbL" resname="Unfollowed">
+        <source>Unfollowed</source>
+        <target>Unfollowed</target>
+      </trans-unit>
+      <trans-unit id="47ienTP" resname="Username">
+        <source>Username</source>
+        <target>Username</target>
+      </trans-unit>
+      <trans-unit id="tRLZfny" resname="User">
+        <source>User</source>
+        <target>User</target>
+      </trans-unit>
+      <trans-unit id="awzJBNC" resname="Users">
+        <source>Users</source>
+        <target>Users</target>
+      </trans-unit>
+      <trans-unit id="E2KGvFq" resname="Write a review">
+        <source>Write a review</source>
+        <target>Write a review</target>
+      </trans-unit>
+      <trans-unit id="SsZHzUP" resname="You have already posted a review with your account for this series.">
+        <source>You have already posted a review with your account for this series.</source>
+        <target>You have already posted a review with your account for this series.</target>
+      </trans-unit>
+      <trans-unit id="SWM2jM." resname="menu.choose_language">
+        <source>menu.choose_language</source>
+        <target>Choose language</target>
+      </trans-unit>
+      <trans-unit id="WQQhc5O" resname="successfully.added">
+        <source>successfully.added</source>
+        <target>%slug% successfully added.</target>
+      </trans-unit>
+      <trans-unit id="LZlEkPb" resname="successfully.deleted">
+        <source>successfully.deleted</source>
+        <target>%slug% successfully deleted.</target>
+      </trans-unit>
+      <trans-unit id="gpgg1ce" resname="successfully.modified">
+        <source>successfully.modified</source>
+        <target>%slug% successfully modified.</target>
+      </trans-unit>
+      <trans-unit id="ELDANR0" resname="manga.twitter.enabled">
+        <source>manga.twitter.enabled</source>
+        <target>Twitter notifications enabled for '%slug%'.</target>
+      </trans-unit>
+      <trans-unit id="caejhwH" resname="manga.twitter.disabled">
+        <source>manga.twitter.disabled</source>
+        <target>Twitter notifications disabled for '%slug%'.</target>
+      </trans-unit>
+      <trans-unit id="aR4eSn0" resname="manga.followed">
+        <source>manga.followed</source>
+        <target>You follow '%slug%'.</target>
+      </trans-unit>
+      <trans-unit id="Q0ewAbP" resname="manga.unfollowed">
+        <source>manga.unfollowed</source>
+        <target>You no longer follow '%slug%'.</target>
+      </trans-unit>
+      <trans-unit id="So02sXJ" resname="manga.refresh">
+        <source>manga.refresh</source>
+        <target>%slug% has been refreshed.</target>
+      </trans-unit>
+      <trans-unit id="X_zrZv." resname="0">
+        <source>0</source>
+        <target>0</target>
+      </trans-unit>
+      <trans-unit id="a4ayc.8" resname="1">
+        <source>1</source>
+        <target>1</target>
+      </trans-unit>
+      <trans-unit id="1HNeOiZ" resname="2">
+        <source>2</source>
+        <target>2</target>
+      </trans-unit>
+      <trans-unit id="TgdAhWK" resname="3">
+        <source>3</source>
+        <target>3</target>
+      </trans-unit>
+      <trans-unit id="SyJ3d9T" resname="4">
+        <source>4</source>
+        <target>4</target>
+      </trans-unit>
+      <trans-unit id="7y0SfeN" resname="5">
+        <source>5</source>
+        <target>5</target>
+      </trans-unit>
+      <trans-unit id="5.bAEXd" resname="6">
+        <source>6</source>
+        <target>6</target>
+      </trans-unit>
+      <trans-unit id="eQJpm_Q" resname="7">
+        <source>7</source>
+        <target>7</target>
+      </trans-unit>
+      <trans-unit id="LGJCMs3" resname="8">
+        <source>8</source>
+        <target>8</target>
+      </trans-unit>
+      <trans-unit id="GVgeJ95" resname="9">
+        <source>9</source>
+        <target>9</target>
+      </trans-unit>
+      <trans-unit id="SkTcFTZ" resname="10">
+        <source>10</source>
+        <target>10</target>
+      </trans-unit>
+      <trans-unit id="6qr8p0S" resname="Refesh">
+        <source>Refesh</source>
+        <target>Refesh</target>
+      </trans-unit>
+      <trans-unit id="qi1khcT" resname="manga.twitter.">
+        <source>manga.twitter.</source>
+        <target>__manga.twitter.</target>
+      </trans-unit>
+      <trans-unit id="jmeBlmH" resname="manga.">
+        <source>manga.</source>
+        <target>__manga.</target>
+      </trans-unit>
+      <trans-unit id="Jxxi_i3" resname="My profile">
+        <source>My profile</source>
+        <target>__My profile</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

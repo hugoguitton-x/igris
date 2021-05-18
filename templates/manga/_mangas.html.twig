@@ -1,0 +1,3 @@
+{% for manga in mangas %}
+  {% include 'manga/_manga_card.html.twig' with {manga: manga} only %}
+{% endfor %}

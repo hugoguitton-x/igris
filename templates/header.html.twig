@@ -1,0 +1,70 @@
+<header>
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+      <div class="container-fluid">
+
+        <a class="navbar-brand" href="{{ path('home_page') }}">
+          <img src="{{ asset('images/logos/logo_light.svg') }}" width="30" height="30" class="d-inline-block align-top" alt=""/>
+          Igris
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-lg-0">
+            {% if app.user %}
+              <li class="nav-item">
+                <a class="nav-link" href="{{ path('manga_list') }}">{{ 'Manga'|trans }}</a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="{{ path('serie_index') }}">{{ 'Serie'|trans }}</a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="{{ path('depense_index') }}">{{ 'Expenditure'|trans }}</a>
+              </li>
+            {% endif %}
+          </ul>
+          <ul class="navbar-nav ">
+            {% if app.user %}
+              <li class="nav-item dropdown d-none d-sm-inline">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="fa fa-globe" aria-hidden="true"></i>
+                  <span class="caret"></span>
+                  <span class="sr-only">{{ 'menu.choose_language'|trans }}</span>
+                </a>
+
+                <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="navbarDropdown">
+                  {% for locale in locales() %}
+                  <li>
+                    <a {% if app.request.locale == locale.code %} class="dropdown-item active" {% else %} class="dropdown-item" {% endif %} href="{{ path(app.request.get('_route', 'home_page'), app.request.get('_route_params', [])|merge({_locale: locale.code})) }}">
+                      {{ locale.name|capitalize }}
+                      <small>{{ locale.code[0:2] }}</small>
+                    </a>
+                  </li>
+                  {% endfor %}
+                </ul>
+              </li>
+              <!-- Avatar -->
+              <li class="nav-item dropdown d-none d-sm-inline">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownProfile" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <img src="{{ app.user.avatar == 'default.png' ? asset('images/logos/' ~ app.user.avatar) : asset('uploads/avatar/' ~ app.user.avatar) }}"
+                    class="rounded-circle" height="28" width="28" alt="avatar" loading="lazy"/>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="navbarDropdownProfile">
+                  <li><a class="dropdown-item" href="#">{{ 'My profile'|trans }}</a></li>
+                  {% if is_granted('ROLE_ADMIN') %}
+                    <li><a class="dropdown-item" href="{{ path('admin_index') }}" class="nav-link">{{ 'Administration'|trans }}</a></li>
+                  {% endif %}
+                  <li><a class="dropdown-item dropdown-item-danger" href="{{ path('security_logout') }}" class="nav-link">{{ 'Logout'|trans }}</a></li>
+                </ul>
+              </li>
+            {% endif %}
+          </ul>
+        </div>
+
+      </div>
+
+    </nav>
+</header>

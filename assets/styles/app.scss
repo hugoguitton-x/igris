@@ -1,0 +1,21 @@
+@import "custom";
+
+@import "~bootstrap/scss/bootstrap";
+
+@import "variables";
+@import "mixins";
+
+@import "fade_in";
+
+@import "main_sass/avis";
+@import "main_sass/depense";
+@import "main_sass/grid";
+@import "main_sass/league";
+@import "main_sass/loader";
+@import "main_sass/main";
+@import "main_sass/manga";
+@import "main_sass/serie";
+
+@import "~aos/src/sass/aos";
+
+@import "bootstrap_custom"

@@ -1,0 +1,16 @@
+/** Animation **/
+@include keyframes-fadein();
+
+.fade-in {
+  opacity: 0;
+
+  @include animation(fadeIn ease-in 1);
+
+  @include animation-fill-mode(forwards);
+
+  @include animation-duration(0.5s);
+
+  .one {
+    @include animation-delay(0.3s);
+  }
+}

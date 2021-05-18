@@ -1,0 +1,57 @@
+@mixin transition($property) {
+  -webkit-transition: $property;
+  -moz-transition: $property;
+  -o-transition: $property;
+  transition: $property;
+}
+
+@mixin animation($property) {
+  -webkit-animation: $property;
+  -moz-animation: $property;
+  animation: $property;
+}
+
+@mixin animation-fill-mode($property) {
+  -webkit-animation-fill-mode: $property;
+  -moz-animation-fill-mode: $property;
+  animation-fill-mode: $property;
+}
+
+@mixin animation-duration($property) {
+  -webkit-animation-duration: $property;
+  -moz-animation-duration: $property;
+  animation-duration: $property;
+}
+
+@mixin animation-delay($property) {
+  -webkit-animation-delay: $property;
+  -moz-animation-delay: $property;
+  animation-delay: $property;
+}
+
+@mixin keyframes-fadein() {
+  @-webkit-keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @-moz-keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}

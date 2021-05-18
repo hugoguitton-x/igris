@@ -1,0 +1,1 @@
+(self.webpackChunk=self.webpackChunk||[]).push([[328],{4819:(e,t,s)=>{"use strict";s(5169),s(7287),s(8805),s(2247),s(5858);var n=s(9755),r=s.n(n);r()("#menu-toggle").on("click",(function(e){e.preventDefault(),r()("#wrapper").toggleClass("toggled")}))}},e=>{"use strict";e.O(0,[755,169,674],(()=>{return t=4819,e(e.s=t);var t}));e.O()}]);

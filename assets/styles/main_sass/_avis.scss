@@ -1,0 +1,41 @@
+// Page série (détail)
+.h3-avis {
+  margin-top: 3rem;
+}
+
+.container.block-avis {
+  padding-top: 0;
+
+  .delimiter-avis {
+    border-width: 1.3px 0;
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+
+  .utilisateur-avis {
+    font-weight: bold;
+    font-size: 1.1rem;
+  }
+
+  .commentaire-avis {
+    padding-top: 5px;
+  }
+
+  .all-avis {
+    text-align: center;
+    font-weight: bold;
+  }
+}
+
+// Détail avis
+.titre-serie-avis {
+  text-align: center;
+}
+
+.avis-petit {
+  font-size: 12px;
+}
+
+// FORM avis
+.avis-bouton {
+  margin-top: 10px;
+}
