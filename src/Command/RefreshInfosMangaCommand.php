@@ -44,7 +44,7 @@ class RefreshInfosMangaCommand extends Command
     $output->writeln('<comment>=======================================</comment>');
     $output->writeln('<comment>Récupération de l\'ensemble des mangas.</comment>');
 
-    $mangas = $this->mangaRepo->findAll();
+    $mangas = $this->mangaRepo->findAll(array(), array('username' => 'ASC'));
     $countMangas = count($mangas);
     $output->writeln('<comment>=======================================</comment>');
     $output->writeln('<comment>Mise à jour de l\'ensemble des informations des mangas.</comment>');

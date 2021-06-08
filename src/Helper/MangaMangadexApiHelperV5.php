@@ -278,9 +278,7 @@ class MangaMangadexApiHelperV5
   {
     $this->manga = new Manga();
     $this->manga->setName(html_entity_decode($mangaJSON->attributes->title->en, ENT_QUOTES, 'UTF-8'));
-
-    //$this->manga->setImage($mangaJSON->mainCover);
-    $this->manga->setImage('');
+    $this->manga->setImage($this->getCoverName($mangaId));
     $this->manga->setMangaId(0);
     $this->manga->setMangadexId($mangaId);
     $this->manga->setTwitter(TRUE);
@@ -319,9 +317,10 @@ class MangaMangadexApiHelperV5
       $manga->setRawName($mangaJSON->attributes->title->en);
     }
 
-    // if ($manga->getImage() != $mangaJSON->mainCover) {
-    //   $manga->setImage($mangaJSON->mainCover);
-    // }
+    $coverName = $this->getCoverName($mangaId);
+    if ($manga->getImage() != $coverName && $coverName !== "") {
+      $manga->setImage($coverName);
+    }
 
     if (($manga->getLastUploaded()) < new \DateTime($mangaJSON->attributes->updatedAt)) {
       $updated = "updated";
@@ -377,6 +376,22 @@ class MangaMangadexApiHelperV5
     }
   }
 
+  private function getCoverName($mangaId)
+  {
+    $responseCover = $this->client->request('GET', $this->getEndPoint("cover"), ["query" => ["manga" => [$mangaId], "limit" => 1, "order[updatedAt]" => "desc"]]);
+
+    $coverName = '';
+    if ($responseCover->getStatusCode() == 200) {
+      $responseCover_json = json_decode($responseCover->getContent());
+
+      $coverNameResults = $responseCover_json->results;
+      if (!empty($coverNameResults)) {
+        $coverName = "https://uploads.mangadex.org/covers/" . $mangaId . "/" . $coverNameResults[0]->data->attributes->fileName;
+      }
+    }
+    return $coverName;
+  }
+
   /**
    * Undocumented function
    *
@@ -401,6 +416,9 @@ class MangaMangadexApiHelperV5
         break;
       case "chapter":
         $endPoint = "/chapter";
+        break;
+      case "cover":
+        $endPoint = "/cover";
         break;
       default:
         break;
