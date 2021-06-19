@@ -18,87 +18,84 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class SecurityController extends AbstractController
 {
 
-  private $logger;
+    private $logger;
 
-  public function __construct(LoggerInterface $logger)
-  {
-    $this->logger = $logger;
-  }
-
-  /**
-   * @Route("/register", name="security_registration")
-   */
-  public function registration(
-    Request $request,
-    EntityManagerInterface $manager,
-    UserPasswordEncoderInterface $encoder,
-    FileUploader $fileUploader,
-    Security $security
-  ) {
-    if ($security->isGranted('ROLE_USER')) {
-      return $this->redirectToRoute('home_page');
+    public function __construct(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
     }
 
-    $utilisateur = new Utilisateur();
+    /**
+     * @Route("/register", name="security_registration")
+     */
+    public function registration(
+        Request $request,
+        EntityManagerInterface $manager,
+        UserPasswordEncoderInterface $passwordEncoder,
+        FileUploader $fileUploader,
+        Security $security
+    ) {
+        if ($security->isGranted('ROLE_USER')) {
+            return $this->redirectToRoute('home_page');
+        }
 
-    $form = $this->createForm(RegistrationType::class, $utilisateur);
+        $utilisateur = new Utilisateur();
 
-    $form->handleRequest($request);
+        $form = $this->createForm(RegistrationType::class, $utilisateur);
 
-    if ($form->isSubmitted() && $form->isValid()) {
-      $imageFile = $form->get('avatar')->getData();
-      if ($imageFile) {
-        $imageFile = $fileUploader->uploadImage($imageFile, 'avatar');
-      } else {
-        $imageFile = 'default.png';
-      }
-      $utilisateur->setAvatar($imageFile);
+        $form->handleRequest($request);
 
-      $hash = $encoder->encodePassword(
-        $utilisateur,
-        $utilisateur->getPassword()
-      );
+        if ($form->isSubmitted() && $form->isValid()) {
+            $imageFile = $form->get('avatar')->getData();
+            if ($imageFile) {
+                $imageFile = $fileUploader->uploadImage($imageFile, 'avatar');
+            } else {
+                $imageFile = 'default.png';
+            }
+            $utilisateur->setAvatar($imageFile);
 
-      $utilisateur->setPassword($hash);
 
-      $utilisateur->setRoles(array('ROLE_USER'));
+            $utilisateur->setPassword(
+                $passwordEncoder->encodePassword(
+                    $utilisateur,
+                    $utilisateur->getPassword()
+                ));
 
-      $manager->persist($utilisateur);
-      $manager->flush();
+            $utilisateur->setRoles(array('ROLE_USER'));
 
-      return $this->redirectToRoute('security_login');
+            $manager->persist($utilisateur);
+            $manager->flush();
+
+            return $this->redirectToRoute('security_login');
+        }
+
+        return $this->render('security/registration.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 
-    return $this->render('security/registration.html.twig', [
-      'form' => $form->createView()
-    ]);
-  }
+    /**
+     * @Route("/login", name="security_login")
+     */
+    public function login(Request $request, Security $security, AuthenticationUtils $authenticationUtils): Response
+    {
+        if ($security->isGranted('ROLE_USER')) {
+            return $this->redirectToRoute('home_page');
+        }
 
-  /**
-   * @Route("/login", name="security_login")
-   */
-  public function login(Request $request, Security $security, AuthenticationUtils $authenticationUtils): Response
-  {
-    if ($security->isGranted('ROLE_USER')) {
-      return $this->redirectToRoute('home_page');
+        // get the login error if there is one
+        $error = $authenticationUtils->getLastAuthenticationError();
+        // last username entered by the user
+        $lastUsername = $authenticationUtils->getLastUsername();
+
+        return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
     }
 
-    // get the login error if there is one
-    $error = $authenticationUtils->getLastAuthenticationError();
-    // last username entered by the user
-    $lastUsername = $authenticationUtils->getLastUsername();
-
-    return $this->render('security/login.html.twig', [
-      'last_username' => $lastUsername,
-      'error' => $error
-    ]);
-  }
-
-  /**
-   * @Route("/logout", name="security_logout")
-   */
-  public function logout()
-  {
-    throw new \Exception('This should never be reached!');
-  }
+    /**
+     * @Route("/logout", name="security_logout")
+     */
+    public function logout()
+    {
+        throw new \Exception('This should never be reached!');
+    }
 }
