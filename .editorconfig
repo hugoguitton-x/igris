@@ -1,11 +1,14 @@
-# This is the top most .editorconfig file; do not search in parent directories.
+; top-most EditorConfig file
 root = true
 
-# All files
+; Unix-style newlines
 [*]
-end_of_line = CRLF
+end_of_line = LF
+
+[*.php]
+indent_style = space
+indent_size = 4
+
+[*.js]
 indent_style = space
 indent_size = 2
-charset = utf-8
-trim_trailing_whitespace = true
-insert_final_newline = true
