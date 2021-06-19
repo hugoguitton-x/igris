@@ -54,8 +54,8 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        - { path: ^/(%app_locales%)/login, role: IS_AUTHENTICATED_ANONYMOUSLY  }
-        - { path: ^/(%app_locales%)/register, role: IS_AUTHENTICATED_ANONYMOUSLY  }
+        - { path: ^/(%app_locales%)/login, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/(%app_locales%)/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/(%app_locales%)/manga, role: ROLE_USER }
         - { path: ^/(%app_locales%)/serie, role: ROLE_USER }
         - { path: ^/(%app_locales%)/admin, role: ROLE_ADMIN }
