@@ -1,11 +1,18 @@
 security:
-    encoders:
+    # https://symfony.com/doc/current/security/experimental_authenticators.html
+    enable_authenticator_manager: true
+
+    password_hashers:
+        # use your user class name here
         App\Entity\Utilisateur:
-            algorithm: bcrypt
+            # Use native password hasher, which auto-selects the best
+            # possible hashing algorithm (starting from Symfony 5.3 this is "bcrypt")
+            algorithm: auto
+
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
-        in_memory: { memory: null }
-        in_database:
+        # used to reload user from session & other features (e.g. switch_user)
+        app_user_provider:
             entity:
                 class: App\Entity\Utilisateur
                 property: username
@@ -14,24 +21,21 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
-            anonymous: true
             lazy: true
- 
-            provider: in_database
+            provider: app_user_provider
 
-            form_login:
-                login_path: security_login
-                check_path: security_login
-                csrf_token_generator: security.csrf.token_manager
-                default_target_path: home_page
+            login_throttling:
+                max_attempts: 3
+                interval: '5 minutes'
+            
 
             logout:
+                # The route name the user can go to in order to logout
                 path: security_logout
+                # The name of the route to redirect to after logging out
                 target: home_page
 
-            guard:
-                authenticators:
-                    - App\Security\LoginFormAuthenticator
+            custom_authenticator: App\Security\LoginFormAuthenticator
 
             remember_me:
                 secret:   '%kernel.secret%'

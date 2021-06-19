@@ -93,7 +93,7 @@ class AdministrationController extends AbstractController
       $manager->persist($user);
       $manager->flush();
 
-      $this->addFlash('success', $translator->trans('successfully.modified', ['%slug%' => ucfirst($user->getUsername())]));
+      $this->addFlash('success', $translator->trans('successfully.modified', ['%slug%' => ucfirst($user->getUserIdentifier())]));
       return $this->redirectToRoute('admin_user');
     }
 
@@ -116,7 +116,7 @@ class AdministrationController extends AbstractController
     $manager->remove($user);
     $manager->flush();
 
-    $this->addFlash('warning', $translator->trans('successfully.deleted', ['%slug%' => ucfirst($user->getUsername())]));
+    $this->addFlash('warning', $translator->trans('successfully.deleted', ['%slug%' => ucfirst($user->getUserIdentifier())]));
     return $this->redirectToRoute('admin_user');
   }
 
