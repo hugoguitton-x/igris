@@ -10,137 +10,137 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Chapter
 {
-  /**
-   * @ORM\Id()
-   * @ORM\GeneratedValue()
-   * @ORM\Column(type="integer")
-   */
-  private $id;
+    /**
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
+     * @ORM\Column(type="integer")
+     */
+    private $id;
 
-  /**
-   * @ORM\Column(type="string")
-   */
-  private $chapter_id;
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $chapter_id;
 
-  /**
-   * @ORM\Column(type="float")
-   */
-  private $number;
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $number;
 
-  /**
-   * @ORM\ManyToOne(targetEntity=LanguageCode::class, inversedBy="chapters")
-   * @ORM\JoinColumn(nullable=false)
-   */
-  private $langCode;
+    /**
+     * @ORM\ManyToOne(targetEntity=LanguageCode::class, inversedBy="chapters")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $langCode;
 
-  /**
-   * @ORM\ManyToOne(targetEntity=Manga::class, inversedBy="chapters")
-   * @ORM\JoinColumn(nullable=false)
-   */
-  private $manga;
+    /**
+     * @ORM\ManyToOne(targetEntity=Manga::class, inversedBy="chapters")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $manga;
 
-  /**
-   * @ORM\Column(type="string", length=255, nullable=true)
-   */
-  private $title;
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $title;
 
-  /**
-   * @ORM\Column(type="integer", nullable=true)
-   */
-  private $volume;
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $volume;
 
-  /**
-   * @ORM\Column(type="datetime", nullable=true)
-   * @ORM\JoinColumn(nullable=false)
-   */
-  private $publishedAt;
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $publishedAt;
 
-  public function getId(): ?int
-  {
-    return $this->id;
-  }
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
 
-  public function getChapterId(): ?string
-  {
-    return $this->chapter_id;
-  }
+    public function getChapterId(): ?string
+    {
+        return $this->chapter_id;
+    }
 
-  public function setChapterId(string $chapter_id): self
-  {
-    $this->chapter_id = $chapter_id;
+    public function setChapterId(string $chapter_id): self
+    {
+        $this->chapter_id = $chapter_id;
 
-    return $this;
-  }
+        return $this;
+    }
 
-  public function getNumber(): ?string
-  {
-    return $this->number;
-  }
+    public function getNumber(): ?string
+    {
+        return $this->number;
+    }
 
-  public function setNumber(string $number): self
-  {
-    $this->number = $number;
+    public function setNumber(string $number): self
+    {
+        $this->number = $number;
 
-    return $this;
-  }
+        return $this;
+    }
 
-  public function getLangCode(): ?LanguageCode
-  {
-    return $this->langCode;
-  }
+    public function getLangCode(): ?LanguageCode
+    {
+        return $this->langCode;
+    }
 
-  public function setLangCode(?LanguageCode $langCode): self
-  {
-    $this->langCode = $langCode;
+    public function setLangCode(?LanguageCode $langCode): self
+    {
+        $this->langCode = $langCode;
 
-    return $this;
-  }
+        return $this;
+    }
 
-  public function getManga(): ?Manga
-  {
-    return $this->manga;
-  }
+    public function getManga(): ?Manga
+    {
+        return $this->manga;
+    }
 
-  public function setManga(?Manga $manga): self
-  {
-    $this->manga = $manga;
+    public function setManga(?Manga $manga): self
+    {
+        $this->manga = $manga;
 
-    return $this;
-  }
+        return $this;
+    }
 
-  public function getTitle(): ?string
-  {
-      return $this->title;
-  }
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
 
-  public function setTitle(?string $title): self
-  {
-      $this->title = $title;
+    public function setTitle(?string $title): self
+    {
+        $this->title = $title;
 
-      return $this;
-  }
+        return $this;
+    }
 
-  public function getVolume(): ?int
-  {
-      return $this->volume;
-  }
+    public function getVolume(): ?int
+    {
+        return $this->volume;
+    }
 
-  public function setVolume(?int $volume): self
-  {
-      $this->volume = $volume;
+    public function setVolume(?int $volume): self
+    {
+        $this->volume = $volume;
 
-      return $this;
-  }
+        return $this;
+    }
 
-  public function getPublishedAt(): \DateTimeInterface
-  {
-      return $this->publishedAt;
-  }
+    public function getPublishedAt(): \DateTimeInterface
+    {
+        return $this->publishedAt;
+    }
 
-  public function setPublishedAt(\DateTimeInterface $publishedAt): self
-  {
-      $this->publishedAt = $publishedAt;
+    public function setPublishedAt(\DateTimeInterface $publishedAt): self
+    {
+        $this->publishedAt = $publishedAt;
 
-      return $this;
-  }
+        return $this;
+    }
 }

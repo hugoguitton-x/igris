@@ -125,5 +125,4 @@ class Depense
 
         return $this;
     }
-
 }

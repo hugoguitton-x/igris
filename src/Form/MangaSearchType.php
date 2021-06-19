@@ -10,29 +10,29 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class MangaSearchType extends AbstractType
 {
-  public function buildForm(FormBuilderInterface $builder, array $options)
-  {
-    $builder
-      ->add('q', TextType::class, [
-        'label' => false,
-        'required' => false,
-        'attr' => [
-          'placeholder' => 'Search Manga...'
-        ]
-      ]);
-  }
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        $builder
+            ->add('q', TextType::class, [
+                'label' => false,
+                'required' => false,
+                'attr' => [
+                    'placeholder' => 'Search Manga...'
+                ]
+            ]);
+    }
 
-  public function configureOptions(OptionsResolver $resolver)
-  {
-    $resolver->setDefaults([
-      'data_class' => MangaSearchData::class,
-      'method' => 'GET',
-      'csrf_protection' => false
-    ]);
-  }
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults([
+            'data_class' => MangaSearchData::class,
+            'method' => 'GET',
+            'csrf_protection' => false
+        ]);
+    }
 
-  public function getBlockPrefix()
-  {
-    return '';
-  }
+    public function getBlockPrefix()
+    {
+        return '';
+    }
 }

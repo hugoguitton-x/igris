@@ -16,41 +16,41 @@ use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 
 class DepenseType extends AbstractType
 {
-  public function buildForm(FormBuilderInterface $builder, array $options)
-  {
-    $builder
-      ->add('montant', MoneyType::class, [
-        'label' => 'Montant'
-      ])
-      ->add('date', DateType::class, [
-        'label' => 'Date',
-        'widget' => 'single_text',
-        'html5' => 'false',
-      ])
-      ->add('compteDepense', EntityType::class, [
-        'class' => CompteDepense::class,
-        'query_builder' => function (CompteDepenseRepository $cdr) {
-          return $cdr->queryFindByCurrentUtilisateur();
-        },
-        'choice_label' => 'nom',
-        'label' => 'Compte'
-      ])
-      ->add('categorie', EntityType::class, [
-        'class' => CategorieDepense::class,
-        'choice_label' => 'libelle',
-        'label' => 'Catégorie',
-        'choice_translation_domain' => true
-      ])
-      ->add('description', TextType::class, [
-        'label' => 'Description',
-        'required' => false
-      ]);
-  }
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        $builder
+            ->add('montant', MoneyType::class, [
+                'label' => 'Montant'
+            ])
+            ->add('date', DateType::class, [
+                'label' => 'Date',
+                'widget' => 'single_text',
+                'html5' => 'false',
+            ])
+            ->add('compteDepense', EntityType::class, [
+                'class' => CompteDepense::class,
+                'query_builder' => function (CompteDepenseRepository $cdr) {
+                    return $cdr->queryFindByCurrentUtilisateur();
+                },
+                'choice_label' => 'nom',
+                'label' => 'Compte'
+            ])
+            ->add('categorie', EntityType::class, [
+                'class' => CategorieDepense::class,
+                'choice_label' => 'libelle',
+                'label' => 'Catégorie',
+                'choice_translation_domain' => true
+            ])
+            ->add('description', TextType::class, [
+                'label' => 'Description',
+                'required' => false
+            ]);
+    }
 
-  public function configureOptions(OptionsResolver $resolver)
-  {
-    $resolver->setDefaults([
-      'data_class' => Depense::class,
-    ]);
-  }
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults([
+            'data_class' => Depense::class,
+        ]);
+    }
 }

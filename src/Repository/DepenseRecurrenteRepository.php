@@ -17,65 +17,65 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 class DepenseRecurrenteRepository extends ServiceEntityRepository
 {
 
-  private $security;
+    private $security;
 
-  /**
-   * @var Security
-   */
-  public function __construct(ManagerRegistry $registry, Security $security)
-  {
-    $this->security = $security;
-    parent::__construct($registry, DepenseRecurrente::class);
-  }
-
-
-  public function findDepenseRecurrenteByAccountUsed(DepenseSearchData $search)
-  {
-
-    $query = $this
-      ->createQueryBuilder('dr')
-      ->join('dr.compteDepense', 'cd')
-      ->join('dr.depenses', 'd')
-      ->andWhere('cd.utilisateur = :utilisateur')
-      ->setParameter('utilisateur', $this->security->getUser());
-
-    if (!empty($search->date)) {
-      $month = (int) $search->date->format('m');
-      $year = (int) $search->date->format('Y');
-
-      $startDate = new \DateTimeImmutable("$year-$month-01T00:00:00");
-      $endDate = $startDate->modify('last day of this month')->setTime(23, 59, 59);
-
-      $query = $query
-        ->andWhere('d.date BETWEEN :start AND :end')
-        ->setParameter('start', $startDate)
-        ->setParameter('end', $endDate);
+    /**
+     * @var Security
+     */
+    public function __construct(ManagerRegistry $registry, Security $security)
+    {
+        $this->security = $security;
+        parent::__construct($registry, DepenseRecurrente::class);
     }
 
 
-    return $query->getQuery()->getResult();
-  }
+    public function findDepenseRecurrenteByAccountUsed(DepenseSearchData $search)
+    {
 
-  public function findDepenseRecurrenteByAccountNotUsed(DepenseSearchData $search)
-  {
-    $used = $this->findDepenseRecurrenteByAccountUsed($search);
-    $query = $this
-      ->createQueryBuilder('dr')
-      ->join('dr.compteDepense', 'cd')
-      ->andWhere('cd.utilisateur = :utilisateur')
-      ->setParameter('utilisateur', $this->security->getUser());
+        $query = $this
+            ->createQueryBuilder('dr')
+            ->join('dr.compteDepense', 'cd')
+            ->join('dr.depenses', 'd')
+            ->andWhere('cd.utilisateur = :utilisateur')
+            ->setParameter('utilisateur', $this->security->getUser());
 
-    $result = array_udiff($query->getQuery()->getResult(), $used,  function (DepenseRecurrente $obj_a, DepenseRecurrente $obj_b) {
-      return strcmp($obj_a->getId(), $obj_b->getId());
-    });
+        if (!empty($search->date)) {
+            $month = (int) $search->date->format('m');
+            $year = (int) $search->date->format('Y');
 
-    return $result;
-  }
+            $startDate = new \DateTimeImmutable("$year-$month-01T00:00:00");
+            $endDate = $startDate->modify('last day of this month')->setTime(23, 59, 59);
 
-  // /**
-  //  * @return DepenseRecurrente[] Returns an array of DepenseRecurrente objects
-  //  */
-  /*
+            $query = $query
+                ->andWhere('d.date BETWEEN :start AND :end')
+                ->setParameter('start', $startDate)
+                ->setParameter('end', $endDate);
+        }
+
+
+        return $query->getQuery()->getResult();
+    }
+
+    public function findDepenseRecurrenteByAccountNotUsed(DepenseSearchData $search)
+    {
+        $used = $this->findDepenseRecurrenteByAccountUsed($search);
+        $query = $this
+            ->createQueryBuilder('dr')
+            ->join('dr.compteDepense', 'cd')
+            ->andWhere('cd.utilisateur = :utilisateur')
+            ->setParameter('utilisateur', $this->security->getUser());
+
+        $result = array_udiff($query->getQuery()->getResult(), $used,  function (DepenseRecurrente $obj_a, DepenseRecurrente $obj_b) {
+            return strcmp($obj_a->getId(), $obj_b->getId());
+        });
+
+        return $result;
+    }
+
+    // /**
+    //  * @return DepenseRecurrente[] Returns an array of DepenseRecurrente objects
+    //  */
+    /*
     public function findByExampleField($value)
     {
         return $this->createQueryBuilder('d')
@@ -89,7 +89,7 @@ class DepenseRecurrenteRepository extends ServiceEntityRepository
     }
     */
 
-  /*
+    /*
     public function findOneBySomeField($value): ?DepenseRecurrente
     {
         return $this->createQueryBuilder('d')

@@ -16,33 +16,33 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 class CompteDepenseRepository extends ServiceEntityRepository
 {
 
-  private $security;
+    private $security;
 
-  /**
-   * @var Security
-   */
-  public function __construct(ManagerRegistry $registry, Security $security)
-  {
-    $this->security = $security;
-    parent::__construct($registry, CompteDepense::class);
-  }
+    /**
+     * @var Security
+     */
+    public function __construct(ManagerRegistry $registry, Security $security)
+    {
+        $this->security = $security;
+        parent::__construct($registry, CompteDepense::class);
+    }
 
-  /**
-   * @return CompteDepense[] Returns an array of CompteDepense objects
-   */
-  public function queryFindByCurrentUtilisateur()
-  {
-    return $this->createQueryBuilder('c')
-      ->andWhere('c.utilisateur = :val')
-      ->setParameter('val', $this->security->getUser())
-      ->orderBy('c.nom', 'ASC');
-  }
+    /**
+     * @return CompteDepense[] Returns an array of CompteDepense objects
+     */
+    public function queryFindByCurrentUtilisateur()
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.utilisateur = :val')
+            ->setParameter('val', $this->security->getUser())
+            ->orderBy('c.nom', 'ASC');
+    }
 
 
-  // /**
-  //  * @return CompteDepense[] Returns an array of CompteDepense objects
-  //  */
-  /*
+    // /**
+    //  * @return CompteDepense[] Returns an array of CompteDepense objects
+    //  */
+    /*
     public function findByExampleField($value)
     {
         return $this->createQueryBuilder('c')
@@ -56,7 +56,7 @@ class CompteDepenseRepository extends ServiceEntityRepository
     }
     */
 
-  /*
+    /*
     public function findOneBySomeField($value): ?CompteDepense
     {
         return $this->createQueryBuilder('c')

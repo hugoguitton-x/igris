@@ -14,9 +14,8 @@ class CategorieDepenseType extends AbstractType
     {
         $builder
             ->add('libelle', TextType::class, [
-              'label' => 'Nom de la catégorie'
-            ])
-        ;
+                'label' => 'Nom de la catégorie'
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

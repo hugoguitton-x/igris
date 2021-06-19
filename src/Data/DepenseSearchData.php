@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Data;
 
 use App\Entity\CategorieDepense;
@@ -20,5 +21,4 @@ class DepenseSearchData
     {
         $this->date = new \DateTime();
     }
-
 }

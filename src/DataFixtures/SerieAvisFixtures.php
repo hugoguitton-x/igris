@@ -12,16 +12,16 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class SerieAvisFixtures extends Fixture implements FixtureGroupInterface
 {
-  private $encoder;
+    private $encoder;
 
-  public function __construct(UserPasswordEncoderInterface $encoder)
-  {
-    $this->encoder = $encoder;
-  }
+    public function __construct(UserPasswordEncoderInterface $encoder)
+    {
+        $this->encoder = $encoder;
+    }
 
-  public function load(ObjectManager $manager)
-  {
-/*
+    public function load(ObjectManager $manager)
+    {
+        /*
     $faker = \Faker\Factory::create('fr_FR');
 
     $tempon = 1;
@@ -74,10 +74,10 @@ class SerieAvisFixtures extends Fixture implements FixtureGroupInterface
     }
 
     $manager->flush(); */
-  }
+    }
 
-  public static function getGroups(): array
-  {
-    return ['serie_avis'];
-  }
+    public static function getGroups(): array
+    {
+        return ['serie_avis'];
+    }
 }

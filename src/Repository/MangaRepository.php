@@ -17,62 +17,62 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
  */
 class MangaRepository extends ServiceEntityRepository
 {
-  public function __construct(ManagerRegistry $registry, PaginatorInterface $paginator)
-  {
-    parent::__construct($registry, Manga::class);
-    $this->paginator = $paginator;
-  }
+    public function __construct(ManagerRegistry $registry, PaginatorInterface $paginator)
+    {
+        parent::__construct($registry, Manga::class);
+        $this->paginator = $paginator;
+    }
 
-  /**
-   * @param MangaSearchData $search
-   * @return SlidingPagination
-   */
-  public function findMangaOrderByNameQuery(MangaSearchData $search): SlidingPagination
-  {
-    $query = $this->createQueryBuilder('m')
-      ->orderBy('m.name', 'ASC');
+    /**
+     * @param MangaSearchData $search
+     * @return SlidingPagination
+     */
+    public function findMangaOrderByNameQuery(MangaSearchData $search): SlidingPagination
+    {
+        $query = $this->createQueryBuilder('m')
+            ->orderBy('m.name', 'ASC');
 
-    if (!empty($search->q)) {
-      $query = $query->andWhere('LOWER(m.name) LIKE LOWER(:q)')->setParameter('q', "%{$search->q}%");
+        if (!empty($search->q)) {
+            $query = $query->andWhere('LOWER(m.name) LIKE LOWER(:q)')->setParameter('q', "%{$search->q}%");
+        }
+
+
+        $query = $query->getQuery();
+
+        $pagination = $this->paginator->paginate(
+            $query,
+            $search->page,
+            30
+        );
+
+        $pagination->setCustomParameters([
+            'align' => 'center', # center|right
+            'size' => 'small', # small|large
+        ]);
+
+        return $pagination;
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
+    public function findAllForCSV()
+    {
+
+        $query = $this
+            ->createQueryBuilder('m')
+            ->select('m.name, m.image, m.mangaId, m.Twitter');
+
+        return $query->getQuery()->getResult();
     }
 
 
-    $query = $query->getQuery();
-
-    $pagination = $this->paginator->paginate(
-      $query,
-      $search->page,
-      30
-    );
-
-    $pagination->setCustomParameters([
-      'align' => 'center', # center|right
-      'size' => 'small', # small|large
-    ]);
-
-    return $pagination;
-  }
-
-  /**
-   * Undocumented function
-   *
-   * @return void
-   */
-  public function findAllForCSV()
-  {
-
-    $query = $this
-      ->createQueryBuilder('m')
-      ->select('m.name, m.image, m.mangaId, m.Twitter');
-
-    return $query->getQuery()->getResult();
-  }
-
-
-  // /**
-  //  * @return Manga[] Returns an array of Manga objects
-  //  */
-  /*
+    // /**
+    //  * @return Manga[] Returns an array of Manga objects
+    //  */
+    /*
     public function findByExampleField($value)
     {
         return $this->createQueryBuilder('m')
@@ -86,7 +86,7 @@ class MangaRepository extends ServiceEntityRepository
     }
     */
 
-  /*
+    /*
     public function findOneBySomeField($value): ?Manga
     {
         return $this->createQueryBuilder('m')

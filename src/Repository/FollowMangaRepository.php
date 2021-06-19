@@ -14,15 +14,15 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class FollowMangaRepository extends ServiceEntityRepository
 {
-  public function __construct(ManagerRegistry $registry)
-  {
-    parent::__construct($registry, FollowManga::class);
-  }
+    public function __construct(ManagerRegistry $registry)
+    {
+        parent::__construct($registry, FollowManga::class);
+    }
 
-  // /**
-  //  * @return FollowManga[] Returns an array of FollowManga objects
-  //  */
-  /*
+    // /**
+    //  * @return FollowManga[] Returns an array of FollowManga objects
+    //  */
+    /*
     public function findByExampleField($value)
     {
         return $this->createQueryBuilder('f')
@@ -36,7 +36,7 @@ class FollowMangaRepository extends ServiceEntityRepository
     }
     */
 
-  /*
+    /*
     public function findOneBySomeField($value): ?FollowManga
     {
         return $this->createQueryBuilder('f')
