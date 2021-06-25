@@ -63,6 +63,11 @@ class Manga
      */
     private $rawName;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $Status;
+
     public function __construct()
     {
         $this->lastChapter = new ArrayCollection();
@@ -242,6 +247,18 @@ class Manga
     public function setRawName(?string $rawName): self
     {
         $this->rawName = $rawName;
+
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->Status;
+    }
+
+    public function setStatus(?string $Status): self
+    {
+        $this->Status = $Status;
 
         return $this;
     }

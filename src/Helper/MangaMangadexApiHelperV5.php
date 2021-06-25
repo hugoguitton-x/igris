@@ -282,6 +282,7 @@ class MangaMangadexApiHelperV5
         $this->manga->setMangaId(0);
         $this->manga->setMangadexId($mangaId);
         $this->manga->setTwitter(TRUE);
+        $this->manga->setStatus($mangaJSON->attributes->status);
         $this->manga->setLastUploaded(new \DateTime(date("Y-m-d H:i:s", 0)));
 
         $this->manager->persist($this->manga);
@@ -321,6 +322,8 @@ class MangaMangadexApiHelperV5
         if ($manga->getImage() != $coverName && $coverName !== "") {
             $manga->setImage($coverName);
         }
+
+        $manga->setStatus($mangaJSON->attributes->status);
 
         if (($manga->getLastUploaded()) < new \DateTime($mangaJSON->attributes->updatedAt)) {
             $updated = "updated";
