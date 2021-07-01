@@ -4,25 +4,25 @@
       "js": [
         "/build/runtime.32edc313.js",
         "/build/755.f5cf308f.js",
-        "/build/169.aa82f79c.js",
+        "/build/169.86763a12.js",
         "/build/674.d0ac4fa7.js",
         "/build/942.8376cd83.js",
         "/build/app.edd63366.js"
       ],
       "css": [
-        "/build/app.7516565b.css"
+        "/build/app.c1337250.css"
       ]
     },
     "admin": {
       "js": [
         "/build/runtime.32edc313.js",
         "/build/755.f5cf308f.js",
-        "/build/169.aa82f79c.js",
+        "/build/169.86763a12.js",
         "/build/674.d0ac4fa7.js",
         "/build/admin.e7d661a6.js"
       ],
       "css": [
-        "/build/admin.e903a973.css"
+        "/build/admin.c7d28fb1.css"
       ]
     },
     "base": {
@@ -44,7 +44,7 @@
     "manga": {
       "js": [
         "/build/runtime.32edc313.js",
-        "/build/169.aa82f79c.js",
+        "/build/169.86763a12.js",
         "/build/610.4e10cb7b.js",
         "/build/manga.b0b60735.js"
       ]
