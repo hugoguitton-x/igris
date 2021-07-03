@@ -127,9 +127,9 @@ class AdministrationController extends AbstractController
     public function manageFormSerie(
         Request $request,
         EntityManagerInterface $manager,
-        Serie $serie = null,
         FileUploader $fileUploader,
-        TranslatorInterface $translator
+        TranslatorInterface $translator,
+        Serie $serie = null
     ) {
         if (!$serie) {
             $serie = new Serie();
@@ -183,8 +183,8 @@ class AdministrationController extends AbstractController
         Request $request,
         MangaRepository $repo,
         EntityManagerInterface $manager,
-        Manga $manga = null,
-        TranslatorInterface $translator
+        TranslatorInterface $translator,
+        Manga $manga = null
     ) {
         if (!$manga) {
             $manga = new Manga();

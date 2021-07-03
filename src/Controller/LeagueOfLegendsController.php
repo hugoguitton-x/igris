@@ -175,7 +175,7 @@ class LeagueOfLegendsController extends AbstractController
         foreach ($versions as $version) {
             $version_split = explode('.', $version);
 
-            if ($version_split[0] == $version_sup and $version_split[1] == $version_inf) {
+            if ($version_split[0] == $version_sup && $version_split[1] == $version_inf) {
                 return $version;
             }
         }

@@ -84,8 +84,7 @@ class DepenseController extends AbstractController
     public function manageFormDepense(
         Request $request,
         EntityManagerInterface $manager,
-        Depense $depense = null,
-        TranslatorInterface $translator
+        Depense $depense = null
     ): Response {
         if (!$depense) {
             $depense = new Depense();
@@ -122,8 +121,7 @@ class DepenseController extends AbstractController
     public function manageFormDepenseReccurente(
         Request $request,
         EntityManagerInterface $manager,
-        DepenseRecurrente $depenseRecurrente = null,
-        TranslatorInterface $translator
+        DepenseRecurrente $depenseRecurrente = null
     ): Response {
         if (!$depenseRecurrente) {
             $depenseRecurrente = new DepenseRecurrente();
@@ -139,9 +137,6 @@ class DepenseController extends AbstractController
         }
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $compte = $depenseRecurrente->getCompteDepense();
-            //$compte->setSolde($compte->getSolde() + $depenseRecurrente->getMontant());
-
             $manager->persist($depenseRecurrente);
             $manager->flush();
             return $this->redirectToRoute('depense_index');
@@ -160,8 +155,7 @@ class DepenseController extends AbstractController
     public function addDepenseFromReccurente(
         Request $request,
         EntityManagerInterface $manager,
-        DepenseRecurrente $depenseRecurrente = null,
-        TranslatorInterface $translator
+        DepenseRecurrente $depenseRecurrente = null
     ): Response {
         $depense = null;
 
@@ -204,8 +198,7 @@ class DepenseController extends AbstractController
     public function manageFormCategory(
         Request $request,
         EntityManagerInterface $manager,
-        CategorieDepense $categorie = null,
-        TranslatorInterface $translator
+        CategorieDepense $categorie = null
     ): Response {
         if (!$categorie) {
             $categorie = new CategorieDepense();

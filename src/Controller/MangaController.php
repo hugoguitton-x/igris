@@ -86,7 +86,6 @@ class MangaController extends AbstractController
             ]);
         }
 
-        //dd($result_search);
         return $this->render('manga/mangas-search.html.twig', [
             'controller_name' => 'MangaController',
             'result_search' => $result_search,
@@ -99,10 +98,6 @@ class MangaController extends AbstractController
      */
     public function chaptersList(ChapterRepository $repo, EntityManagerInterface $manager, PaginatorInterface $paginator, Request $request/* , string $language */)
     {
-        $array_language = [
-            'en' => 'English',
-            'fr' => 'French'
-        ];
         $query = $repo->findLastChapterOrderByDateQuery();
 
         $chapters = $paginator->paginate(
@@ -126,9 +121,9 @@ class MangaController extends AbstractController
      * @Route("/twitter/{id}", name="twitter", methods={"POST"})
      */
     public function twitterManga(
-        Manga $manga = null,
         EntityManagerInterface $manager,
-        TranslatorInterface $translator
+        TranslatorInterface $translator,
+        Manga $manga = null
     ): Response {
 
         if (!$this->getUser()) {
@@ -158,10 +153,10 @@ class MangaController extends AbstractController
      * @Route("/follow/{id}", name="follow", methods={"POST"})
      */
     public function followManga(
-        Manga $manga = null,
         EntityManagerInterface $manager,
         TranslatorInterface $translator,
-        FollowMangaRepository $repo
+        FollowMangaRepository $repo,
+        Manga $manga = null
     ) {
         $user = $this->getUser();
         if (!$user) {
@@ -198,9 +193,9 @@ class MangaController extends AbstractController
      * @Route("/refresh/{id}", name="refresh", methods={"POST"})
      */
     public function refreshManga(
-        Manga $manga = null,
         EntityManagerInterface $manager,
-        TranslatorInterface $translator
+        TranslatorInterface $translator,
+        Manga $manga = null
     ): Response {
 
         if (!$this->getUser()) {

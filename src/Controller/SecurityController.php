@@ -97,6 +97,5 @@ class SecurityController extends AbstractController
      */
     public function logout()
     {
-        throw new \Exception('This should never be reached!');
     }
 }
