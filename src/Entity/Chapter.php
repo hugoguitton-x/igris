@@ -45,7 +45,7 @@ class Chapter
     private $title;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="string", nullable=true)
      */
     private $volume;
 
@@ -120,12 +120,12 @@ class Chapter
         return $this;
     }
 
-    public function getVolume(): ?int
+    public function getVolume(): ?string
     {
         return $this->volume;
     }
 
-    public function setVolume(?int $volume): self
+    public function setVolume(string $volume): self
     {
         $this->volume = $volume;
 

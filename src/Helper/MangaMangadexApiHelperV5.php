@@ -181,7 +181,7 @@ class MangaMangadexApiHelperV5
             ->setNumber($chapterJson->attributes->chapter)
             ->setVolume($chapterJson->attributes->volume)
             ->setTitle($chapterJson->attributes->title)
-            ->setPublishedAt(new \DateTime($chapterJson->attributes->publishAt));
+            ->setPublishedAt((new \DateTime($chapterJson->attributes->publishAt))->setTimezone('Europe/Paris'));
 
         $manga = $chapter->getManga();
         $manga->setLastUploaded($chapter->getPublishedAt());
@@ -193,7 +193,7 @@ class MangaMangadexApiHelperV5
         //$this->writeOutput($this->manga->getName() . ' - Langue : ' . $langCode->getLibelle() . ' - Chapitre n°' . $chapter->getNumber() . ' ajouté !');
 
         $string = $langCode->getTwitterFlag() . ' ' . $this->manga->getName() . ' - Chapitre n°' . $chapter->getNumber() . ' sortie !' . PHP_EOL;
-        $string .= 'Disponible ici ' . "Bientôt"; //$this->getMangadexUrlChapter($chapterJson->id);
+        $string .= 'Disponible ici ' . $this->getMangadexUrlChapter($chapter->getChapterId());
 
         if ($this->manga->getTwitter() && $this->sendTwitter) {
             $result = $this->twitter->sendTweet($string);
@@ -289,7 +289,7 @@ class MangaMangadexApiHelperV5
         $this->manager->flush();
 
         $string = '"' . $this->manga->getName() . '"' . ' a été ajouté !' . PHP_EOL;
-        $string .= 'Disponible ici ' . "Bientôt"; //$this->getMangadexUrlManga($mangaId);
+        $string .= 'Disponible ici ' . $this->getMangadexUrlManga($mangaId);
 
         if ($this->sendTwitter) {
             $result = $this->twitter->sendTweet($string);
