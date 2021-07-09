@@ -125,7 +125,7 @@ class Chapter
         return $this->volume;
     }
 
-    public function setVolume(string $volume): self
+    public function setVolume(?string $volume): self
     {
         $this->volume = $volume;
 

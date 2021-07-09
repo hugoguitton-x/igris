@@ -181,7 +181,7 @@ class MangaMangadexApiHelperV5
             ->setNumber($chapterJson->attributes->chapter)
             ->setVolume($chapterJson->attributes->volume)
             ->setTitle($chapterJson->attributes->title)
-            ->setPublishedAt((new \DateTime($chapterJson->attributes->publishAt))->setTimezone('Europe/Paris'));
+            ->setPublishedAt((new \DateTime($chapterJson->attributes->publishAt))->setTimezone(new \DateTimeZone('Europe/Paris')));
 
         $manga = $chapter->getManga();
         $manga->setLastUploaded($chapter->getPublishedAt());
@@ -325,7 +325,7 @@ class MangaMangadexApiHelperV5
 
         $manga->setStatus($mangaJSON->attributes->status);
 
-        if (($manga->getLastUploaded()) < new \DateTime($mangaJSON->attributes->updatedAt)) {
+        if (($manga->getLastUploaded()) < (new \DateTime($mangaJSON->attributes->updatedAt))->setTimezone(new \DateTimeZone('Europe/Paris'))) {
             $updated = "updated";
         }
 
